@@ -27,8 +27,8 @@
 }
 - (void)creatUI{
     NSArray * titles = @[@"比赛",@"最新",@"视频",@"数据",@"更多"];
-    NSArray * images = @[@"",@"",@"",@"",@""];
-    NSArray * selImg = @[@"",@"",@"",@"",@""];
+    NSArray * images = @[@"tab_icon_match_default",@"tab_icon_newest_default",@"tab_icon_video_default",@"tab_icon_data_default",@"tab_icon_more_default"];
+    NSArray * selImg = @[@"tab_icon_match_hover",@"tab_icon_newest_hover",@"tab_icon_video_hover",@"tab_icon_data_hover",@"tab_icon_more_hover"];
     
     HomeViewController * home = [[HomeViewController alloc]init];
     NewsViewController * news = [[NewsViewController alloc]init];

@@ -29,6 +29,8 @@
 		8B2D73E91F0BDE9800E1BF4B /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73E81F0BDE9800E1BF4B /* VideoViewController.m */; };
 		8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73EB1F0BDEA200E1BF4B /* DataViewController.m */; };
 		8B2D73EF1F0BDEF600E1BF4B /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73EE1F0BDEF600E1BF4B /* MoreViewController.m */; };
+		8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */; };
+		8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,10 @@
 		8B2D73EB1F0BDEA200E1BF4B /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 		8B2D73ED1F0BDEF600E1BF4B /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		8B2D73EE1F0BDEF600E1BF4B /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		8B3CEEC41F0D427500AE5B81 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		8B3CEEC71F0D437F00AE5B81 /* ScheduleListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleListCell.h; sourceTree = "<group>"; };
+		8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleListCell.m; sourceTree = "<group>"; };
 		CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.release.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -332,6 +338,8 @@
 			children = (
 				8B2D73E11F0BDE0A00E1BF4B /* HomeViewController.h */,
 				8B2D73E21F0BDE0A00E1BF4B /* HomeViewController.m */,
+				8B3CEEC41F0D427500AE5B81 /* ScheduleViewController.h */,
+				8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -339,6 +347,8 @@
 		8B2D73D01F0BDCCD00E1BF4B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8B3CEEC71F0D437F00AE5B81 /* ScheduleListCell.h */,
+				8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -677,11 +687,13 @@
 				8B2D73C81F0BDC9A00E1BF4B /* RootViewController.m in Sources */,
 				8B2D73C41F0BD55B00E1BF4B /* ToastView.m in Sources */,
 				8B2D73A51F0BD33A00E1BF4B /* BaseViewController.m in Sources */,
+				8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */,
 				8B2D73BC1F0BD55B00E1BF4B /* Factory.m in Sources */,
 				8B2D73561F0AA2E200E1BF4B /* AppDelegate.m in Sources */,
 				8B2D73E61F0BDE1900E1BF4B /* NewsViewController.m in Sources */,
 				8B2D73531F0AA2E200E1BF4B /* main.m in Sources */,
 				8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */,
+				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
 				8B2D73E31F0BDE0A00E1BF4B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
