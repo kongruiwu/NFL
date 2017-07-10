@@ -9,11 +9,13 @@
 #import "HomeViewController.h"
 #import <HMSegmentedControl.h>
 #import "ScheduleViewController.h"
+#import "SelectTimeView.h"
+#import "AttentionteamViewController.h"
 @interface HomeViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
 @property (nonatomic, strong) UIScrollView * mainScroll;
-
+@property (nonatomic, strong) SelectTimeView * timeView;
 @end
 
 @implementation HomeViewController
@@ -73,10 +75,31 @@
     vc.view.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
     [self.mainScroll addSubview:vc.view];
     [self addChildViewController:vc];
+    
+    AttentionteamViewController * attVc = [AttentionteamViewController new];
+    attVc.view.frame = CGRectMake(UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
+    [self.mainScroll addSubview:attVc.view];
+    [self addChildViewController:attVc];
+    
+    __weak HomeViewController * weakself = self;
+    [self.hmsgControl setIndexChangeBlock:^(NSInteger index) {
+        CGPoint point = weakself.mainScroll.contentOffset;
+        [UIView animateWithDuration:0.3f animations:^{
+            weakself.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
+        }];
+    }];
+    
+    
+    self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT)];
+    [self.tabBarController.view addSubview:self.timeView];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    int index = scrollView.contentOffset.x / UI_WIDTH;
+    [self.hmsgControl setSelectedSegmentIndex:index animated:YES];
 }
 
 
 - (void)checkWeeksData{
-    
+    [self.timeView show];
 }
 @end

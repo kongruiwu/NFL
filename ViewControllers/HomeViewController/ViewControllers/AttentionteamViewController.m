@@ -1,33 +1,42 @@
 //
-//  ScheduleViewController.m
+//  AttentionteamViewController.m
 //  NFL
 //
-//  Created by 吴孔锐 on 2017/7/5.
+//  Created by 吴孔锐 on 2017/7/10.
 //  Copyright © 2017年 wurui. All rights reserved.
 //
 
-#import "ScheduleViewController.h"
+#import "AttentionteamViewController.h"
+#import "NullTeamView.h"
+#import "AttentionTeamHeader.h"
 #import "ScheduleListCell.h"
-
-@interface ScheduleViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AttentionteamViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
-
+@property (nonatomic, strong) NullTeamView * nullteamView;
+@property (nonatomic, strong) AttentionTeamHeader * teamHeader;
 
 @end
 
-@implementation ScheduleViewController
+@implementation AttentionteamViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self creatUI];
-
 }
-- (void)creatUI{
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80)) style:UITableViewStyleGrouped delegate:self];
-    [self.view addSubview:self.tabview];
 
+- (void)creatUI{
+    self.nullteamView = [[NullTeamView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80))];
+    self.nullteamView.hidden = YES;
+    [self.view addSubview:self.nullteamView];
+    
+    self.teamHeader = [[AttentionTeamHeader alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(120))];
+    [self.view addSubview:self.teamHeader];
+    
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(120), UI_WIDTH, UI_HEGIHT - Anno750(320) - 49) style:UITableViewStylePlain delegate:self];
+    [self.view addSubview:self.tabview];
+    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
@@ -52,14 +61,10 @@
         make.top.equalTo(@0);
         make.bottom.equalTo(@0);
     }];
-    
     return view;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(220);
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * cellid = @"ScheduleListCell";
@@ -69,4 +74,8 @@
     }
     return cell;
 }
+
+
+
+
 @end
