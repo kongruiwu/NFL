@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ConfigHeader.h"
 @interface TeamImageView : UIImageView
 
-
-
+@property (nonatomic, strong) UIImageView * teamImg;
+@property (nonatomic, assign) BOOL selected;
 
 @end

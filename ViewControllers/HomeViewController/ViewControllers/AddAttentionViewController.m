@@ -20,16 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"添加关注"];
+    [self drawBackButton];
+    
     
 }
 - (void)creatUI{
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
 }
 
 

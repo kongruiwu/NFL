@@ -59,7 +59,7 @@
 
 - (void)setNavUnAlpha{
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:0];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"       ] forBarMetrics:0];
     self.navigationController.navigationBar.shadowImage = nil;
 }
 - (void)RefreshSetting{
@@ -86,6 +86,10 @@
     logo.frame = CGRectMake(0, 0, Anno750(48), Anno750(68));
     self.navigationItem.titleView = logo;
 }
-
+- (void)drawBackButton{
+    UIImage * image = [[UIImage imageNamed:@"nav_icon_back_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doBack)];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
 
 @end

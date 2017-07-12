@@ -38,6 +38,9 @@
 		8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF31F13B479004A2283 /* AttentionTeamHeader.m */; };
 		8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */; };
 		8B9B9EFA1F13C1B8004A2283 /* AddAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */; };
+		8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B481F150316004B29A8 /* GameDetailsViewController.m */; };
+		8BB90B4C1F1507B0004B29A8 /* GameHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */; };
+		8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +121,12 @@
 		8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamImageView.m; sourceTree = "<group>"; };
 		8B9B9EF81F13C1B8004A2283 /* AddAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAttentionViewController.h; sourceTree = "<group>"; };
 		8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAttentionViewController.m; sourceTree = "<group>"; };
+		8BB90B471F150316004B29A8 /* GameDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailsViewController.h; sourceTree = "<group>"; };
+		8BB90B481F150316004B29A8 /* GameDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailsViewController.m; sourceTree = "<group>"; };
+		8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHeaderView.h; sourceTree = "<group>"; };
+		8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHeaderView.m; sourceTree = "<group>"; };
+		8BB90B4D1F150FC5004B29A8 /* GameSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSegmentView.h; sourceTree = "<group>"; };
+		8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSegmentView.m; sourceTree = "<group>"; };
 		CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.release.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -365,6 +374,8 @@
 				8B9B9EF01F13AE62004A2283 /* AttentionteamViewController.m */,
 				8B9B9EF81F13C1B8004A2283 /* AddAttentionViewController.h */,
 				8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */,
+				8BB90B471F150316004B29A8 /* GameDetailsViewController.h */,
+				8BB90B481F150316004B29A8 /* GameDetailsViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -384,6 +395,10 @@
 				8B9B9EF31F13B479004A2283 /* AttentionTeamHeader.m */,
 				8B9B9EF51F13BBD5004A2283 /* TeamImageView.h */,
 				8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */,
+				8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */,
+				8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */,
+				8BB90B4D1F150FC5004B29A8 /* GameSegmentView.h */,
+				8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -731,10 +746,13 @@
 				8B2D73561F0AA2E200E1BF4B /* AppDelegate.m in Sources */,
 				8B9B9EEB1F139857004A2283 /* SelectTimeCell.m in Sources */,
 				8B2D73E61F0BDE1900E1BF4B /* NewsViewController.m in Sources */,
+				8BB90B4C1F1507B0004B29A8 /* GameHeaderView.m in Sources */,
 				8B2D73531F0AA2E200E1BF4B /* main.m in Sources */,
 				8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */,
 				8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */,
 				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
+				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
+				8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */,
 				8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */,
 				8B2D73E31F0BDE0A00E1BF4B /* HomeViewController.m in Sources */,
 			);

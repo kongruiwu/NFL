@@ -23,4 +23,5 @@
 - (void)setNavTitle:(NSString *)title;
 - (void)drawNavLogo;
 - (void)setNavLineHidden;
+- (void)drawBackButton;
 @end

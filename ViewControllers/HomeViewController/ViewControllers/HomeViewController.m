@@ -11,6 +11,9 @@
 #import "ScheduleViewController.h"
 #import "SelectTimeView.h"
 #import "AttentionteamViewController.h"
+
+
+#import "GameDetailsViewController.h"
 @interface HomeViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
@@ -100,6 +103,7 @@
 
 
 - (void)checkWeeksData{
-    [self.timeView show];
+//    [self.timeView show];
+    [self.navigationController pushViewController:[GameDetailsViewController new] animated:YES];
 }
 @end
