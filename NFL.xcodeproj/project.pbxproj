@@ -31,6 +31,7 @@
 		8B2D73EF1F0BDEF600E1BF4B /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73EE1F0BDEF600E1BF4B /* MoreViewController.m */; };
 		8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */; };
 		8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */; };
+		8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5507B11F1B59070079B3C0 /* TeamDataView.m */; };
 		8B9B9EE81F13970C004A2283 /* SelectTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EE71F13970C004A2283 /* SelectTimeView.m */; };
 		8B9B9EEB1F139857004A2283 /* SelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EEA1F139857004A2283 /* SelectTimeCell.m */; };
 		8B9B9EEE1F13A8C5004A2283 /* NullTeamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EED1F13A8C5004A2283 /* NullTeamView.m */; };
@@ -107,6 +108,8 @@
 		8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		8B3CEEC71F0D437F00AE5B81 /* ScheduleListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleListCell.h; sourceTree = "<group>"; };
 		8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleListCell.m; sourceTree = "<group>"; };
+		8B5507B01F1B59070079B3C0 /* TeamDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataView.h; sourceTree = "<group>"; };
+		8B5507B11F1B59070079B3C0 /* TeamDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataView.m; sourceTree = "<group>"; };
 		8B9B9EE61F13970C004A2283 /* SelectTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimeView.h; sourceTree = "<group>"; };
 		8B9B9EE71F13970C004A2283 /* SelectTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTimeView.m; sourceTree = "<group>"; };
 		8B9B9EE91F139857004A2283 /* SelectTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimeCell.h; sourceTree = "<group>"; };
@@ -498,6 +501,8 @@
 		8B2D73DC1F0BDD2100E1BF4B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8B5507B01F1B59070079B3C0 /* TeamDataView.h */,
+				8B5507B11F1B59070079B3C0 /* TeamDataView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -754,6 +759,7 @@
 				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
 				8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */,
 				8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */,
+				8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */,
 				8B2D73E31F0BDE0A00E1BF4B /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
