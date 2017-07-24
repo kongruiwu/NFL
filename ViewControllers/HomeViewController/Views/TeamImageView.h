@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) UIImageView * teamImg;
 @property (nonatomic, assign) BOOL selected;
+@property (nonatomic, strong) UILabel * nameLabel;
+@property (nonatomic, strong) UIImageView * selectImg;
 
 @end

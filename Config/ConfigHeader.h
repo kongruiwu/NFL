@@ -58,7 +58,8 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define Color_DarkGray          UIColorFromRGB(0x666666)
 #define Color_MainBlack         UIColorFromRGB(0x333333)
 #define Color_Line              UIColorFromRGBA(0x000000,0.2)
-#define Color_BackGround        UIColorFromRGB(0xf2f2f2)
+#define Color_BackGround        [UIColor colorWithRed:0.93 green:0.93 blue:0.94 alpha:1.00]
+#define Color_SectionGround     [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1.00]
 #define Color_HsmRed            UIColorFromRGB(0xE31837)
 #define Color_TagGray           [UIColor colorWithRed:0.70 green:0.70 blue:0.70 alpha:1.00]
 

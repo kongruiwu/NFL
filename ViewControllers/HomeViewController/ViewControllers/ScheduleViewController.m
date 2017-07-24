@@ -25,7 +25,7 @@
 
 }
 - (void)creatUI{
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80)) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 49 - 64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
 
 }
@@ -58,9 +58,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(220);
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.01;
-}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString * cellid = @"ScheduleListCell";
     ScheduleListCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];

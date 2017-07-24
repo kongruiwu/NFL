@@ -32,6 +32,9 @@
 		8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */; };
 		8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */; };
 		8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5507B11F1B59070079B3C0 /* TeamDataView.m */; };
+		8B8DAF3C1F1CF59E00BDF1AA /* AddTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */; };
+		8B9ACB5C1F263785005772ED /* TeamerRankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9ACB5B1F263785005772ED /* TeamerRankListCell.m */; };
+		8B9ACB5F1F26389C005772ED /* TeamerRankCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9ACB5E1F26389C005772ED /* TeamerRankCollectionViewCell.m */; };
 		8B9B9EE81F13970C004A2283 /* SelectTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EE71F13970C004A2283 /* SelectTimeView.m */; };
 		8B9B9EEB1F139857004A2283 /* SelectTimeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EEA1F139857004A2283 /* SelectTimeCell.m */; };
 		8B9B9EEE1F13A8C5004A2283 /* NullTeamView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EED1F13A8C5004A2283 /* NullTeamView.m */; };
@@ -39,9 +42,13 @@
 		8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF31F13B479004A2283 /* AttentionTeamHeader.m */; };
 		8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */; };
 		8B9B9EFA1F13C1B8004A2283 /* AddAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */; };
+		8BA956331F22F44C00ABC4B0 /* UnionTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA956321F22F44C00ABC4B0 /* UnionTeamRankCell.m */; };
 		8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B481F150316004B29A8 /* GameDetailsViewController.m */; };
 		8BB90B4C1F1507B0004B29A8 /* GameHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */; };
 		8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */; };
+		8BCD4E3A1F1E372000E430DE /* TeamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E391F1E372000E430DE /* TeamInfoViewController.m */; };
+		8BCD4E3D1F1E372C00E430DE /* TeamRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E3C1F1E372C00E430DE /* TeamRankViewController.m */; };
+		8BCD4E401F1E373A00E430DE /* TeamerRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E3F1F1E373A00E430DE /* TeamerRankViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +117,12 @@
 		8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleListCell.m; sourceTree = "<group>"; };
 		8B5507B01F1B59070079B3C0 /* TeamDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataView.h; sourceTree = "<group>"; };
 		8B5507B11F1B59070079B3C0 /* TeamDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataView.m; sourceTree = "<group>"; };
+		8B8DAF3A1F1CF59E00BDF1AA /* AddTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTeamCell.h; sourceTree = "<group>"; };
+		8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTeamCell.m; sourceTree = "<group>"; };
+		8B9ACB5A1F263785005772ED /* TeamerRankListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamerRankListCell.h; sourceTree = "<group>"; };
+		8B9ACB5B1F263785005772ED /* TeamerRankListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamerRankListCell.m; sourceTree = "<group>"; };
+		8B9ACB5D1F26389C005772ED /* TeamerRankCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamerRankCollectionViewCell.h; sourceTree = "<group>"; };
+		8B9ACB5E1F26389C005772ED /* TeamerRankCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamerRankCollectionViewCell.m; sourceTree = "<group>"; };
 		8B9B9EE61F13970C004A2283 /* SelectTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimeView.h; sourceTree = "<group>"; };
 		8B9B9EE71F13970C004A2283 /* SelectTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTimeView.m; sourceTree = "<group>"; };
 		8B9B9EE91F139857004A2283 /* SelectTimeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTimeCell.h; sourceTree = "<group>"; };
@@ -124,12 +137,20 @@
 		8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamImageView.m; sourceTree = "<group>"; };
 		8B9B9EF81F13C1B8004A2283 /* AddAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAttentionViewController.h; sourceTree = "<group>"; };
 		8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAttentionViewController.m; sourceTree = "<group>"; };
+		8BA956311F22F44C00ABC4B0 /* UnionTeamRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionTeamRankCell.h; sourceTree = "<group>"; };
+		8BA956321F22F44C00ABC4B0 /* UnionTeamRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionTeamRankCell.m; sourceTree = "<group>"; };
 		8BB90B471F150316004B29A8 /* GameDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailsViewController.h; sourceTree = "<group>"; };
 		8BB90B481F150316004B29A8 /* GameDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailsViewController.m; sourceTree = "<group>"; };
 		8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHeaderView.h; sourceTree = "<group>"; };
 		8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameHeaderView.m; sourceTree = "<group>"; };
 		8BB90B4D1F150FC5004B29A8 /* GameSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSegmentView.h; sourceTree = "<group>"; };
 		8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSegmentView.m; sourceTree = "<group>"; };
+		8BCD4E381F1E372000E430DE /* TeamInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamInfoViewController.h; sourceTree = "<group>"; };
+		8BCD4E391F1E372000E430DE /* TeamInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamInfoViewController.m; sourceTree = "<group>"; };
+		8BCD4E3B1F1E372C00E430DE /* TeamRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRankViewController.h; sourceTree = "<group>"; };
+		8BCD4E3C1F1E372C00E430DE /* TeamRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRankViewController.m; sourceTree = "<group>"; };
+		8BCD4E3E1F1E373A00E430DE /* TeamerRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamerRankViewController.h; sourceTree = "<group>"; };
+		8BCD4E3F1F1E373A00E430DE /* TeamerRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamerRankViewController.m; sourceTree = "<group>"; };
 		CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.release.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -398,6 +419,8 @@
 				8B9B9EF31F13B479004A2283 /* AttentionTeamHeader.m */,
 				8B9B9EF51F13BBD5004A2283 /* TeamImageView.h */,
 				8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */,
+				8B8DAF3A1F1CF59E00BDF1AA /* AddTeamCell.h */,
+				8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */,
 				8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */,
 				8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */,
 				8BB90B4D1F150FC5004B29A8 /* GameSegmentView.h */,
@@ -494,6 +517,12 @@
 			children = (
 				8B2D73EA1F0BDEA200E1BF4B /* DataViewController.h */,
 				8B2D73EB1F0BDEA200E1BF4B /* DataViewController.m */,
+				8BCD4E381F1E372000E430DE /* TeamInfoViewController.h */,
+				8BCD4E391F1E372000E430DE /* TeamInfoViewController.m */,
+				8BCD4E3B1F1E372C00E430DE /* TeamRankViewController.h */,
+				8BCD4E3C1F1E372C00E430DE /* TeamRankViewController.m */,
+				8BCD4E3E1F1E373A00E430DE /* TeamerRankViewController.h */,
+				8BCD4E3F1F1E373A00E430DE /* TeamerRankViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -503,6 +532,12 @@
 			children = (
 				8B5507B01F1B59070079B3C0 /* TeamDataView.h */,
 				8B5507B11F1B59070079B3C0 /* TeamDataView.m */,
+				8BA956311F22F44C00ABC4B0 /* UnionTeamRankCell.h */,
+				8BA956321F22F44C00ABC4B0 /* UnionTeamRankCell.m */,
+				8B9ACB5A1F263785005772ED /* TeamerRankListCell.h */,
+				8B9ACB5B1F263785005772ED /* TeamerRankListCell.m */,
+				8B9ACB5D1F26389C005772ED /* TeamerRankCollectionViewCell.h */,
+				8B9ACB5E1F26389C005772ED /* TeamerRankCollectionViewCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -738,15 +773,20 @@
 			files = (
 				8B9B9EEE1F13A8C5004A2283 /* NullTeamView.m in Sources */,
 				8B2D73E91F0BDE9800E1BF4B /* VideoViewController.m in Sources */,
+				8B8DAF3C1F1CF59E00BDF1AA /* AddTeamCell.m in Sources */,
 				8B2D73EF1F0BDEF600E1BF4B /* MoreViewController.m in Sources */,
 				8B2D73A41F0BD33A00E1BF4B /* BaseModel.m in Sources */,
 				8B2D73C81F0BDC9A00E1BF4B /* RootViewController.m in Sources */,
+				8BA956331F22F44C00ABC4B0 /* UnionTeamRankCell.m in Sources */,
 				8B2D73C41F0BD55B00E1BF4B /* ToastView.m in Sources */,
 				8B9B9EF11F13AE62004A2283 /* AttentionteamViewController.m in Sources */,
 				8B9B9EE81F13970C004A2283 /* SelectTimeView.m in Sources */,
+				8B9ACB5F1F26389C005772ED /* TeamerRankCollectionViewCell.m in Sources */,
 				8B9B9EFA1F13C1B8004A2283 /* AddAttentionViewController.m in Sources */,
 				8B2D73A51F0BD33A00E1BF4B /* BaseViewController.m in Sources */,
 				8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */,
+				8BCD4E401F1E373A00E430DE /* TeamerRankViewController.m in Sources */,
+				8BCD4E3A1F1E372000E430DE /* TeamInfoViewController.m in Sources */,
 				8B2D73BC1F0BD55B00E1BF4B /* Factory.m in Sources */,
 				8B2D73561F0AA2E200E1BF4B /* AppDelegate.m in Sources */,
 				8B9B9EEB1F139857004A2283 /* SelectTimeCell.m in Sources */,
@@ -755,12 +795,14 @@
 				8B2D73531F0AA2E200E1BF4B /* main.m in Sources */,
 				8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */,
 				8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */,
+				8BCD4E3D1F1E372C00E430DE /* TeamRankViewController.m in Sources */,
 				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
 				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
 				8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */,
 				8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */,
 				8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */,
 				8B2D73E31F0BDE0A00E1BF4B /* HomeViewController.m in Sources */,
+				8B9ACB5C1F263785005772ED /* TeamerRankListCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

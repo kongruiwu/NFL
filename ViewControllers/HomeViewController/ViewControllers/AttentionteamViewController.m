@@ -10,6 +10,7 @@
 #import "NullTeamView.h"
 #import "AttentionTeamHeader.h"
 #import "ScheduleListCell.h"
+#import "AddAttentionViewController.h"
 @interface AttentionteamViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -32,6 +33,7 @@
     [self.view addSubview:self.nullteamView];
     
     self.teamHeader = [[AttentionTeamHeader alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(120))];
+    [self.teamHeader.addBtn addTarget:self action:@selector(pushToSelectTeamViewController) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.teamHeader];
     
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(120), UI_WIDTH, UI_HEGIHT - Anno750(320) - 49) style:UITableViewStylePlain delegate:self];
@@ -75,7 +77,9 @@
     return cell;
 }
 
-
+- (void)pushToSelectTeamViewController{
+    [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];
+}
 
 
 @end
