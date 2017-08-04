@@ -47,7 +47,7 @@ typedef NS_ENUM(NSInteger,GameType){
     [self drawBackButton];
     [self setNavTitle:@"比赛详情"];
     [self setNavAlpha];
-    [self creatUI];
+    [self creatUI1];
 }
 - (void)creatUI1{
     self.header = [[GameHeaderView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(560))];
