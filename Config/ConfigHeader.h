@@ -27,6 +27,12 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
     ScheduleStatusOvered        //比赛结束
 };
 
+#define QQAPPID     @"1106241047"
+#define QQAPPKEY    @"opDdDWSqNTQkV6k1"
+#define SINAAPPKEY  @"871709740"
+#define SINAAPPSer  @"1bf93e753967fdb33ad8dca25acc0e11"
+#define APPID       @"32323112312"
+
 //750状态下字体适配
 #define font750(x) ((x)/ 1334.0f) * UI_HEGIHT
 //750状态下像素适配宏
@@ -55,10 +61,12 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 
 #define Color_MainBlue          UIColorFromRGB(0x003D79)
 #define Color_LightGray         UIColorFromRGB(0x999999)
+#define Color_MainRed           UIColorFromRGB(0xE31837)
 #define Color_DarkGray          UIColorFromRGB(0x666666)
 #define Color_MainBlack         UIColorFromRGB(0x333333)
 #define Color_Line              UIColorFromRGBA(0x000000,0.2)
-#define Color_BackGround        [UIColor colorWithRed:0.93 green:0.93 blue:0.94 alpha:1.00]
+#define Color_BackGround        [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1.00]
+#define Color_BackGround2       [UIColor colorWithRed:0.96 green:0.96 blue:0.96 alpha:1.00]
 #define Color_SectionGround     [UIColor colorWithRed:0.96 green:0.96 blue:0.97 alpha:1.00]
 #define Color_HsmRed            UIColorFromRGB(0xE31837)
 #define Color_TagGray           [UIColor colorWithRed:0.70 green:0.70 blue:0.70 alpha:1.00]

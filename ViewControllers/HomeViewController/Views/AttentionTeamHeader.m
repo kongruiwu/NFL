@@ -32,7 +32,10 @@
     [self.addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(30)));
         make.centerY.equalTo(@0);
+        make.height.equalTo(@(Anno750(80)));
+        make.width.equalTo(@(Anno750(80)));
     }];
+    
     
 }
 - (void)updateWithTeams:(NSArray *)arr{

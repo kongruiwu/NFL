@@ -86,7 +86,7 @@
  */
 + (UIView *)creatLineView{
     UIView * view = [[UIView alloc]init];
-    view.backgroundColor = [UIColor colorWithRed:0.93 green:0.93 blue:0.94 alpha:1.00];
+    view.backgroundColor = [UIColor colorWithRed:0.88 green:0.88 blue:0.88 alpha:1.00];
     return view;
 }
 
@@ -134,5 +134,15 @@
     
     return confromTimespStr;
     
+}
+
+
+/**UITextField*/
++ (UITextField *)creatTextFiledWithPlaceHold:(NSString *)placeHold{
+    UITextField * textField = [[UITextField alloc] init];
+    textField.placeholder = placeHold;
+    textField.textColor = Color_MainBlack;
+    textField.font = [UIFont systemFontOfSize:Anno750(28)];
+    return textField;
 }
 @end

@@ -28,7 +28,7 @@
                                        textColor:Color_MainBlack
                                    textAlignment:NSTextAlignmentCenter];
     self.teamLabel = [Factory creatLabelWithText:@"新英格兰爱国者"
-                                       fontValue:font750(24)
+                                       fontValue:font750(22)
                                        textColor:Color_LightGray
                                    textAlignment:NSTextAlignmentCenter];
     [self addSubview:self.rankNum];

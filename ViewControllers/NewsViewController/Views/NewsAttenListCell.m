@@ -1,0 +1,81 @@
+//
+//  NewsAttenListCell.m
+//  NFL
+//
+//  Created by 吴孔锐 on 2017/7/29.
+//  Copyright © 2017年 wurui. All rights reserved.
+//
+
+#import "NewsAttenListCell.h"
+
+@implementation NewsAttenListCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self creatUI];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    return self;
+}
+- (void)creatUI{
+    self.topImg = [Factory creatImageViewWithImage:@"list_img_video2"];
+    self.nameLabel = [Factory creatLabelWithText:@"爱国者13-21德州人"
+                                       fontValue:font750(28)
+                                       textColor:Color_MainBlack
+                                   textAlignment:NSTextAlignmentLeft];
+    self.timeLabel = [Factory creatLabelWithText:@"06月13日  12:25"
+                                       fontValue:font750(24)
+                                       textColor:Color_LightGray
+                                   textAlignment:NSTextAlignmentLeft];
+    self.likeBtn = [LikeButton buttonWithType:UIButtonTypeCustom];
+    self.likeBtn.selected = YES;
+    self.playIcon = [Factory creatImageViewWithImage:@"content_icon_big_play"];
+    
+    self.playIcon.hidden = YES;
+    
+    [self addSubview:self.topImg];
+    [self addSubview:self.nameLabel];
+    [self addSubview:self.timeLabel];
+    [self addSubview:self.likeBtn];
+    [self addSubview:self.playIcon];
+    
+}
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    [self.topImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
+        make.top.equalTo(@0);
+        make.height.equalTo(@(Anno750(420)));
+    }];
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(Anno750(24)));
+        make.top.equalTo(self.topImg.mas_bottom).offset(Anno750(24));
+        make.right.equalTo(@(-Anno750(24)));
+    }];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(Anno750(24)));
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(Anno750(20));
+    }];
+    [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@(-Anno750(24)));
+        make.centerY.equalTo(self.timeLabel.mas_centerY);
+    }];
+    [self.playIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(@0);
+        make.centerY.equalTo(@0);
+    }];
+}
+
+@end

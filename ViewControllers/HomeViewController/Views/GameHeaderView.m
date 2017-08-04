@@ -19,17 +19,11 @@
 }
 - (void)creatUI{
 
-    self.groundImg = [Factory creatImageViewWithImage:@"nav_bg_big"];
-//    [self.groundImg setContentMode:UIViewContentModeScaleAspectFill];
-//    [self.groundImg setClipsToBounds:YES];
-    self.groundImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    
-    
     self.blueImg = [Factory creatImageViewWithImage:@"nav_bg_default"];
     self.blueImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    self.blueImg.alpha = 0;
-    
-    [self addSubview:self.groundImg];
+    self.groundImg = [Factory creatImageViewWithImage:@"nav_bg_big"];
+    self.groundImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     [self addSubview:self.blueImg];
+    [self addSubview:self.groundImg];
 }
 @end

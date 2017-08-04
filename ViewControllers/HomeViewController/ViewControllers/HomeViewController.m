@@ -11,17 +11,38 @@
 #import "ScheduleViewController.h"
 #import "SelectTimeView.h"
 #import "AttentionteamViewController.h"
-
-
 #import "GameDetailsViewController.h"
+
+
+
+
 @interface HomeViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
 @property (nonatomic, strong) UIScrollView * mainScroll;
 @property (nonatomic, strong) SelectTimeView * timeView;
+
+@property (nonatomic, strong) NSMutableArray * viewControllers;
+
 @end
 
 @implementation HomeViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setNavLineHidden];
+    self.tabBarController.tabBar.hidden = NO;
+    
+    self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT)];
+    [self.tabBarController.view addSubview:self.timeView];
+    
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.timeView removeFromSuperview];
+    
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -74,30 +95,45 @@
     self.mainScroll.delegate = self;
     [self.view addSubview:self.mainScroll];
     
+    
+    
     ScheduleViewController * vc = [ScheduleViewController new];
     vc.view.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
     [self.mainScroll addSubview:vc.view];
     [self addChildViewController:vc];
-    
-    AttentionteamViewController * attVc = [AttentionteamViewController new];
-    attVc.view.frame = CGRectMake(UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
-    [self.mainScroll addSubview:attVc.view];
-    [self addChildViewController:attVc];
+    self.viewControllers = [NSMutableArray arrayWithObjects:vc,@"viewController", nil];
     
     __weak HomeViewController * weakself = self;
     [self.hmsgControl setIndexChangeBlock:^(NSInteger index) {
         CGPoint point = weakself.mainScroll.contentOffset;
+        if ([weakself.viewControllers[index] isKindOfClass:[NSString class]]) {
+            if (index == 1) {
+                AttentionteamViewController * attVc = [AttentionteamViewController new];
+                attVc.view.frame = CGRectMake(UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
+                [weakself.mainScroll addSubview:attVc.view];
+                [weakself addChildViewController:attVc];
+                [weakself.viewControllers replaceObjectAtIndex:index withObject:attVc];
+            }
+        }
         [UIView animateWithDuration:0.3f animations:^{
             weakself.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
     }];
     
     
-    self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT)];
-    [self.tabBarController.view addSubview:self.timeView];
+    
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;
+    if ([self.viewControllers[index] isKindOfClass:[NSString class]]) {
+        if (index == 1) {
+            AttentionteamViewController * attVc = [AttentionteamViewController new];
+            attVc.view.frame = CGRectMake(UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
+            [self.mainScroll addSubview:attVc.view];
+            [self addChildViewController:attVc];
+            [self.viewControllers replaceObjectAtIndex:index withObject:attVc];
+        }
+    }
     [self.hmsgControl setSelectedSegmentIndex:index animated:YES];
 }
 

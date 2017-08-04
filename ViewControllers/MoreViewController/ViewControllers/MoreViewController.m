@@ -7,31 +7,119 @@
 //
 
 #import "MoreViewController.h"
+#import "MoreHeadView.h"
+#import "MoreListCell.h"
+#import "UserInfoViewController.h"
+#import "OnlineQuestionViewController.h"
+#import "FeedBackViewController.h"
+#import "SettingViewController.h"
+#import "AboutUsViewController.h"
+#import "LoginViewController.h"
+#import "MyCollectionViewController.h"
+@interface MoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@interface MoreViewController ()
+@property (nonatomic, strong) UITableView * tabview;
+@property (nonatomic, strong) MoreHeadView * header;
+@property (nonatomic, strong) NSArray * images;
+@property (nonatomic, strong) NSArray * titles;
+@property (nonatomic, strong) UIImageView * adFoot;
 
 @end
 
 @implementation MoreViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+    [self setNavAlpha];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setNavAlpha];
+    [self creatUI];
+    
+}
+- (void)creatUI{
+    self.images = @[@[@"list_icon_follow",@"list_icon_collection"],@[@"list_icon_q&a",@"list_icon_101class",@"list_icon_daydaynfl"],@[@"list_icon_feedback",@"list_icon_about",@"list_icon_set"]];
+    self.titles = @[@[@"我的关注",@"我的收藏"],@[@"在线问答",@"101课堂",@"天天NFL"],@[@"意见反馈",@"关于我们",@"设置"]];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
+    [self.view addSubview:self.tabview];
+    
+    self.header = [[MoreHeadView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(260))];
+    [self.header.clearButton addTarget:self action:@selector(userInfoSetting) forControlEvents:UIControlEventTouchUpInside];
+    self.tabview.tableHeaderView = self.header;
+    
+    self.adFoot = [Factory creatImageViewWithImage:@""];
+    self.adFoot.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(100));
+    self.tabview.tableFooterView = self.adFoot;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray * arr = self.titles[section];
+    return arr.count;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.titles.count;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return Anno750(20);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return Anno750(100);
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * cellid = @"MoreListCell";
+    MoreListCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    if (!cell) {
+        cell = [[MoreListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+    }
+    [cell updateWithTitle:self.titles[indexPath.section][indexPath.row] image:self.images[indexPath.section][indexPath.row] desc:@""];
+    return cell;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//设置头部拉伸效果
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //图片高度
+    CGFloat imageHeight = self.header.frame.size.height;
+    //图片宽度
+    CGFloat imageWidth = UI_WIDTH;
+    //图片上下偏移量
+    CGFloat imageOffsetY = scrollView.contentOffset.y;
+    //上移
+    if (imageOffsetY < 0) {
+        CGFloat totalOffset = imageHeight + ABS(imageOffsetY);
+        CGFloat f = totalOffset / imageHeight;
+    self.header.bgImage.frame = CGRectMake(-(imageWidth * f - imageWidth) * 0.5, imageOffsetY, imageWidth * f, totalOffset);
+    }
+}
+- (void)userInfoSetting{
+    [self.navigationController pushViewController:[UserInfoViewController new] animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[OnlineQuestionViewController new] animated:YES];
+        }else if(indexPath.row == 2){
+            UINavigationController * nvc =[[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }else if(indexPath.section == 2){
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[FeedBackViewController new] animated:YES];
+        }else if(indexPath.row == 2){
+            [self.navigationController pushViewController:[SettingViewController new] animated:YES];
+        }else if(indexPath.row == 1){
+            [self.navigationController pushViewController:[AboutUsViewController new] animated:YES];
+        }
+    }else if(indexPath.section == 0){
+        if (indexPath.row == 1) {
+            [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
+        }
+    }
 }
-*/
 
 @end

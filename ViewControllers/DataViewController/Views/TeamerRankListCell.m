@@ -32,9 +32,9 @@
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     layout.sectionInset = UIEdgeInsetsMake(0, Anno750(24), 0, Anno750(24));
     layout.itemSize =CGSizeMake(Anno750(200), Anno750(220));
-    layout.minimumLineSpacing = Anno750(6);
+    layout.minimumLineSpacing = Anno750(0);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, 0, 0) collectionViewLayout:layout];
+    self.collectView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(220)) collectionViewLayout:layout];
     
     [self.collectView registerClass:[TeamerRankCollectionViewCell class] forCellWithReuseIdentifier:@"TeamerRankCollectionViewCell"];
     self.collectView.delegate = self;
@@ -55,10 +55,10 @@
 //    [cell configUIwithUrls:self.skuurls[indexPath.row]];
     return cell;
 }
-- (void)layoutSubviews{
-    [super layoutSubviews];
-    [self.collectView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(@0);
-    }];
-}
+//- (void)layoutSubviews{
+//    [super layoutSubviews];
+//    [self.collectView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(@0);
+//    }];
+//}
 @end
