@@ -15,6 +15,10 @@
 @end
 
 @implementation GameLiveViewController
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,16 +26,10 @@
     [self creatUI];
 }
 - (void)creatUI{
-    self.tabview = [[GameTabview alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(30) - Anno750(80)) style:UITableViewStyleGrouped];
-    self.tabview.delegate = self;
-    self.tabview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tabview.dataSource = self;
-//    [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(30) - Anno750(80)) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
-    UIView * head = [Factory creatViewWithColor:[UIColor whiteColor]];
-    head.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(30));
-    self.tabview.tableHeaderView = head;
+
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 4;
@@ -43,14 +41,14 @@
     return Anno750(140);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return Anno750(50);
+    return Anno750(60);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return Anno750(50);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * head = [Factory creatViewWithColor:[UIColor whiteColor]];
-    head.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(40));
+    head.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(60));
     
     UIButton * nameBtn = [Factory creatButtonWithNormalImage:@"content_icon_football_blue" selectImage:@"content_icon_football_red"];
     [nameBtn setTitleColor:Color_MainBlue forState:UIControlStateNormal];
@@ -71,7 +69,7 @@
     [nameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);
         make.right.equalTo(line.mas_left);
-        make.top.equalTo(@0);
+        make.top.equalTo(@(Anno750(20)));
     }];
     nameBtn.selected = section%2 == 1 ? YES : NO;
     return head;
@@ -110,5 +108,17 @@
     }
     return cell;
 }
-//- (void)scroll
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    if (targetContentOffset->y > (Anno750(480 - 80) - 64)/2 && targetContentOffset->y <= Anno750(480 - 80) - 64) {
+        targetContentOffset->y = Anno750(480 - 80) - 64;
+    }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
+        targetContentOffset->y = 0;
+    }
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if ([self.delegate respondsToSelector:@selector(hiddenOutHeadView:)]) {
+        [self.delegate hiddenOutHeadView:scrollView.contentOffset.y];
+    }
+}
+
 @end

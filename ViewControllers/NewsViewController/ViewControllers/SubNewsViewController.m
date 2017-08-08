@@ -9,10 +9,11 @@
 #import "SubNewsViewController.h"
 #import "SubNewsListCell.h"
 #import "SubNewsHeadCell.h"
-
+#import "InfoMainModel.h"
 @interface SubNewsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
+@property (nonatomic, strong) InfoMainModel * mainModel;
 
 @end
 
@@ -21,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self creatUI];
-    
+    [self getData];
 }
 - (void)creatUI{
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64 - 49 - Anno750(80)) style:UITableViewStyleGrouped delegate:self];
@@ -31,7 +32,7 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return self.mainModel.list.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -52,6 +53,7 @@
         if (!cell) {
             cell = [[SubNewsHeadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
+        [cell updateWithModel:self.mainModel.coverModel];
         return cell;
     }
     static NSString * cellid = @"SubNewsListCell";
@@ -59,8 +61,23 @@
     if (!cell) {
         cell = [[SubNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    [cell updateWithObjectModel:self.mainModel.list[indexPath.section - 1]];
     return cell;
 }
+
+- (void)getData{
+    NSDictionary * params = @{
+                              @"last_id":@""
+                                  };
+    [[NetWorkManger manager] sendRequest:NewWest_Info route:Route_NewWest withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.mainModel = [[InfoMainModel alloc]initWithDictionary:dic];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 
 
 @end

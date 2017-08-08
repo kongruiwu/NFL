@@ -9,10 +9,11 @@
 #import "VideoDetailViewController.h"
 #import "SubNewsListCell.h"
 #import "VideoHeadCell.h"
-
+#import "VideoDetailModel.h"
 @interface VideoDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
+@property (nonatomic, strong) VideoDetailModel * videoModel;
 
 @end
 
@@ -29,6 +30,7 @@
     [self setNavTitle:@"视频详情"];
     [self drawBackButton];
     [self creatUI];
+    [self getData];
 }
 - (void)creatUI{
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(30)) style:UITableViewStyleGrouped delegate:self];
@@ -38,10 +40,12 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 9;
+    return self.videoModel.recommend_list.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.section == 0 ? Anno750(313.5 * 2) : Anno750(160);
+    CGSize size = [Factory getSize:self.videoModel.content maxSize:CGSizeMake(UI_WIDTH - Anno750(48), 99999) font:[UIFont systemFontOfSize:font750(26)]];
+    
+    return indexPath.section == 0 ? Anno750(570) + size.height : Anno750(160);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return section == 1 ? Anno750(60) : 0.01;
@@ -70,6 +74,8 @@
         if (!cell) {
             cell = [[VideoHeadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
+        
+        [cell updateWithDetailModel:self.videoModel];
         return cell;
     }else{
         static NSString * cellid = @"SubNewsListCell";
@@ -77,7 +83,17 @@
         if (!cell) {
             cell = [[SubNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
+        [cell updateWithObjectModel:self.videoModel.recommend_list[indexPath.section - 1]];
         return cell;
+    }
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        
+    }else{
+        VideoDetailViewController * vc = [[VideoDetailViewController alloc]init];
+        vc.videoID = self.videoModel.recommend_list[indexPath.section - 1].id;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -92,6 +108,19 @@
     [alert addAction:play];
     [alert addAction:cannce];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)getData{
+    NSDictionary * params = @{
+                              @"id":self.videoID
+                              };
+    [[NetWorkManger manager] sendRequest:Video_Detail route:Route_Viedeo withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.videoModel = [[VideoDetailModel alloc]initWithDictionary:dic];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 @end

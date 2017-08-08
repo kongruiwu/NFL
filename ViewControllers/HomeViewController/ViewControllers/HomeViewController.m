@@ -14,7 +14,7 @@
 #import "GameDetailsViewController.h"
 
 
-
+#import "GameDetailTabViewController.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate>
 
@@ -50,6 +50,8 @@
     [self setNavLineHidden];
     [self drawLeftNavButton];
     [self creatUI];
+    
+    
 }
 - (void)drawLeftNavButton{
     UIImage * image = [[UIImage imageNamed:@"nav_icon_calendar_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -140,6 +142,6 @@
 
 - (void)checkWeeksData{
 //    [self.timeView show];
-    [self.navigationController pushViewController:[GameDetailsViewController new] animated:YES];
+    [self.navigationController pushViewController:[GameDetailTabViewController new] animated:YES];
 }
 @end

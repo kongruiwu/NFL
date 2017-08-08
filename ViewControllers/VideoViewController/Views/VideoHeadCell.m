@@ -40,9 +40,10 @@
                                        textColor:Color_LightGray
                                    textAlignment:NSTextAlignmentLeft];
     self.descLabel = [Factory creatLabelWithText:@"一起来欣赏布雷迪的表现"
-                                       fontValue:font750(28)
+                                       fontValue:font750(26)
                                        textColor:Color_DarkGray
                                    textAlignment:NSTextAlignmentLeft];
+    self.descLabel.numberOfLines = 0;
     self.likeBtn = [LikeButton buttonWithType:UIButtonTypeCustom];
     
     [self addSubview:self.topImg];
@@ -67,6 +68,7 @@
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(24)));
+        make.right.equalTo(@(-Anno750(24))); 
         make.top.equalTo(self.topImg.mas_bottom).offset(Anno750(24));
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,12 +77,22 @@
     }];
     [self.descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(24)));
-        make.top.equalTo(self.timeLabel.mas_bottom).offset(Anno750(30));
+        make.top.equalTo(self.timeLabel.mas_bottom).offset(Anno750(20));
+        make.right.equalTo(@(-Anno750(24)));
     }];
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(Anno750(-24)));
         make.centerY.equalTo(self.timeLabel.mas_centerY);
     }];
+}
+
+- (void)updateWithDetailModel:(VideoDetailModel *)model{
+    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    self.descLabel.text = model.content;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    
 }
 
 @end

@@ -8,11 +8,18 @@
 
 #ifndef API_h
 #define API_h
-#ifdef DEBUG
-    #define Base_Url    @""
-#else
-    #define Base_Url    @""
-#endif
 
+#define Base_ApiHost    @"http://api.nflchina.com"
+#define BER_APP_KEY     @"98NexY5d75M76ab"
+
+
+
+#define Route_Viedeo    @"video2017"
+#define Route_NewWest   @"newest2017"
+
+#define Video_List      @"list"
+#define Video_Detail    @"detail"
+
+#define NewWest_Info    @"information"
 
 #endif /* API_h */

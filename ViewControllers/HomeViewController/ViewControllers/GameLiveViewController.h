@@ -6,8 +6,15 @@
 //  Copyright © 2017年 wurui. All rights reserved.
 //
 
-#import "BaseViewController.h"
-#import "GameTabview.h"
-@interface GameLiveViewController : BaseViewController
-@property (nonatomic, strong) GameTabview * tabview;
+#import "GameBassViewController.h"
+
+@protocol GameLiveViewControllerDelegate <NSObject>
+
+- (void)hiddenOutHeadView:(CGFloat)y;
+
+@end
+
+@interface GameLiveViewController : GameBassViewController
+
+@property (nonatomic, assign) id<GameLiveViewControllerDelegate> delegate;
 @end

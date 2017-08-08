@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
 #import "LikeButton.h"
-
-
+#import "VideoListModel.h"
+#import "InfoListModel.h"
 @interface SubNewsListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * leftImg;
@@ -18,5 +18,5 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UILabel * adLabel;
-
+- (void)updateWithObjectModel:(id)model;
 @end

@@ -14,4 +14,10 @@
 @property (nonatomic, strong) HMSegmentedControl * segmentView;
 @property (nonatomic, strong) UIImageView * groundImg;
 
+@property (nonatomic, strong) UIImageView * leftImg;
+@property (nonatomic, strong) UIImageView * rightImg;
+@property (nonatomic, strong) UILabel * leftScore;
+@property (nonatomic, strong) UILabel * rightScore;
+@property (nonatomic, strong) UIView * lineView;
+
 @end

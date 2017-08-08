@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LikeButton.h"
 #import "ConfigHeader.h"
+#import "VideoListModel.h"
 @interface NewsAttenListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * topImg;
@@ -17,4 +18,6 @@
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UIImageView * playIcon;
 
+
+- (void)updateWithObjectModel:(id)model;
 @end

@@ -58,4 +58,8 @@
         make.centerY.equalTo(self.bgView.mas_centerY);
     }];
 }
+- (void)updateWithModel:(InfoCoverModel *)model{
+    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+}
 @end

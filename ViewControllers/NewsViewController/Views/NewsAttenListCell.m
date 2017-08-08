@@ -71,11 +71,26 @@
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(self.timeLabel.mas_centerY);
+        make.height.equalTo(@(Anno750(80)));
     }];
     [self.playIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(@0);
         make.centerY.equalTo(@0);
     }];
+}
+
+
+- (void)updateWithObjectModel:(id)model{
+    if ([model isKindOfClass:[VideoListModel class]]) {
+        [self updateWithVideoListModel:(VideoListModel *)model];
+    }
+}
+- (void)updateWithVideoListModel:(VideoListModel *)model{
+    self.playIcon.hidden = NO;
+    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
 }
 
 @end

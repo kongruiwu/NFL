@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import <HMSegmentedControl.h>
 @interface GameHeaderView : UIView
 
 @property (nonatomic, strong) UIImageView * groundImg;
 @property (nonatomic, strong) UIImageView * blueImg;
-//@property (nonatomic, strong) <#NSString#> * <#name#>;
+@property (nonatomic, strong) HMSegmentedControl * segmentView;
+
+@property (nonatomic, strong) UIImageView * leftImg;
+@property (nonatomic, strong) UIImageView * rightImg;
+@property (nonatomic, strong) UILabel * leftName;
+@property (nonatomic, strong) UILabel * rightName;
+@property (nonatomic, strong) UILabel * leftScore;
+@property (nonatomic, strong) UILabel * rightScore;
+@property (nonatomic, strong) UILabel * gameStatus;
+@property (nonatomic, strong) UILabel * vsLabel;
+@property (nonatomic, strong) UILabel * timeLabel;
+
+
 
 @end

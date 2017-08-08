@@ -25,11 +25,23 @@
     self.titleLabel.font = [UIFont systemFontOfSize:font750(22)];
     [self setTitleColor:Color_LightGray forState:UIControlStateNormal];
 }
-- (CGRect)titleRectForContentRect:(CGRect)contentRect{
-    return CGRectMake(0, (contentRect.size.height - Anno750(22))/2, Anno750(60), Anno750(26));
-}
-- (CGRect)imageRectForContentRect:(CGRect)contentRect{
-    return CGRectMake(Anno750(60-24), Anno750(2), Anno750(24), Anno750(24));
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@0);
+        make.centerY.equalTo(@0);
+        make.width.equalTo(@(Anno750(24)));
+        make.height.equalTo(@(Anno750(24)));
+    }];
+    self.titleLabel.textAlignment = NSTextAlignmentRight;
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.imageView.mas_left).offset(Anno750(-12));
+        make.bottom.equalTo(self.imageView.mas_bottom).offset(Anno750(5));
+        make.height.equalTo(@(Anno750(26)));
+        make.width.equalTo(@(Anno750(50)));
+    }];
+    
 }
 
 

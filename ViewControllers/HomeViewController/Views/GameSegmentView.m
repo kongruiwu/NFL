@@ -19,7 +19,6 @@
 }
 - (void)creatUI{
     self.groundImg = [Factory creatImageViewWithImage:@"nav_bg_default"];
-    self.groundImg.alpha = 0;
     NSArray * titles = @[@"直播",@"数据",@"视频"];
     self.segmentView = [[HMSegmentedControl alloc]initWithSectionTitles:titles];
     self.segmentView.backgroundColor = [UIColor clearColor];
@@ -40,6 +39,45 @@
     
     [self addSubview:self.groundImg];
     [self addSubview:self.segmentView];
+    
+    /**
+     @property (nonatomic, strong) UIImageView * leftImg;
+     @property (nonatomic, strong) UIImageView * rightImg;
+     @property (nonatomic, strong) UILabel * leftScore;
+     @property (nonatomic, strong) UILabel * rightScore;
+     @property (nonatomic, strong) UIView * lineView;
+     */
+    self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_49ren"];
+    self.rightImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
+    self.leftScore = [Factory creatLabelWithText:@"13"
+                                     fontValue:font750(52)
+                                     textColor:UIColorFromRGBA(0xFFFFFF, 0.5)
+                                 textAlignment:NSTextAlignmentCenter];
+    self.rightScore = [Factory creatLabelWithText:@"21"
+                                        fontValue:font750(52)
+                                        textColor:[UIColor whiteColor]
+                                    textAlignment:NSTextAlignmentCenter];
+    
+    self.lineView = [Factory creatLineView];
+    
+    self.leftImg.frame = CGRectMake(Anno750(85 *2), 20 + Anno750(4), Anno750(80), Anno750(80));
+    self.rightImg.frame = CGRectMake(UI_WIDTH - Anno750(80) - Anno750(85 *2), 20+ Anno750(4), Anno750(80), Anno750(80));
+    self.leftScore.frame = CGRectMake(Anno750(85 * 2)+ Anno750(80) + Anno750(40), 20 + Anno750(12), Anno750(60), Anno750(60));
+    self.rightScore.frame = CGRectMake(UI_WIDTH - Anno750(60) -Anno750(85 * 2)- Anno750(80) - Anno750(40) , 20 + Anno750(12), Anno750(60), Anno750(60));
+    
+    [self addSubview:self.leftImg];
+    [self addSubview:self.rightImg];
+    [self addSubview:self.leftScore];
+    [self addSubview:self.rightScore];
+    [self addSubview:self.lineView];
+    
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(@0);
+        make.top.equalTo(@((20 + Anno750(88 - 6)/2)));
+        make.height.equalTo(@(Anno750(6)));
+        make.width.equalTo(@(Anno750(18)));
+    }];
+    
 }
 
 @end

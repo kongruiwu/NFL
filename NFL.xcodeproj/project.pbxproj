@@ -74,6 +74,7 @@
 		8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */; };
 		8B9B9EFA1F13C1B8004A2283 /* AddAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */; };
 		8BA956331F22F44C00ABC4B0 /* UnionTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA956321F22F44C00ABC4B0 /* UnionTeamRankCell.m */; };
+		8BB63C2F1F36BD8B00B0631B /* GameBassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB63C2E1F36BD8B00B0631B /* GameBassViewController.m */; };
 		8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B481F150316004B29A8 /* GameDetailsViewController.m */; };
 		8BB90B4C1F1507B0004B29A8 /* GameHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */; };
 		8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */; };
@@ -102,6 +103,18 @@
 		8BD676BC1F2F185400B42497 /* UIImage+ImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD676B81F2F185400B42497 /* UIImage+ImageFilter.m */; };
 		8BEEED671F2B27DA00B35BD1 /* MoreHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEEED661F2B27DA00B35BD1 /* MoreHeadView.m */; };
 		8BEEED6A1F2B2CFF00B35BD1 /* MoreListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEEED691F2B2CFF00B35BD1 /* MoreListCell.m */; };
+		8BEF9C031F3A08820085E7B6 /* VideoDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF9C021F3A08820085E7B6 /* VideoDetailModel.m */; };
+		8BEF9C061F3A0FDF0085E7B6 /* InfoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF9C051F3A0FDF0085E7B6 /* InfoListModel.m */; };
+		8BEF9C091F3A10020085E7B6 /* InfoMainModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF9C081F3A10020085E7B6 /* InfoMainModel.m */; };
+		8BF4946D1F394EE100D40727 /* NetWorkManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4946C1F394EE100D40727 /* NetWorkManger.m */; };
+		8BF494701F394EF600D40727 /* NFError.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4946F1F394EF600D40727 /* NFError.m */; };
+		8BF4947B1F394F6A00D40727 /* NSArray+AXNetworkingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF494741F394F6900D40727 /* NSArray+AXNetworkingMethods.m */; };
+		8BF4947C1F394F6A00D40727 /* NSDictionary+AXNetworkingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF494761F394F6900D40727 /* NSDictionary+AXNetworkingMethods.m */; };
+		8BF4947D1F394F6A00D40727 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF494781F394F6900D40727 /* NSString+MD5Addition.m */; };
+		8BF4947E1F394F6A00D40727 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF4947A1F394F6900D40727 /* UIDevice+IdentifierAddition.m */; };
+		8BF494811F39585400D40727 /* VideoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF494801F39585400D40727 /* VideoListModel.m */; };
+		8BFA3F9D1F35B8E70016DAD5 /* GameDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFA3F9C1F35B8E70016DAD5 /* GameDetailTabViewController.m */; };
+		8BFA3FA01F35D45E0016DAD5 /* GameScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFA3F9F1F35D45E0016DAD5 /* GameScrollView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,6 +267,8 @@
 		8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAttentionViewController.m; sourceTree = "<group>"; };
 		8BA956311F22F44C00ABC4B0 /* UnionTeamRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnionTeamRankCell.h; sourceTree = "<group>"; };
 		8BA956321F22F44C00ABC4B0 /* UnionTeamRankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnionTeamRankCell.m; sourceTree = "<group>"; };
+		8BB63C2D1F36BD8B00B0631B /* GameBassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBassViewController.h; sourceTree = "<group>"; };
+		8BB63C2E1F36BD8B00B0631B /* GameBassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBassViewController.m; sourceTree = "<group>"; };
 		8BB90B471F150316004B29A8 /* GameDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailsViewController.h; sourceTree = "<group>"; };
 		8BB90B481F150316004B29A8 /* GameDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailsViewController.m; sourceTree = "<group>"; };
 		8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameHeaderView.h; sourceTree = "<group>"; };
@@ -309,6 +324,30 @@
 		8BEEED661F2B27DA00B35BD1 /* MoreHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreHeadView.m; sourceTree = "<group>"; };
 		8BEEED681F2B2CFF00B35BD1 /* MoreListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreListCell.h; sourceTree = "<group>"; };
 		8BEEED691F2B2CFF00B35BD1 /* MoreListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreListCell.m; sourceTree = "<group>"; };
+		8BEF9C011F3A08820085E7B6 /* VideoDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailModel.h; sourceTree = "<group>"; };
+		8BEF9C021F3A08820085E7B6 /* VideoDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailModel.m; sourceTree = "<group>"; };
+		8BEF9C041F3A0FDF0085E7B6 /* InfoListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoListModel.h; sourceTree = "<group>"; };
+		8BEF9C051F3A0FDF0085E7B6 /* InfoListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoListModel.m; sourceTree = "<group>"; };
+		8BEF9C071F3A10020085E7B6 /* InfoMainModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoMainModel.h; sourceTree = "<group>"; };
+		8BEF9C081F3A10020085E7B6 /* InfoMainModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoMainModel.m; sourceTree = "<group>"; };
+		8BF4946B1F394EE100D40727 /* NetWorkManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkManger.h; sourceTree = "<group>"; };
+		8BF4946C1F394EE100D40727 /* NetWorkManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkManger.m; sourceTree = "<group>"; };
+		8BF4946E1F394EF600D40727 /* NFError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFError.h; sourceTree = "<group>"; };
+		8BF4946F1F394EF600D40727 /* NFError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFError.m; sourceTree = "<group>"; };
+		8BF494731F394F6900D40727 /* NSArray+AXNetworkingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+AXNetworkingMethods.h"; sourceTree = "<group>"; };
+		8BF494741F394F6900D40727 /* NSArray+AXNetworkingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+AXNetworkingMethods.m"; sourceTree = "<group>"; };
+		8BF494751F394F6900D40727 /* NSDictionary+AXNetworkingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+AXNetworkingMethods.h"; sourceTree = "<group>"; };
+		8BF494761F394F6900D40727 /* NSDictionary+AXNetworkingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+AXNetworkingMethods.m"; sourceTree = "<group>"; };
+		8BF494771F394F6900D40727 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		8BF494781F394F6900D40727 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		8BF494791F394F6900D40727 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
+		8BF4947A1F394F6900D40727 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
+		8BF4947F1F39585400D40727 /* VideoListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListModel.h; sourceTree = "<group>"; };
+		8BF494801F39585400D40727 /* VideoListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListModel.m; sourceTree = "<group>"; };
+		8BFA3F9B1F35B8E70016DAD5 /* GameDetailTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailTabViewController.h; sourceTree = "<group>"; };
+		8BFA3F9C1F35B8E70016DAD5 /* GameDetailTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailTabViewController.m; sourceTree = "<group>"; };
+		8BFA3F9E1F35D45E0016DAD5 /* GameScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScrollView.h; sourceTree = "<group>"; };
+		8BFA3F9F1F35D45E0016DAD5 /* GameScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScrollView.m; sourceTree = "<group>"; };
 		CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.release.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -359,6 +398,8 @@
 				8B169A8E1F34163300E2507E /* TeamDataProgressCell.m */,
 				8B169A911F343E0500E2507E /* DataTeamTitleCell.h */,
 				8B169A921F343E0500E2507E /* DataTeamTitleCell.m */,
+				8BFA3F9E1F35D45E0016DAD5 /* GameScrollView.h */,
+				8BFA3F9F1F35D45E0016DAD5 /* GameScrollView.m */,
 			);
 			name = GameDataCell;
 			sourceTree = "<group>";
@@ -453,6 +494,7 @@
 		8B2D73A61F0BD55B00E1BF4B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8BF494721F394F6900D40727 /* DeviceTool */,
 				8BD676A21F2ECCB300B42497 /* shareView */,
 				8B2D73A71F0BD55B00E1BF4B /* Factory */,
 				8B2D73AC1F0BD55B00E1BF4B /* NetWorkManager */,
@@ -473,6 +515,10 @@
 		8B2D73AC1F0BD55B00E1BF4B /* NetWorkManager */ = {
 			isa = PBXGroup;
 			children = (
+				8BF4946B1F394EE100D40727 /* NetWorkManger.h */,
+				8BF4946C1F394EE100D40727 /* NetWorkManger.m */,
+				8BF4946E1F394EF600D40727 /* NFError.h */,
+				8BF4946F1F394EF600D40727 /* NFError.m */,
 			);
 			path = NetWorkManager;
 			sourceTree = "<group>";
@@ -566,6 +612,8 @@
 		8B2D73CF1F0BDCCD00E1BF4B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8BB63C2D1F36BD8B00B0631B /* GameBassViewController.h */,
+				8BB63C2E1F36BD8B00B0631B /* GameBassViewController.m */,
 				8B2D73E11F0BDE0A00E1BF4B /* HomeViewController.h */,
 				8B2D73E21F0BDE0A00E1BF4B /* HomeViewController.m */,
 				8B3CEEC41F0D427500AE5B81 /* ScheduleViewController.h */,
@@ -574,6 +622,8 @@
 				8B9B9EF01F13AE62004A2283 /* AttentionteamViewController.m */,
 				8B9B9EF81F13C1B8004A2283 /* AddAttentionViewController.h */,
 				8B9B9EF91F13C1B8004A2283 /* AddAttentionViewController.m */,
+				8BFA3F9B1F35B8E70016DAD5 /* GameDetailTabViewController.h */,
+				8BFA3F9C1F35B8E70016DAD5 /* GameDetailTabViewController.m */,
 				8BB90B471F150316004B29A8 /* GameDetailsViewController.h */,
 				8BB90B481F150316004B29A8 /* GameDetailsViewController.m */,
 				8B85E03B1F32C3F500FFBF39 /* GameLiveViewController.h */,
@@ -627,6 +677,10 @@
 		8B2D73D21F0BDCFC00E1BF4B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8BEF9C041F3A0FDF0085E7B6 /* InfoListModel.h */,
+				8BEF9C051F3A0FDF0085E7B6 /* InfoListModel.m */,
+				8BEF9C071F3A10020085E7B6 /* InfoMainModel.h */,
+				8BEF9C081F3A10020085E7B6 /* InfoMainModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -682,6 +736,10 @@
 		8B2D73D61F0BDD1000E1BF4B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8BF4947F1F39585400D40727 /* VideoListModel.h */,
+				8BF494801F39585400D40727 /* VideoListModel.m */,
+				8BEF9C011F3A08820085E7B6 /* VideoDetailModel.h */,
+				8BEF9C021F3A08820085E7B6 /* VideoDetailModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -860,6 +918,21 @@
 				8BD676B81F2F185400B42497 /* UIImage+ImageFilter.m */,
 			);
 			path = FDCropIMgView;
+			sourceTree = "<group>";
+		};
+		8BF494721F394F6900D40727 /* DeviceTool */ = {
+			isa = PBXGroup;
+			children = (
+				8BF494731F394F6900D40727 /* NSArray+AXNetworkingMethods.h */,
+				8BF494741F394F6900D40727 /* NSArray+AXNetworkingMethods.m */,
+				8BF494751F394F6900D40727 /* NSDictionary+AXNetworkingMethods.h */,
+				8BF494761F394F6900D40727 /* NSDictionary+AXNetworkingMethods.m */,
+				8BF494771F394F6900D40727 /* NSString+MD5Addition.h */,
+				8BF494781F394F6900D40727 /* NSString+MD5Addition.m */,
+				8BF494791F394F6900D40727 /* UIDevice+IdentifierAddition.h */,
+				8BF4947A1F394F6900D40727 /* UIDevice+IdentifierAddition.m */,
+			);
+			path = DeviceTool;
 			sourceTree = "<group>";
 		};
 		BE230CA7B6E1851B4DDD8A28 /* Frameworks */ = {
@@ -1087,6 +1160,7 @@
 				8B85E0401F32CA2900FFBF39 /* GameLiveListCell.m in Sources */,
 				8B2A4C041F31984600A36D79 /* FeedBackViewController.m in Sources */,
 				8B9B9EE81F13970C004A2283 /* SelectTimeView.m in Sources */,
+				8BB63C2F1F36BD8B00B0631B /* GameBassViewController.m in Sources */,
 				8B9ACB5F1F26389C005772ED /* TeamerRankCollectionViewCell.m in Sources */,
 				8B93DA9D1F2AD4740087988D /* SubTeamRankCell.m in Sources */,
 				8B70AD421F2C868B009FF50D /* SubVideoViewController.m in Sources */,
@@ -1096,17 +1170,22 @@
 				8B2A4C131F31B19600A36D79 /* LoginViewController.m in Sources */,
 				8B2A4C071F31A0B800A36D79 /* SettingViewController.m in Sources */,
 				8B70AD3F1F2C7223009FF50D /* PhotoSubListCell.m in Sources */,
+				8BF494701F394EF600D40727 /* NFError.m in Sources */,
 				8B70AD331F2C6972009FF50D /* NewsAttentionViewController.m in Sources */,
 				8B9B9EFA1F13C1B8004A2283 /* AddAttentionViewController.m in Sources */,
 				8B2D73A51F0BD33A00E1BF4B /* BaseViewController.m in Sources */,
 				8B70AD2D1F2C5F0E009FF50D /* SubNewsListCell.m in Sources */,
 				8B169A851F3400A800E2507E /* GameDataViewController.m in Sources */,
 				8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */,
+				8BF4947B1F394F6A00D40727 /* NSArray+AXNetworkingMethods.m in Sources */,
+				8BEF9C031F3A08820085E7B6 /* VideoDetailModel.m in Sources */,
 				8BEEED6A1F2B2CFF00B35BD1 /* MoreListCell.m in Sources */,
 				8BCD4E401F1E373A00E430DE /* TeamerRankViewController.m in Sources */,
 				8BCD4E3A1F1E372000E430DE /* TeamInfoViewController.m in Sources */,
 				8B2D73BC1F0BD55B00E1BF4B /* Factory.m in Sources */,
 				8B2A4C0D1F31A9FD00A36D79 /* AboutUsViewController.m in Sources */,
+				8BFA3F9D1F35B8E70016DAD5 /* GameDetailTabViewController.m in Sources */,
+				8BEF9C091F3A10020085E7B6 /* InfoMainModel.m in Sources */,
 				8B169A891F340C0B00E2507E /* GameScoreTitleCell.m in Sources */,
 				8B2D73561F0AA2E200E1BF4B /* AppDelegate.m in Sources */,
 				8BC44D9F1F30846000639881 /* TalkeInputView.m in Sources */,
@@ -1122,28 +1201,35 @@
 				8B70AD1E1F2C2DFA009FF50D /* UserInfoSettingCell.m in Sources */,
 				8BC44D961F3063BB00639881 /* OnlineQuestionViewController.m in Sources */,
 				8B9B9EF71F13BBD5004A2283 /* TeamImageView.m in Sources */,
+				8BEF9C061F3A0FDF0085E7B6 /* InfoListModel.m in Sources */,
 				8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */,
 				8BCD4E3D1F1E372C00E430DE /* TeamRankViewController.m in Sources */,
 				8BC44D841F302B8700639881 /* PhoneAboutViewController.m in Sources */,
 				8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */,
 				8B70AD241F2C4589009FF50D /* PhotosViewController.m in Sources */,
 				8BD676A81F2ECE9600B42497 /* ShareModel.m in Sources */,
+				8BF4946D1F394EE100D40727 /* NetWorkManger.m in Sources */,
 				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
 				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
 				8BB90B491F150316004B29A8 /* GameDetailsViewController.m in Sources */,
 				8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */,
 				8BC44D931F30607900639881 /* ThirdAccountCell.m in Sources */,
+				8BF4947C1F394F6A00D40727 /* NSDictionary+AXNetworkingMethods.m in Sources */,
 				8B85E03D1F32C3F500FFBF39 /* GameLiveViewController.m in Sources */,
 				8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */,
 				8BD6769E1F2EB9DA00B42497 /* VideoDetailViewController.m in Sources */,
+				8BF4947D1F394F6A00D40727 /* NSString+MD5Addition.m in Sources */,
+				8BFA3FA01F35D45E0016DAD5 /* GameScrollView.m in Sources */,
 				8B93DA9A1F2AD0BA0087988D /* TeamUnionHeadView.m in Sources */,
 				8B70AD3C1F2C70F3009FF50D /* PhotoListViewController.m in Sources */,
 				8B2D73E31F0BDE0A00E1BF4B /* HomeViewController.m in Sources */,
 				8B9ACB5C1F263785005772ED /* TeamerRankListCell.m in Sources */,
 				8BC44D991F306C0F00639881 /* LeftTalkCell.m in Sources */,
+				8BF494811F39585400D40727 /* VideoListModel.m in Sources */,
 				8BC44D901F305F3800639881 /* ThirdAccountViewController.m in Sources */,
 				8BD676A11F2EBF5200B42497 /* VideoHeadCell.m in Sources */,
 				8B2A4C101F31ABD400A36D79 /* AboutUsCell.m in Sources */,
+				8BF4947E1F394F6A00D40727 /* UIDevice+IdentifierAddition.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

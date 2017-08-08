@@ -6,8 +6,17 @@
 //  Copyright © 2017年 wurui. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import "GameBassViewController.h"
 
-@interface GameDataViewController : BaseViewController
+@protocol GameDataViewControllerDelegate <NSObject>
+
+- (void)hiddenOutHeadView:(CGFloat)y;
+
+@end
+
+@interface GameDataViewController : GameBassViewController
+
+
+@property (nonatomic, assign) id<GameDataViewControllerDelegate> delegate;
 
 @end

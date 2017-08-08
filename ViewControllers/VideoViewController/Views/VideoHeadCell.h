@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LikeButton.h"
 #import "ConfigHeader.h"
+#import "VideoDetailModel.h"
 @interface VideoHeadCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * topImg;
@@ -18,5 +19,5 @@
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UIImageView * playIcon;
 
-
+- (void)updateWithDetailModel:(VideoDetailModel *)model;
 @end

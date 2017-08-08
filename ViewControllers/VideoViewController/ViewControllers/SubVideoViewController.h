@@ -11,12 +11,14 @@
 
 typedef NS_ENUM(NSInteger, VideoType){
     VideoTypeBallStar = 0   ,       //球星
-    VideoTypeSchedu         ,       //赛程
+    VideoTypeMatch         ,       //赛程
     VideoTypeTidbits        ,       //花絮
-    VideoType101            ,       //101
-    
+    VideoTypeTeach            ,       //101
+    VideoTypeInFollow        ,       //关注
 };
 
 @interface SubVideoViewController : BaseViewController
+
+@property (nonatomic, assign) VideoType videoType;
 
 @end

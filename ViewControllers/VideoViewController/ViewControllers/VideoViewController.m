@@ -89,6 +89,7 @@
                 [weakSelf.viewControllers replaceObjectAtIndex:index withObject:vc];
             }else{
                 SubVideoViewController * vc = [SubVideoViewController new];
+                vc.videoType = index;
                 vc.view.frame = CGRectMake(index * UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
                 [weakSelf addChildViewController:vc];
                 [weakSelf.mainScroll addSubview:vc.view];
@@ -112,6 +113,7 @@
             [self.viewControllers replaceObjectAtIndex:index withObject:vc];
         }else{
             SubVideoViewController * vc = [SubVideoViewController new];
+            vc.videoType = index;
             vc.view.frame = CGRectMake(index * UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
             [self addChildViewController:vc];
             [self.mainScroll addSubview:vc.view];

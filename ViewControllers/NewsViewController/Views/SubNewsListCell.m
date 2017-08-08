@@ -91,4 +91,24 @@
     }];
 }
 
+- (void)updateWithObjectModel:(id)model{
+    if ([model isKindOfClass:[VideoListModel class]]) {
+        [self updateWithVideoListModel:(VideoListModel *)model];
+    }else if([model isKindOfClass:[InfoListModel class]]){
+        [self updateWithInfoListModel:(InfoListModel *)model];
+    }
+}
+- (void)updateWithVideoListModel:(VideoListModel *)model{
+//    self.playIcon.hidden = NO;
+    [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+}
+- (void)updateWithInfoListModel:(InfoListModel *)model{
+    [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+}
 @end

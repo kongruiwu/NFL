@@ -13,6 +13,7 @@
 #import <UIImageView+WebCache.h>
 #import "ToastView.h"
 #import "Factory.h"
+#import "NetWorkManger.h"
 
 //全局返回通用配置选项
 typedef NS_ENUM(NSInteger, SelectorBackType){
@@ -48,11 +49,7 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define INCASE_EMPTY(str, replace) \
 ( ([(str) length]==0)?(replace):(str) )
 
-#ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-#else
-#   define DLog(...)
-#endif
+
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 

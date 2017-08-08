@@ -15,7 +15,7 @@
 
 @interface GameDataViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) UITableView * tabview;
+
 @property (nonatomic, strong) NSArray * sectionTitles;
 @property (nonatomic, strong) UISegmentedControl * segmentbtn;
 
@@ -27,11 +27,12 @@
     [super viewDidLoad];
     [self creatUI];
     [self setNavAlpha];
+   
 }
 - (void)creatUI{
     self.sectionTitles = @[@"得分",@"球队数据",@"球员"];
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview.tag = 1000;
     [self.view addSubview:self.tabview];
     
 }
@@ -195,4 +196,19 @@
 - (void)segmentbtnSelect:(UISegmentedControl *)segement{
     
 }
+
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
+    if (targetContentOffset->y > (Anno750(480 - 80) - 64)/2 && targetContentOffset->y <= Anno750(480 - 80) - 64) {
+        targetContentOffset->y = Anno750(480 - 80) - 64;
+    }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
+        targetContentOffset->y = 0;
+    }
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if ([self.delegate respondsToSelector:@selector(hiddenOutHeadView:)]) {
+        [self.delegate hiddenOutHeadView:scrollView.contentOffset.y];
+    }
+}
+
 @end

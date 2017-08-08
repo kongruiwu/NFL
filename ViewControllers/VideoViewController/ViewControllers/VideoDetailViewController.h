@@ -10,4 +10,6 @@
 
 @interface VideoDetailViewController : BaseViewController
 
+@property (nonatomic, strong) NSNumber * videoID;
+
 @end

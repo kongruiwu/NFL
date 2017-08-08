@@ -22,7 +22,7 @@
     [super viewDidLoad];
     
     [self creatUI];
-
+    
 }
 - (void)creatUI{
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 49 - 64) style:UITableViewStylePlain delegate:self];
