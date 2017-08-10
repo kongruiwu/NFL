@@ -22,25 +22,16 @@
     [self setImage:[UIImage imageNamed:@"list_icon_collection_nor"] forState:UIControlStateNormal];
     [self setImage:[UIImage imageNamed:@"list_icon_collection_hig"] forState:UIControlStateSelected];
     [self setTitle:@"63" forState:UIControlStateNormal];
-    self.titleLabel.font = [UIFont systemFontOfSize:font750(22)];
+    self.titleLabel.font = [UIFont systemFontOfSize:font750(24)];
     [self setTitleColor:Color_LightGray forState:UIControlStateNormal];
 }
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@0);
-        make.centerY.equalTo(@0);
-        make.width.equalTo(@(Anno750(24)));
-        make.height.equalTo(@(Anno750(24)));
-    }];
+    self.imageView.frame = CGRectMake(self.frame.size.width - Anno750(24),(self.frame.size.height - Anno750(24))/2, Anno750(24), Anno750(24));
     self.titleLabel.textAlignment = NSTextAlignmentRight;
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.imageView.mas_left).offset(Anno750(-12));
-        make.bottom.equalTo(self.imageView.mas_bottom).offset(Anno750(5));
-        make.height.equalTo(@(Anno750(26)));
-        make.width.equalTo(@(Anno750(50)));
-    }];
+    CGSize size = [Factory getSize:self.titleLabel.text maxSize:CGSizeMake(9999, 9999) font:self.titleLabel.font];
+    self.titleLabel.frame = CGRectMake(self.frame.size.width - Anno750(35) - size.width, (self.frame.size.height - size.height)/2, size.width+2, size.height);
     
 }
 

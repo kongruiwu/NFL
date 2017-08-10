@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "PhotoSetModel.h"
 @interface PhotoListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * bgImg;
@@ -16,4 +17,6 @@
 @property (nonatomic, strong) UIView * bottomLine;
 @property (nonatomic, strong) UILabel * titleLabel;
 
+
+- (void)updateWithPhotoSetModel:(PhotoSetModel *)model;
 @end

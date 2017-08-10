@@ -14,6 +14,7 @@
 #import "ToastView.h"
 #import "Factory.h"
 #import "NetWorkManger.h"
+#import "UserManager.h"
 
 //全局返回通用配置选项
 typedef NS_ENUM(NSInteger, SelectorBackType){
@@ -28,6 +29,10 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
     ScheduleStatusOvered        //比赛结束
 };
 
+
+#define UmengKey    @"556fb9bf67e58e92cf001646"
+#define WxAppID     @"wxe74f684db173a3a1"
+#define WxAppSecret @"d6f483f6a1fc95064a4bba7f88642c56"
 #define QQAPPID     @"1106241047"
 #define QQAPPKEY    @"opDdDWSqNTQkV6k1"
 #define SINAAPPKEY  @"871709740"
@@ -43,7 +48,7 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define UI_BOUNDS   [UIScreen mainScreen].bounds
 #define UI_HEGIHT   [UIScreen mainScreen].bounds.size.height
 #define UI_WIDTH    [UIScreen mainScreen].bounds.size.width
-
+#define IsPhone6P   [UIScreen mainScreen].bounds.size.width == 414
 
 //规避空值
 #define INCASE_EMPTY(str, replace) \

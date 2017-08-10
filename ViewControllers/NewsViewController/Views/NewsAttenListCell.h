@@ -10,6 +10,7 @@
 #import "LikeButton.h"
 #import "ConfigHeader.h"
 #import "VideoListModel.h"
+#import "InfoListModel.h"
 @interface NewsAttenListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * topImg;

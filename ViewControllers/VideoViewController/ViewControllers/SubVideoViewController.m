@@ -30,7 +30,7 @@
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64- Anno750(80)) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
-    self.refreshHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+    self.refreshHeader = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.refreshFooter = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
     self.tabview.mj_header = self.refreshHeader;
@@ -76,6 +76,7 @@
     [self getData];
 }
 - (void)getData{
+    [SVProgressHUD show];
     NSString * action;
     switch (self.videoType) {
         case VideoTypeBallStar:
@@ -102,13 +103,18 @@
                              @"type":action,
                              };
     [[NetWorkManger manager] sendRequest:Video_List route:Route_Viedeo withParams:params complete:^(NSDictionary *result) {
+        [self hiddenNullView];
         NSDictionary * dic = result[@"data"];
         NSArray * list = dic[@"list"];
         for (int i = 0; i<list.count; i++) {
             VideoListModel * model = [[VideoListModel alloc]initWithDictionary:list[i]];
             [self.dataArray addObject:model];
         }
-        [self.tabview reloadData];
+        if (list.count == 0 && self.dataArray.count == 0) {
+            [self showNullViewByType:NullTypeNoneData];
+        }else{
+            [self.tabview reloadData];
+        }
         [self.refreshHeader endRefreshing];
         if (list.count < 10) {
             [self.refreshFooter endRefreshingWithNoMoreData];
@@ -116,6 +122,7 @@
             [self.refreshFooter endRefreshing];
         }
     } error:^(NFError *byerror) {
+        [self showNullViewByType:NullTypeNetError];
         [self.refreshHeader endRefreshing];
         [self.refreshFooter endRefreshing];
     }];

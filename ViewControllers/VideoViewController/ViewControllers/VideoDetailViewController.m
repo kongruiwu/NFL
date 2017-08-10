@@ -33,7 +33,7 @@
     [self getData];
 }
 - (void)creatUI{
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(30)) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -111,15 +111,17 @@
 }
 
 - (void)getData{
+    [SVProgressHUD show];
     NSDictionary * params = @{
                               @"id":self.videoID
                               };
     [[NetWorkManger manager] sendRequest:Video_Detail route:Route_Viedeo withParams:params complete:^(NSDictionary *result) {
+        [self hiddenNullView];
         NSDictionary * dic = result[@"data"];
         self.videoModel = [[VideoDetailModel alloc]initWithDictionary:dic];
         [self.tabview reloadData];
     } error:^(NFError *byerror) {
-        
+        [self showNullViewByType:NullTypeNetError];
     }];
 }
 

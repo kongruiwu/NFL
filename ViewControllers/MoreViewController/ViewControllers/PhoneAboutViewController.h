@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+#import <UMSocialCore/UMSocialCore.h>
 typedef NS_ENUM(NSInteger, ChangeType){
     ChangeTypeBindPhone = 0,        //绑定手机
     ChangeTypeChangePhone,          //修改手机
@@ -22,6 +22,8 @@ typedef NS_ENUM(NSInteger, ChangeType){
 @interface PhoneAboutViewController : BaseViewController
 
 @property (nonatomic, assign) ChangeType vcType;
+@property (nonatomic, strong) NSString * thirdType;
+@property (nonatomic, strong) UMSocialUserInfoResponse * thirdResp;
 
 - (instancetype)initWithType:(ChangeType)changeType;
 

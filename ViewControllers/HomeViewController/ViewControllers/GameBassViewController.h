@@ -7,7 +7,7 @@
 //
 
 #import "BaseViewController.h"
-
+//比赛详情基类
 @interface GameBassViewController : BaseViewController
 
 @property (nonatomic, strong) UITableView * tabview;

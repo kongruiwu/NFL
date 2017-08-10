@@ -19,12 +19,34 @@
     self.view.backgroundColor = Color_BackGround;
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"] forBarMetrics:UIBarMetricsDefault];
+    [self creatNullView];
 }
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+}
+- (void)showNullViewByType:(NullType)type{
+    [self.view bringSubviewToFront:self.nullView];
+    self.nullView.hidden =NO;
+    self.nullView.nullType = type;
+}
+- (void)hiddenNullView{
+    if (!self.nullView.hidden) {
+        self.nullView.hidden = YES;
+    }
+}
+- (void)creatNullView{
+    self.nullView = [[NullView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) andNullType:NullTypeNoneData];
+    [self.view addSubview:self.nullView];
+    [self.nullView.clearBtn addTarget:self action:@selector(nullViewClick) forControlEvents:UIControlEventTouchUpInside];
+    self.nullView.hidden = YES;
+}
+- (void)nullViewClick{
+    if (self.nullView.nullType == NullTypeNetError) {
+        [self getData];
+    }
+}
+- (void)getData{
+    
 }
 - (void)doBack{
     switch (self.backType) {
@@ -62,17 +84,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"       ] forBarMetrics:0];
     self.navigationController.navigationBar.shadowImage = nil;
 }
-- (void)RefreshSetting{
-    [self.refreshHeader setTitle:@"继续下拉" forState:MJRefreshStateIdle];
-    [self.refreshHeader setTitle:@"松开就刷新" forState:MJRefreshStatePulling];
-    [self.refreshHeader setTitle:@"刷新中 ..." forState:MJRefreshStateRefreshing];
-    self.refreshHeader.lastUpdatedTimeLabel.hidden = YES;
-    
-    [self.refreshFooter setTitle:@"" forState:MJRefreshStateIdle];
-    [self.refreshFooter setTitle:@"就是要加载" forState:MJRefreshStateWillRefresh];
-    [self.refreshFooter setTitle:@"加载中 ..." forState:MJRefreshStateRefreshing];
-    [self.refreshFooter setTitle:@"已经全部加载完毕" forState:MJRefreshStateNoMoreData];
-}
+
 - (void)setNavTitle:(NSString *)title{
     UILabel * titleLabel = [Factory creatLabelWithText:title
                                                fontValue:font750(34)

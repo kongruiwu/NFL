@@ -32,6 +32,8 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
     [self setNavAlpha];
+    [self.header updateUIbyUserInfo];
+    [self.tabview reloadData];
 }
 
 - (void)viewDidLoad {
@@ -96,10 +98,18 @@
     }
 }
 - (void)userInfoSetting{
-    [self.navigationController pushViewController:[UserInfoViewController new] animated:YES];
+    if ([UserManager manager].isLogin) {
+        [self.navigationController pushViewController:[UserInfoViewController new] animated:YES];
+    }else{
+        [self presentLoginView];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (![UserManager manager].isLogin) {
+        [self presentLoginView];
+        return;
+    }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             [self.navigationController pushViewController:[OnlineQuestionViewController new] animated:YES];
@@ -120,6 +130,11 @@
             [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
         }
     }
+}
+- (void)presentLoginView{
+    LoginViewController * vc = [[LoginViewController alloc]init];
+    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end

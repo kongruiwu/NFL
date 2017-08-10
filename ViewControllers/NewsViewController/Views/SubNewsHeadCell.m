@@ -39,6 +39,7 @@
     [self.contentView addSubview:self.bgImg];
     [self.contentView addSubview:self.bgView];
     [self.contentView addSubview:self.nameLabel];
+    self.bgView.hidden = YES;
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
@@ -61,5 +62,9 @@
 - (void)updateWithModel:(InfoCoverModel *)model{
     [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
     self.nameLabel.text = model.title;
+    if (model.title.length>0) {
+        self.bgView.hidden = NO;
+    }
+    
 }
 @end

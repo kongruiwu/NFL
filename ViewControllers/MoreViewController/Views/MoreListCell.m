@@ -43,7 +43,7 @@
     self.bottomLine = [Factory creatLineView];
     self.redIcon = [Factory creatViewWithColor:[UIColor redColor]];
     self.redIcon.layer.cornerRadius = Anno750(5);
-    
+    self.redIcon.hidden = YES;
     [self addSubview:self.leftImg];
     [self addSubview:self.nameLabel];
     [self addSubview:self.descLabel];

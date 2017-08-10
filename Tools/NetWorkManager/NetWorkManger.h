@@ -10,6 +10,7 @@
 #import <AFNetworking.h>
 #import "API.h"
 #import "NFError.h"
+#import <SVProgressHUD.h>
 #ifdef DEBUG
 #   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else

@@ -11,6 +11,11 @@
 @interface InfoCoverModel : BaseModel
 /**数据类型*/
 @property (nonatomic, strong) NSString * cont_type;
+/**分享链接*/
+@property (nonatomic, strong) NSString * share_link;
+/**新闻链接*/
+@property (nonatomic, strong) NSString * app_iframe;
+
 @property (nonatomic, strong) NSNumber * id;
 /**标题*/
 @property (nonatomic, strong) NSString * title;
@@ -23,6 +28,6 @@
 @interface InfoMainModel : BaseModel
 /**只会在第一次加载时返回*/
 @property (nonatomic, strong) InfoCoverModel * coverModel;
-@property (nonatomic, strong) NSArray<InfoListModel *> * list;
+@property (nonatomic, strong) NSMutableArray<InfoListModel *> * list;
 
 @end

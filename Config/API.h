@@ -13,13 +13,34 @@
 #define BER_APP_KEY     @"98NexY5d75M76ab"
 
 
+//视频
+#define Route_Viedeo        @"video2017"
+#define Video_List          @"list"
+#define Video_Detail        @"detail"
 
-#define Route_Viedeo    @"video2017"
-#define Route_NewWest   @"newest2017"
+//最新
+#define Route_NewWest       @"newest2017"
+//资讯
+#define NewWest_Info        @"information"
+//图集
+#define NewWest_album       @"album"
+//图集列表
+#define NewWest_albumlist   @"album_list"
+//图集详情
+#define NewWest_albumDetail @"album_detail"
+//专栏
+#define NewWest_column      @"column"
 
-#define Video_List      @"list"
-#define Video_Detail    @"detail"
+//用户中心
+#define Route_User          @"user2017"
+//三方登录完善注册资料
+#define Page_Oauth          @"oauth_info"
+//检测三方帐号是否注册
+#define Page_CheckOauth     @"check_oauth"
 
-#define NewWest_Info    @"information"
+//设置
+#define Route_Set           @"setting2017"
+//发送验证码
+#define PageSendSms         @"send_sms"
 
 #endif /* API_h */

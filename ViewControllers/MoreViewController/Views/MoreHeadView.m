@@ -29,7 +29,7 @@
     self.userIcon.layer.cornerRadius = Anno750(50);
     self.userIcon.layer.borderColor = Color_MainBlue.CGColor;
     self.userIcon.layer.borderWidth = 1.0f;
-    self.loginLabel = [Factory creatLabelWithText:@""
+    self.loginLabel = [Factory creatLabelWithText:@"点击登录"
                                        fontValue:font750(32)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentLeft];
@@ -46,6 +46,7 @@
                                        fontValue:font750(24)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentRight];
+    self.teamIcon = [Factory creatImageViewWithImage:@"list_logo_60x60_49ren"];
     
     [self addSubview:self.bgImage];
     [self addSubview:self.userIcon];
@@ -55,6 +56,7 @@
     [self addSubview:self.descLabel];
     [self addSubview:self.editImage];
     [self addSubview:self.clearButton];
+    [self.editImage addSubview:self.teamIcon];
     [self.editImage addSubview:self.editLabel];
 }
 - (void)layoutSubviews{
@@ -80,6 +82,12 @@
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(@(-Anno750(8)));
     }];
+    [self.teamIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(Anno750(16)));
+        make.centerY.equalTo(@(-Anno750(8)));
+        make.height.equalTo(@(Anno750(70)));
+        make.width.equalTo(@(Anno750(70)));
+    }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.editImage.mas_top);
         make.left.equalTo(self.loginLabel.mas_left);
@@ -90,11 +98,19 @@
     }];
     
     [self.clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@0);
-        make.left.equalTo(self.editImage.mas_left);
-        make.top.equalTo(self.editImage.mas_top);
-        make.bottom.equalTo(self.editImage.mas_bottom);
+        make.edges.equalTo(@0);
     }];
+    
+}
+
+- (void)updateUIbyUserInfo{
+    self.loginLabel.hidden = [UserManager manager].isLogin;
+    self.nameLabel.text = [UserManager manager].isLogin ? [UserManager manager].info.username : @"";
+    self.descLabel.text = [UserManager manager].isLogin ? @"城市 · 性别" : @"";
+    self.editImage.hidden = ![UserManager manager].isLogin;
+    if ([UserManager manager].isLogin) {
+        [self.editImage setImage:[UIImage imageNamed:@""]];
+    }
 }
 
 

@@ -18,6 +18,8 @@
     return self;
 }
 - (void)creatUI{
+    
+    self.backgroundColor = [UIColor whiteColor];
     self.iconImg = [Factory creatImageViewWithImage:@"content_img_nothing"];
     self.descLabel = [Factory creatLabelWithText:@"关注你喜欢的球队\n第一时间获取比赛资讯"
                                        fontValue:font750(26)

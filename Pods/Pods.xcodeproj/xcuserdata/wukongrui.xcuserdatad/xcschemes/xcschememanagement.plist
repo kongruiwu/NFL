@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>StreamingKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +57,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>03321B2F8180A4076BB3ACB5CB36ACCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>14AC0EFC9CC77796C956E883B38BF720</key>
+		<key>147E0F4EB02FABB81CAD1042D4D7346A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>394C5F7EAABC94A615729657B790848F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,12 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>904F4F27FD314010A3812EB2A9306183</key>
+		<key>83B1FC0487BE27EE4842674ECE936DDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>97AF23776F6D36F0C60DEA3F9C03063F</key>
+		<key>904F4F27FD314010A3812EB2A9306183</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>ABBA69E2C93CD65DD6954B61306BA4B9</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C7B9118DEB0E84C63833A263C9D0A43E</key>
+		<key>D671E94074574F742AC1D048CA8D1C5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

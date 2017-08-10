@@ -10,4 +10,6 @@
 
 @interface PhotoListViewController : BaseViewController
 
+@property (nonatomic, strong) NSString * type;
+
 @end

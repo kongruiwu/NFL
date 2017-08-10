@@ -11,7 +11,6 @@
 #import "ScheduleViewController.h"
 #import "SelectTimeView.h"
 #import "AttentionteamViewController.h"
-#import "GameDetailsViewController.h"
 
 
 #import "GameDetailTabViewController.h"
@@ -141,7 +140,6 @@
 
 
 - (void)checkWeeksData{
-//    [self.timeView show];
-    [self.navigationController pushViewController:[GameDetailTabViewController new] animated:YES];
+    [self.timeView show];
 }
 @end

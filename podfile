@@ -8,4 +8,8 @@ pod 'SDWebImage'
 pod 'IQKeyboardManager'
 pod 'StreamingKit'
 pod 'ReactiveObjC'
+pod 'UMengUShare/Social/ReducedWeChat'
+pod ‘UMengUShare/Social/ReducedQQ'
+pod ‘UMengUShare/Social/Sina'
+pod ‘SVProgressHUD'
 end

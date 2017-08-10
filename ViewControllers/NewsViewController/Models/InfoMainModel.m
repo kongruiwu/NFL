@@ -30,7 +30,7 @@
             InfoListModel * model = [[InfoListModel alloc]initWithDictionary:list[i]];
             [datas addObject:model];
         }
-        self.list = [NSArray arrayWithArray:datas];
+        self.list = [NSMutableArray arrayWithArray:datas];
     }
     return self;
 }

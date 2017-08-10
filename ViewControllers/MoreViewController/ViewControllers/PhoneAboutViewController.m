@@ -20,12 +20,15 @@
 @property (nonatomic, strong) UITextField * pwdTextF;
 @property (nonatomic, strong) UITextField * checkPwd;
 
-@property (nonatomic, strong) UILabel * errorMessage;
+@property (nonatomic, strong) NSString * errorMessage;
 @property (nonatomic, strong) UIButton * overButton;
 @property (nonatomic, strong) UIButton * getCode;
 
 @property (nonatomic, strong) NSArray * titles;
 @property (nonatomic, strong) NSArray * placeHolders;
+
+@property (nonatomic, strong) NSTimer * timer;
+@property (nonatomic) int time;
 
 @end
 
@@ -74,6 +77,17 @@
 
 
 - (void)creatUI{
+    self.errorMessage = @"";
+    self.time = 60;
+    self.getCode = [Factory creatButtonWithTitle:@"获取验证码"
+                                 backGroundColor:[UIColor clearColor]
+                                       textColor:Color_MainBlue
+                                        textSize:font750(24)];
+    self.getCode.layer.borderColor = Color_MainBlue.CGColor;
+    self.getCode.layer.borderWidth = Anno750(1);
+    self.getCode.layer.cornerRadius = Anno750(8);
+    [self.getCode setTitleColor:Color_LightGray forState:UIControlStateDisabled];
+    [self.getCode addTarget:self action:@selector(getCodeRequest) forControlEvents:UIControlEventTouchUpInside];
     
     self.titles = @[@"手机号",@"验证码",@"用户名",@"原密码",@"新密码",@"确认密码"];
     self.placeHolders = @[@"请输入手机号",@"请输入验证码",@"设置后不可修改，仅能用汉字和数字",@"请设置登录密码",@"请输入新密码",@"请重复输入新密码"];
@@ -127,7 +141,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 6) {
-        return Anno750(40);
+        return self.errorMessage.length > 0 ? Anno750(40) : Anno750(0);
     }
     
     //规则设置
@@ -176,7 +190,7 @@
         if (!cell) {
             cell = [[ErrorMessageCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        
+        cell.descLabel.text = self.errorMessage;
         return cell;
     }
     
@@ -200,6 +214,18 @@
             }else if(self.vcType == ChangeTypeOverThirdInfo){
                 placeHolder = @"可用于找回密码";
             }
+            
+            //添加获取验证码按钮
+            if (self.vcType == ChangeTypeRegister || self.vcType == ChangeTypeOverThirdInfo) {
+                [cell addSubview:self.getCode];
+                [self.getCode mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.equalTo(@(-Anno750(24)));
+                    make.width.equalTo(@(Anno750(160)));
+                    make.height.equalTo(@(Anno750(52)));
+                    make.centerY.equalTo(@0);
+                }];
+            }
+            self.phoneNumber = cell.textField;
         }
             
             break;
@@ -211,6 +237,7 @@
             }else if(self.vcType == ChangeTypeChangePwd || self.vcType == ChangeTypeOverInfo || self.vcType == ChangeTypeFindToChangePwd){
                 cell.hidden =YES;
             }
+            self.codeTextF = cell.textField;
         }
             break;
         case 2:
@@ -221,6 +248,7 @@
                 title = @"用户名";
                 placeHolder = @"设置后不可修改，仅能用汉字和数字";
             }
+            self.nameTextF = cell.textField;
         }
             break;
         case 3:
@@ -231,6 +259,7 @@
                 title = @"原密码";
                 placeHolder = @"请输入原始密码";
             }
+            self.oldPwd = cell.textField;
         }
             break;
         case 4:
@@ -244,6 +273,7 @@
                 title = @"密码";
                 placeHolder = @"请设置登录密码";
             }
+            self.pwdTextF = cell.textField;
         }
             break;
         case 5:
@@ -257,14 +287,77 @@
                 title = @"确认密码";
                 placeHolder = @"请再次输入新密码";
             }
+            self.checkPwd = cell.textField;
         }
             break;
         default:
             break;
     }
-    
-    [cell updateTitle:self.titles[indexPath.row] placeHolder:self.placeHolders[indexPath.row]];
+    title = title.length>0 ? title : self.titles[indexPath.row];
+    placeHolder = placeHolder.length > 0? placeHolder : self.placeHolders[indexPath.row];
+    [cell updateTitle:title placeHolder:placeHolder];
     return cell;
+}
+#pragma mark - 获取验证码
+- (void)getCodeRequest{
+    NSDictionary * params = @{
+                              @"mobile":self.phoneNumber.text,
+                              };
+    [[NetWorkManger manager] sendRequest:PageSendSms route:Route_User withParams:params complete:^(NSDictionary *result) {
+        self.errorMessage = @"";
+        self.getCode.layer.borderColor = Color_LightGray.CGColor;
+        self.getCode.enabled = NO;
+        [self.tabview reloadData];
+        if (self.timer) {
+            [self.timer invalidate];
+            self.timer = nil;
+        }
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(changeButttonTime) userInfo:nil repeats:YES];
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"验证码已发送至您的手机" duration:1.0f];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
+}
+- (void)changeButttonTime{
+    self.time -= 1;
+    if (self.time == 0) {
+        [self.getCode setTitle:@"获取验证码" forState:UIControlStateNormal];
+        self.getCode.enabled = YES;
+        self.getCode.layer.borderColor = Color_MainBlue.CGColor;
+        [self.timer invalidate];
+        self.timer = nil;
+        self.time = 60;
+    }else{
+        [self.getCode setTitle:[NSString stringWithFormat:@"%ds",self.time] forState:UIControlStateNormal];
+    }
+    
+    
+}
+#pragma mark - 注册
+- (void)userRegister{
+
+    
+}
+#pragma mark - 第三方登录注册
+- (void)ThirdLoginRegister{
+    
+    NSDictionary * params = @{
+                              @"type":self.thirdType,
+                              @"openid":self.thirdResp.openid,
+                              @"mobile":self.phoneNumber.text,
+                              @"authcode":self.codeTextF.text,
+                              @"username":self.thirdResp.name,
+                              @"password":self.pwdTextF.text,
+                              @"re_password":self.checkPwd.text
+                              };
+    [[NetWorkManger manager] sendRequest:Page_Oauth route:Route_User withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        [[UserManager manager] updateUserInfo:dic];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 

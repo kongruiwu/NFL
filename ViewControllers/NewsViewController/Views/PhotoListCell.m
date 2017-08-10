@@ -70,5 +70,9 @@
         make.centerX.equalTo(@0);
     }];
 }
-
+- (void)updateWithPhotoSetModel:(PhotoSetModel *)model{
+    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.titleLabel.text = model.title;
+    
+}
 @end

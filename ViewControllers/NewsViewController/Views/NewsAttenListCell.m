@@ -83,7 +83,16 @@
 - (void)updateWithObjectModel:(id)model{
     if ([model isKindOfClass:[VideoListModel class]]) {
         [self updateWithVideoListModel:(VideoListModel *)model];
+    }else if([model isKindOfClass:[InfoListModel class]]){
+        [self updateWithInfoListModel:(InfoListModel *)model];
     }
+}
+- (void)updateWithInfoListModel:(InfoListModel *)model{
+    self.playIcon.hidden = YES;
+    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    self.nameLabel.text = model.title;
+    self.timeLabel.text = model.time;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
 }
 - (void)updateWithVideoListModel:(VideoListModel *)model{
     self.playIcon.hidden = NO;

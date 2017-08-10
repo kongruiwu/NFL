@@ -34,7 +34,9 @@
                                         fontValue:font750(20)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentCenter];
+    self.countLabel.backgroundColor = UIColorFromRGBA(0x000000, 0.7);
     self.countLabel.layer.cornerRadius = Anno750(20);
+    self.countLabel.layer.masksToBounds = YES;
     
     self.whiteView = [Factory creatViewWithColor:[UIColor whiteColor]];
     
@@ -69,8 +71,9 @@
     }];
     
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(@0);
         make.centerY.equalTo(@0);
+        make.left.equalTo(@(Anno750(24)));
+        make.right.equalTo(@(-Anno750(24)));
     }];
     [self.countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(10)));
@@ -93,6 +96,15 @@
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(@0);
     }];
+    
+}
+
+- (void)updateWithPhotoListModel:(PhotoListModel *)model{
+    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holderZ"]];
+    self.nameLabel.text = model.title;
+    self.timelabel.text = model.time;
+    [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.countLabel.text = [NSString stringWithFormat:@"%@张",model.num];
 }
 
 @end
@@ -122,10 +134,40 @@
     self.backgroundColor = Color_BackGround;
     self.leftView = [[PhotoSubListView alloc]initWithFrame:CGRectMake(0, 0, Anno750(365), Anno750(430))];
     self.rightView = [[PhotoSubListView alloc]initWithFrame:CGRectMake(Anno750(385), 0, Anno750(365), Anno750(430))];
+    self.leftButton = [Factory creatButtonWithNormalImage:@"" selectImage:@""];
+    self.rightButton =[Factory creatButtonWithNormalImage:@"" selectImage:@""];
+    
+    self.leftButton.frame = CGRectMake(0, 0, Anno750(365), Anno750(365));
+    self.rightButton.frame = CGRectMake(Anno750(385), 0, Anno750(365), Anno750(365));
+    
+    [self.leftButton addTarget:self action:@selector(leftButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightButton addTarget:self action:@selector(rightButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.leftView];
     [self addSubview:self.rightView];
+    [self addSubview:self.leftButton];
+    [self addSubview:self.rightButton];
 }
 
+- (void)leftButtonClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(checkLeftPhotos:)]) {
+        [self.delegate checkLeftPhotos:btn];
+    }
+}
+- (void)rightButtonClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(checkRightPhotos:)]) {
+        [self.delegate checkRightPhotos:btn];
+    }
+}
 
+- (void)updateWithLeftModel:(PhotoListModel *)leftm rightModel:(id)rightm{
+    [self.leftView updateWithPhotoListModel:leftm];
+    if (rightm) {
+        self.rightView.hidden = NO;
+        PhotoListModel * model = (PhotoListModel *)rightm;
+        [self.rightView updateWithPhotoListModel:model];
+    }else{
+        self.rightView.hidden = YES;
+    }
+}
 @end

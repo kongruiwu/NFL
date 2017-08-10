@@ -17,8 +17,10 @@
 @property (nonatomic, strong) UILabel * descLabel;
 @property (nonatomic, strong) UIImageView * editImage;
 @property (nonatomic, strong) UILabel * editLabel;
-
+@property (nonatomic, strong) UIImageView * teamIcon;
 
 @property (nonatomic, strong) UIButton * clearButton;
 
+
+- (void)updateUIbyUserInfo;
 @end

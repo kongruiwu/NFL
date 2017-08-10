@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSString * time;
 /**收藏数*/
 @property (nonatomic, strong) NSNumber * collect_num;
-/**需要传递到下一界面*/
+/**新闻链接*/
 @property (nonatomic, strong) NSString * app_iframe;
 /**分享链接*/
 @property (nonatomic, strong) NSString * share_link;

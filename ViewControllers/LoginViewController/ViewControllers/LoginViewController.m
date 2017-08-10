@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "PhoneAboutViewController.h"
+#import <UMSocialCore/UMSocialCore.h>
 @interface LoginViewController ()
 
 @property (nonatomic, strong) UITextField * phoneNum;
@@ -67,6 +68,9 @@
     UIButton * wehcatBtn = [Factory creatButtonWithNormalImage:@"login_icon_wechat" selectImage:@""];
     UIButton * QQbtn = [Factory creatButtonWithNormalImage:@"login_icon_qq" selectImage:@""];
     UIButton * weiBoBtn = [Factory creatButtonWithNormalImage:@"login_icon_weibo" selectImage:@""];
+    [wehcatBtn addTarget:self action:@selector(WeChatLoginRequest) forControlEvents:UIControlEventTouchUpInside];
+    [QQbtn addTarget:self action:@selector(QQloginRequest) forControlEvents:UIControlEventTouchUpInside];
+    [weiBoBtn addTarget:self action:@selector(SinaLoginRequest) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton * protocolBtn = [Factory creatButtonWithTitle:@"登录即表示你同意NFL中国《用户使用协议》"
                                            backGroundColor:[UIColor clearColor]
@@ -195,5 +199,55 @@
     PhoneAboutViewController * vc = [[PhoneAboutViewController alloc]initWithType:ChangeTypeRegister];
     [self.navigationController pushViewController:vc animated:YES];
 }
+#pragma mark - 三方登录
+- (void)QQloginRequest{
+    [self getUserInfoForPlatform:UMSocialPlatformType_QQ];
+}
+- (void)WeChatLoginRequest{
+    [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession];
+}
+- (void)SinaLoginRequest{
+    [self getUserInfoForPlatform:UMSocialPlatformType_Sina];
+}
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
+        if (error && error.description.length>0) {
+            return ;
+        }
+        NSLog(@"%@",result);
+        NSString * type;
+        UMSocialUserInfoResponse * resp = result;
+        if (platformType == UMSocialPlatformType_QQ) {
+            type = @"qq";
+        }else if(platformType == UMSocialPlatformType_WechatSession){
+            type = @"weixin";
+        }else if(platformType == UMSocialPlatformType_Sina){
+            type = @"weibo";
+        }
+        
+        
+        NSDictionary * params = @{
+                                  @"type":type,
+                                  @"openid":resp.openid,
+                                  };
+        [[NetWorkManger manager] sendRequest:Page_CheckOauth route:Route_User withParams:params complete:^(NSDictionary *result) {
+            NSDictionary * dic = result[@"data"];
+            [[UserManager manager] updateUserInfo:dic];
+            [self doBack];
+        } error:^(NFError *byerror) {
+            if ([byerror.errorCode isEqualToString:@"-1"] || [byerror.errorCode isEqualToString:@"-2"]) {
+                PhoneAboutViewController * vc = [[PhoneAboutViewController alloc]initWithType:ChangeTypeOverThirdInfo];
+                vc.thirdType = type;
+                vc.thirdResp = resp;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else{
+                [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"网络错误，请重试" duration:1.0f];
+            }
+        }];
+    }];
+}
+#pragma mark
+
 
 @end

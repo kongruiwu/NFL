@@ -32,7 +32,7 @@
 }
 - (void)creatUI{
     self.backgroundColor = Color_BackGround;
-    self.descLabel = [Factory creatLabelWithText:@"用户名重复，请重新设置"
+    self.descLabel = [Factory creatLabelWithText:@""
                                        fontValue:font750(24)
                                        textColor:UIColorFromRGB(0xE31837)
                                    textAlignment:NSTextAlignmentRight];
