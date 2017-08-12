@@ -48,7 +48,7 @@
     [self addSubview:self.nameLabel];
     [self addSubview:self.timeLabel];
     [self addSubview:self.likeBtn];
-    [self addSubview:self.playIcon];
+    [self.topImg addSubview:self.playIcon];
     
 }
 - (void)layoutSubviews{

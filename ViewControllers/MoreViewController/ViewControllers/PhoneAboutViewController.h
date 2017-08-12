@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, ChangeType){
 
 @property (nonatomic, assign) ChangeType vcType;
 @property (nonatomic, strong) NSString * thirdType;
+@property (nonatomic, strong) NSString * phoneNumerstr;
 @property (nonatomic, strong) UMSocialUserInfoResponse * thirdResp;
 
 - (instancetype)initWithType:(ChangeType)changeType;

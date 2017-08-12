@@ -30,9 +30,9 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 };
 
 
-#define UmengKey    @"556fb9bf67e58e92cf001646"
-#define WxAppID     @"wxe74f684db173a3a1"
-#define WxAppSecret @"d6f483f6a1fc95064a4bba7f88642c56"
+#define UmengKey    @"54816a19fd98c5af9b001088"
+#define WxAppID     @"wx39c19501fef6c3cb"
+#define WxAppSecret @"40e72dd216b234ff249be91fe7538d4f"
 #define QQAPPID     @"1106241047"
 #define QQAPPKEY    @"opDdDWSqNTQkV6k1"
 #define SINAAPPKEY  @"871709740"
@@ -62,6 +62,7 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 
 
 #define Color_MainBlue          UIColorFromRGB(0x003D79)
+#define Color_alphaBlue         UIColorFromRGBA(0x003D79,0.8)
 #define Color_LightGray         UIColorFromRGB(0x999999)
 #define Color_MainRed           UIColorFromRGB(0xE31837)
 #define Color_DarkGray          UIColorFromRGB(0x666666)

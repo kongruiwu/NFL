@@ -135,7 +135,11 @@
     return confromTimespStr;
     
 }
-
++ (NSString *)changePhoneString:(NSString *)phone{
+    NSMutableString * str = [NSMutableString stringWithString:phone];
+    [str replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+    return str;
+}
 
 /**UITextField*/
 + (UITextField *)creatTextFiledWithPlaceHold:(NSString *)placeHold{

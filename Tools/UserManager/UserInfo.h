@@ -13,7 +13,7 @@
 @property (nonatomic, strong) NSNumber * uid;
 /**类似token  验证*/
 @property (nonatomic, strong) NSString * callback_verify;
-/**类似token  验证*/
+/**天天nfl使用*/
 @property (nonatomic, strong) NSString * callback_verify_ttnfl;
 /**用户名*/
 @property (nonatomic, strong) NSString * username;

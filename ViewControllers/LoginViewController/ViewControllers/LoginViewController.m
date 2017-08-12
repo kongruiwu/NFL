@@ -43,13 +43,18 @@
                                        textAlignment:NSTextAlignmentLeft];
     self.phoneNum = [Factory creatTextFiledWithPlaceHold:@"用户名/手机号"];
     self.pwdTF = [Factory creatTextFiledWithPlaceHold:@"请输入登录密码"];
+    [self.phoneNum addTarget:self action:@selector(textFieldChaged:) forControlEvents:UIControlEventEditingChanged];
+    [self.pwdTF addTarget:self action:@selector(textFieldChaged:) forControlEvents:UIControlEventEditingChanged];
     UIView * line = [Factory creatLineView];
+    self.pwdTF.secureTextEntry = YES;
     
     self.loginBtn = [Factory creatButtonWithTitle:@"登录"
-                                  backGroundColor:Color_MainBlue
+                                  backGroundColor:Color_alphaBlue
                                         textColor:[UIColor whiteColor]
                                          textSize:font750(34)];
     self.loginBtn.layer.cornerRadius = Anno750(8);
+    self.loginBtn.enabled = NO;
+    [self.loginBtn addTarget:self action:@selector(userLogin) forControlEvents:UIControlEventTouchUpInside];
     
     self.regisBtn = [Factory creatButtonWithTitle:@"注册帐号"
                                   backGroundColor:[UIColor clearColor]
@@ -215,7 +220,6 @@
         if (error && error.description.length>0) {
             return ;
         }
-        NSLog(@"%@",result);
         NSString * type;
         UMSocialUserInfoResponse * resp = result;
         if (platformType == UMSocialPlatformType_QQ) {
@@ -225,7 +229,6 @@
         }else if(platformType == UMSocialPlatformType_Sina){
             type = @"weibo";
         }
-        
         
         NSDictionary * params = @{
                                   @"type":type,
@@ -247,7 +250,29 @@
         }];
     }];
 }
-#pragma mark
-
+#pragma mark - 手机登录
+- (void)userLogin{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"username":self.phoneNum.text,
+                              @"password":self.pwdTF.text
+                              };
+    [[NetWorkManger manager] sendRequest:PageLogin route:Route_User withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        [[UserManager manager] updateUserInfo:dic];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
+- (void)textFieldChaged:(UITextField *)textf{
+    if (self.phoneNum.text.length >= 4 && self.pwdTF.text.length >= 4) {
+        self.loginBtn.enabled =YES;
+        self.loginBtn.backgroundColor = Color_MainBlue;
+    }else{
+        self.loginBtn.enabled = NO;
+        self.loginBtn.backgroundColor = Color_alphaBlue;
+    }
+}
 
 @end

@@ -108,9 +108,9 @@
     self.nameLabel.text = [UserManager manager].isLogin ? [UserManager manager].info.username : @"";
     self.descLabel.text = [UserManager manager].isLogin ? @"城市 · 性别" : @"";
     self.editImage.hidden = ![UserManager manager].isLogin;
-    if ([UserManager manager].isLogin) {
-        [self.editImage setImage:[UIImage imageNamed:@""]];
-    }
+//    if ([UserManager manager].isLogin) {
+//        [self.teamIcon setImage:[UIImage imageNamed:@""]];
+//    }
 }
 
 

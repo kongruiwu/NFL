@@ -65,7 +65,7 @@
             title = @"注册";
             break;
         case ChangeTypeFindPwd:
-            title = @"修改密码";
+            title = @"找回密码";
             break;
         default:
             break;
@@ -122,10 +122,12 @@
             break;
     }
     self.overButton = [Factory creatButtonWithTitle:title
-                                    backGroundColor:Color_MainBlue
+                                    backGroundColor:Color_alphaBlue
                                           textColor:[UIColor whiteColor]
                                            textSize:font750(34)];
     self.overButton.layer.cornerRadius = Anno750(8);
+    self.overButton.enabled = NO;
+    [self.overButton addTarget:self action:@selector(SureButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [footer addSubview:self.overButton];
     [self.overButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(@0);
@@ -177,7 +179,14 @@
         {
             return indexPath.row == 3 ? 0 : Anno750(100);
         }
-        
+        case ChangeTypeFindToChangePwd:
+        {
+            if (indexPath.row == 4 || indexPath.row == 5) {
+                return Anno750(100);
+            }else{
+                return 0;
+            }
+        }
         default:
             return 0;
     }
@@ -205,18 +214,21 @@
         case 0:
         {
             title = @"手机号";
-            if (self.vcType == ChangeTypeBindPhone || self.vcType == ChangeTypeRegister) {
+            if (self.vcType == ChangeTypeBindPhone || self.vcType == ChangeTypeRegister || self.vcType == ChangeTypeFindPwd) {
                 placeHolder = @"请输入手机号";
-            }else if(self.vcType == ChangeTypeChangePhone || self.vcType == ChangeTypeOverInfo || self.vcType == ChangeTypeFindPwd){
+            }else if(self.vcType == ChangeTypeChangePhone ){
                 placeHolder = @"173****8962";
             }else if(self.vcType == ChangeTypeChangePwd || self.vcType == ChangeTypeFindToChangePwd){
                 cell.hidden =YES;
             }else if(self.vcType == ChangeTypeOverThirdInfo){
                 placeHolder = @"可用于找回密码";
+            }else if(self.vcType == ChangeTypeOverInfo){
+                cell.textField.text = [Factory changePhoneString:self.phoneNumerstr];
+                cell.textField.enabled = NO;
             }
             
             //添加获取验证码按钮
-            if (self.vcType == ChangeTypeRegister || self.vcType == ChangeTypeOverThirdInfo) {
+            if (self.vcType == ChangeTypeRegister || self.vcType == ChangeTypeOverThirdInfo || self.vcType == ChangeTypeFindPwd) {
                 [cell addSubview:self.getCode];
                 [self.getCode mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.right.equalTo(@(-Anno750(24)));
@@ -259,6 +271,7 @@
                 title = @"原密码";
                 placeHolder = @"请输入原始密码";
             }
+            cell.textField.secureTextEntry = YES;
             self.oldPwd = cell.textField;
         }
             break;
@@ -273,6 +286,7 @@
                 title = @"密码";
                 placeHolder = @"请设置登录密码";
             }
+            cell.textField.secureTextEntry = YES;
             self.pwdTextF = cell.textField;
         }
             break;
@@ -287,6 +301,7 @@
                 title = @"确认密码";
                 placeHolder = @"请再次输入新密码";
             }
+            cell.textField.secureTextEntry = YES;
             self.checkPwd = cell.textField;
         }
             break;
@@ -296,14 +311,60 @@
     title = title.length>0 ? title : self.titles[indexPath.row];
     placeHolder = placeHolder.length > 0? placeHolder : self.placeHolders[indexPath.row];
     [cell updateTitle:title placeHolder:placeHolder];
+    [cell.textField addTarget:self action:@selector(textFieldchanged) forControlEvents:UIControlEventEditingChanged];
     return cell;
 }
+- (void)textFieldchanged{
+    if (self.vcType == ChangeTypeOverThirdInfo) {
+        if (self.phoneNumber.text.length >= 4 && self.codeTextF.text.length >= 4 && self.pwdTextF.text.length >= 6 && self.checkPwd.text.length >= 6) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
+    }else if(self.vcType == ChangeTypeRegister){
+        if (self.phoneNumber.text.length >= 4 && self.codeTextF.text.length >= 4) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
+    }else if(self.vcType == ChangeTypeOverInfo){
+        if (self.nameTextF.text.length> 2 && self.pwdTextF.text.length >= 6 && self.checkPwd.text.length >= 6) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
+    }else if(self.vcType == ChangeTypeFindPwd){
+        if (self.phoneNumber.text.length >= 11 && self.codeTextF.text.length >= 4) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
+    }else if(self.vcType == ChangeTypeFindToChangePwd){
+        if (self.pwdTextF.text.length >= 6 && self.checkPwd.text.length >= 6) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
+    }
+}
+
 #pragma mark - 获取验证码
 - (void)getCodeRequest{
+    [SVProgressHUD show];
     NSDictionary * params = @{
                               @"mobile":self.phoneNumber.text,
                               };
-    [[NetWorkManger manager] sendRequest:PageSendSms route:Route_User withParams:params complete:^(NSDictionary *result) {
+    [[NetWorkManger manager] sendRequest:PageSendSms route:Route_Set withParams:params complete:^(NSDictionary *result) {
         self.errorMessage = @"";
         self.getCode.layer.borderColor = Color_LightGray.CGColor;
         self.getCode.enabled = NO;
@@ -331,17 +392,97 @@
     }else{
         [self.getCode setTitle:[NSString stringWithFormat:@"%ds",self.time] forState:UIControlStateNormal];
     }
-    
-    
 }
+#pragma mark - 确认
+- (void)SureButtonClick{
+    if (self.vcType == ChangeTypeOverThirdInfo) {
+        [self ThirdLoginRegister];
+    }else if(self.vcType == ChangeTypeRegister){
+        [self userRegister];
+    }else if(self.vcType == ChangeTypeOverInfo){
+        [self userOverMobileInfo];
+    }else if(self.vcType == ChangeTypeFindPwd){
+        [self forgotPwdRequest];
+    }else if(self.vcType == ChangeTypeFindToChangePwd){
+        [self getPwdRequest];
+    }
+}
+
 #pragma mark - 注册
 - (void)userRegister{
-
-    
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"mobile":self.phoneNumber.text,
+                              @"authcode":self.codeTextF.text,
+                              };
+    [[NetWorkManger manager] sendRequest:Page_MobRegister route:Route_User withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        [[UserManager manager] updateInfoByEditstatus:dic];
+        PhoneAboutViewController * vc = [[PhoneAboutViewController alloc]initWithType:ChangeTypeOverInfo];
+        vc.phoneNumerstr = self.phoneNumber.text;
+        [self.navigationController pushViewController:vc animated:YES];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
 }
+#pragma mark - 手机用户注册信息完善
+- (void)userOverMobileInfo{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"username":self.nameTextF.text,
+                              @"password":self.pwdTextF.text,
+                              @"re_password":self.checkPwd.text,
+                              @"uid":[UserManager manager].userID,
+                              @"callback_verify":[UserManager manager].info.callback_verify,
+                              };
+    [[NetWorkManger manager] sendRequest:Page_MobOverInfo route:Route_User withParams:params complete:^(NSDictionary *result) {
+        //清空userid
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"注册成功" duration:2.0f];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
+}
+#pragma mark - 忘记密码
+- (void)forgotPwdRequest{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"mobile":self.phoneNumber.text,
+                              @"authcode":self.codeTextF.text,
+                              };
+    [[NetWorkManger manager] sendRequest:Pagerepwd route:Route_User withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        [[UserManager manager] updateInfoByEditstatus:dic];
+        PhoneAboutViewController * vc = [[PhoneAboutViewController alloc]initWithType:ChangeTypeFindToChangePwd];
+        [self.navigationController pushViewController:vc animated:YES];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
+}
+#pragma mark - 忘记密码 找回密码
+- (void)getPwdRequest{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"callback_verify":[UserManager manager].info.callback_verify,
+                              @"password":self.pwdTextF.text,
+                              @"re_password":self.checkPwd.text
+                              };
+    [[NetWorkManger manager] sendRequest:PageNewPwd route:Route_User withParams:params complete:^(NSDictionary *result) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"修改成功，请重新登录" duration:2.0f];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
+}
+
 #pragma mark - 第三方登录注册
 - (void)ThirdLoginRegister{
-    
+    [SVProgressHUD show];
     NSDictionary * params = @{
                               @"type":self.thirdType,
                               @"openid":self.thirdResp.openid,
@@ -353,12 +494,14 @@
                               };
     [[NetWorkManger manager] sendRequest:Page_Oauth route:Route_User withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
-        [[UserManager manager] updateUserInfo:dic];
+        [[UserManager manager] updateInfoByEditstatus:dic];
         [self dismissViewControllerAnimated:YES completion:nil];
     } error:^(NFError *byerror) {
-        
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
     }];
 }
+
 
 
 @end

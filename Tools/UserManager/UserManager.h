@@ -19,5 +19,6 @@
 
 + (instancetype)manager;
 - (void)updateUserInfo:(NSDictionary *)dic;
+- (void)updateInfoByEditstatus:(NSDictionary *)dic;
 - (void)userLogOut;
 @end

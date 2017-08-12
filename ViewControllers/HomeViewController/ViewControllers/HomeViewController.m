@@ -140,6 +140,7 @@
 
 
 - (void)checkWeeksData{
-    [self.timeView show];
+//    [self.timeView show];
+    [self.navigationController pushViewController:[GameDetailTabViewController new] animated:YES];
 }
 @end

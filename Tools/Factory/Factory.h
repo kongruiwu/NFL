@@ -34,4 +34,6 @@
 + (CGSize)getSize:(NSMutableAttributedString *)attributes maxSize:(CGSize)maxSize;
 
 + (UITextField *)creatTextFiledWithPlaceHold:(NSString *)placeHold;
+
++ (NSString *)changePhoneString:(NSString *)phone;
 @end

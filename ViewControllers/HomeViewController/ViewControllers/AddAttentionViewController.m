@@ -17,6 +17,11 @@
 
 @implementation AddAttentionViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"添加关注"];
@@ -25,7 +30,7 @@
     
 }
 - (void)creatUI{
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
     self.header = [Factory creatLabelWithText:@"我的关注(0)"

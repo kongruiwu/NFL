@@ -39,6 +39,13 @@
 - (void)userLogOut{
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"userid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    self.userID = nil;
+    self.info = nil;
     self.isLogin = NO;
+}
+/**这里是用来保存 用户在编辑帐号信息时使用*/
+- (void)updateInfoByEditstatus:(NSDictionary *)dic{
+    self.info = [[UserInfo alloc]initWithDictionary:dic];
+    self.userID = self.info.uid;
 }
 @end

@@ -57,6 +57,7 @@
                                             textColor:[UIColor whiteColor]
                                              textSize:font750(32)];
     logout.layer.cornerRadius = Anno750(8);
+    [logout addTarget:self action:@selector(userLogout) forControlEvents:UIControlEventTouchUpInside];
     [footer addSubview:logout];
     [logout mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(24)));
@@ -230,11 +231,22 @@
     CGFloat targetWidth = ISWho? width*UI_WIDTH/height:UI_WIDTH;
     CGFloat targetHeight =  ISWho?UI_WIDTH: UI_WIDTH*height/width;
     UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight));
-    [sourceImage drawInRect:CGRectMake(0,0,targetWidth,  targetHeight)];
+    [sourceImage drawInRect:CGRectMake(0,0,targetWidth, targetHeight)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
 }
-
+- (void)userLogout{
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出登录么？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UserManager manager] userLogOut];
+        [self doBack];
+    }];
+    UIAlertAction *cannce = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleCancel) handler:nil];
+    [alert addAction:sure];
+    [alert addAction:cannce];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
 
 @end

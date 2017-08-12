@@ -94,8 +94,9 @@
 }
 - (void)addAttentionTeam{
     if ([UserManager manager].isLogin) {
-        
+        [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];
     }else{
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"你还没有登录，请先登录" duration:2.0f];
         LoginViewController * vc = [[LoginViewController alloc]init];
         UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
         [self presentViewController:nav animated:YES completion:nil];

@@ -37,10 +37,19 @@
 #define Page_Oauth          @"oauth_info"
 //检测三方帐号是否注册
 #define Page_CheckOauth     @"check_oauth"
-
+//手机注册
+#define Page_MobRegister    @"mobile_register"
+//手机注册信息完善
+#define Page_MobOverInfo    @"mobile_register_info"
 //设置
 #define Route_Set           @"setting2017"
 //发送验证码
 #define PageSendSms         @"send_sms"
+//用户登录
+#define PageLogin           @"login"
+//找回密码
+#define Pagerepwd           @"repwd"
+//忘记密码 填写新密码
+#define PageNewPwd          @"repwd_new"
 
 #endif /* API_h */

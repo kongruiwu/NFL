@@ -19,15 +19,15 @@
 }
 - (void)creatUI{
     self.backgroundColor = UIColorFromRGBA(0x000000, 0.7);
-    self.countLabel = [Factory creatLabelWithText:@"1/30"
+    self.countLabel = [Factory creatLabelWithText:@""
                                         fontValue:font750(24)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentLeft];
-    self.titleLabel = [Factory creatLabelWithText:@"1/15  爱国者13-21德州人"
+    self.titleLabel = [Factory creatLabelWithText:@""
                                         fontValue:font750(32)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentLeft];
-    self.descLabel = [Factory creatLabelWithText:@"奥克兰突袭者防守端锋詹姆斯-考瑟是个中国通，不仅球迷们喜欢他，上海人民广场相亲角的大叔大妈们也都很喜欢他。"
+    self.descLabel = [Factory creatLabelWithText:@""
                                        fontValue:font750(24)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentLeft];

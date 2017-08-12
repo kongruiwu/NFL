@@ -13,6 +13,8 @@
 		8B169A8C1F340D4F00E2507E /* GameScoreDescCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B169A8B1F340D4F00E2507E /* GameScoreDescCell.m */; };
 		8B169A8F1F34163300E2507E /* TeamDataProgressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B169A8E1F34163300E2507E /* TeamDataProgressCell.m */; };
 		8B169A931F343E0500E2507E /* DataTeamTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B169A921F343E0500E2507E /* DataTeamTitleCell.m */; };
+		8B1A223A1F3EA8CC00F5E8E2 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A22391F3EA8CC00F5E8E2 /* VideoPlayer.m */; };
+		8B1A223D1F3EF04C00F5E8E2 /* VideoPlayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A223C1F3EF04C00F5E8E2 /* VideoPlayCell.m */; };
 		8B2A4C041F31984600A36D79 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C031F31984600A36D79 /* FeedBackViewController.m */; };
 		8B2A4C071F31A0B800A36D79 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C061F31A0B800A36D79 /* SettingViewController.m */; };
 		8B2A4C0A1F31A1E300A36D79 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C091F31A1E300A36D79 /* SettingTableViewCell.m */; };
@@ -45,6 +47,7 @@
 		8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */; };
 		8B4AB0991F3C9EBA0069E31B /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB0981F3C9EBA0069E31B /* UserManager.m */; };
 		8B4AB09C1F3C9ECB0069E31B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB09B1F3C9ECB0069E31B /* UserInfo.m */; };
+		8B4AB09F1F3D48FD0069E31B /* VideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */; };
 		8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5507B11F1B59070079B3C0 /* TeamDataView.m */; };
 		8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1A1F2C2A50009FF50D /* UserInfoViewController.m */; };
 		8B70AD1E1F2C2DFA009FF50D /* UserInfoSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1D1F2C2DFA009FF50D /* UserInfoSettingCell.m */; };
@@ -158,6 +161,10 @@
 		8B169A8E1F34163300E2507E /* TeamDataProgressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataProgressCell.m; sourceTree = "<group>"; };
 		8B169A911F343E0500E2507E /* DataTeamTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTeamTitleCell.h; sourceTree = "<group>"; };
 		8B169A921F343E0500E2507E /* DataTeamTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTeamTitleCell.m; sourceTree = "<group>"; };
+		8B1A22381F3EA8CC00F5E8E2 /* VideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayer.h; sourceTree = "<group>"; };
+		8B1A22391F3EA8CC00F5E8E2 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayer.m; sourceTree = "<group>"; };
+		8B1A223B1F3EF04C00F5E8E2 /* VideoPlayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayCell.h; sourceTree = "<group>"; };
+		8B1A223C1F3EF04C00F5E8E2 /* VideoPlayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCell.m; sourceTree = "<group>"; };
 		8B2A4C021F31984600A36D79 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		8B2A4C031F31984600A36D79 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		8B2A4C051F31A0B800A36D79 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -221,6 +228,8 @@
 		8B4AB0981F3C9EBA0069E31B /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		8B4AB09A1F3C9ECB0069E31B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		8B4AB09B1F3C9ECB0069E31B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
+		8B4AB09D1F3D48FD0069E31B /* VideoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayViewController.h; sourceTree = "<group>"; };
+		8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayViewController.m; sourceTree = "<group>"; };
 		8B5507B01F1B59070079B3C0 /* TeamDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataView.h; sourceTree = "<group>"; };
 		8B5507B11F1B59070079B3C0 /* TeamDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataView.m; sourceTree = "<group>"; };
 		8B70AD191F2C2A50009FF50D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewController.h; path = ../Views/UserInfoViewController.h; sourceTree = "<group>"; };
@@ -440,6 +449,15 @@
 			name = GameDataCell;
 			sourceTree = "<group>";
 		};
+		8B1A22371F3EA84800F5E8E2 /* videoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				8B1A22381F3EA8CC00F5E8E2 /* VideoPlayer.h */,
+				8B1A22391F3EA8CC00F5E8E2 /* VideoPlayer.m */,
+			);
+			path = videoPlayer;
+			sourceTree = "<group>";
+		};
 		8B2D73451F0AA2E200E1BF4B = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +550,7 @@
 		8B2D73A61F0BD55B00E1BF4B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8B1A22371F3EA84800F5E8E2 /* videoPlayer */,
 				8B4AB0961F3C9EAA0069E31B /* UserManager */,
 				8B71354E1F3C4EF9009A003F /* LoaingView */,
 				8BF494721F394F6900D40727 /* DeviceTool */,
@@ -808,6 +827,8 @@
 				8B70AD411F2C868B009FF50D /* SubVideoViewController.m */,
 				8BD6769C1F2EB9DA00B42497 /* VideoDetailViewController.h */,
 				8BD6769D1F2EB9DA00B42497 /* VideoDetailViewController.m */,
+				8B4AB09D1F3D48FD0069E31B /* VideoPlayViewController.h */,
+				8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -817,6 +838,8 @@
 			children = (
 				8BD6769F1F2EBF5200B42497 /* VideoHeadCell.h */,
 				8BD676A01F2EBF5200B42497 /* VideoHeadCell.m */,
+				8B1A223B1F3EF04C00F5E8E2 /* VideoPlayCell.h */,
+				8B1A223C1F3EF04C00F5E8E2 /* VideoPlayCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1097,8 +1120,8 @@
 				TargetAttributes = {
 					8B2D734D1F0AA2E200E1BF4B = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = NB2DZJ5Z8T;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = JY5X7GG4HU;
+						ProvisioningStyle = Automatic;
 					};
 					8B2D73661F0AA2E300E1BF4B = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1239,6 +1262,7 @@
 				8B70AD301F2C669D009FF50D /* LikeButton.m in Sources */,
 				8BC44D9C1F30804A00639881 /* RightTalkCell.m in Sources */,
 				8B2D73C41F0BD55B00E1BF4B /* ToastView.m in Sources */,
+				8B4AB09F1F3D48FD0069E31B /* VideoPlayViewController.m in Sources */,
 				8BD676BC1F2F185400B42497 /* UIImage+ImageFilter.m in Sources */,
 				8B9B9EF11F13AE62004A2283 /* AttentionteamViewController.m in Sources */,
 				8B7135581F3C5868009A003F /* NullView.m in Sources */,
@@ -1251,6 +1275,7 @@
 				8BB63C2F1F36BD8B00B0631B /* GameBassViewController.m in Sources */,
 				8B9ACB5F1F26389C005772ED /* TeamerRankCollectionViewCell.m in Sources */,
 				8B93DA9D1F2AD4740087988D /* SubTeamRankCell.m in Sources */,
+				8B1A223A1F3EA8CC00F5E8E2 /* VideoPlayer.m in Sources */,
 				8B70AD421F2C868B009FF50D /* SubVideoViewController.m in Sources */,
 				8B2A4C0A1F31A1E300A36D79 /* SettingTableViewCell.m in Sources */,
 				8B71355C1F3C5FF3009A003F /* WKWebViewController.m in Sources */,
@@ -1302,6 +1327,7 @@
 				8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */,
 				8B70AD241F2C4589009FF50D /* PhotosViewController.m in Sources */,
 				8BD676A81F2ECE9600B42497 /* ShareModel.m in Sources */,
+				8B1A223D1F3EF04C00F5E8E2 /* VideoPlayCell.m in Sources */,
 				8BF4946D1F394EE100D40727 /* NetWorkManger.m in Sources */,
 				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
 				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
@@ -1467,14 +1493,15 @@
 			baseConfigurationReference = CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = NB2DZJ5Z8T;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.fcb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.nfl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "063b6090-2dde-4447-b703-d30f14b9ce1e";
-				PROVISIONING_PROFILE_SPECIFIER = test;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1483,15 +1510,15 @@
 			baseConfigurationReference = DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = NB2DZJ5Z8T;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.fcb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hupu.nfl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "03aef3e6-80a0-4643-ace2-97611456f70c";
-				PROVISIONING_PROFILE_SPECIFIER = hupudistribution;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

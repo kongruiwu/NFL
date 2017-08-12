@@ -7,13 +7,21 @@
 //
 
 #import "SubVideoViewController.h"
-#import "NewsAttenListCell.h"
+#import "VideoPlayCell.h"
 #import "VideoDetailViewController.h"
 #import "VideoListModel.h"
+#import "VideoPlayViewController.h"
+
+#import <AVFoundation/AVFoundation.h>
+
 @interface SubVideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray<VideoListModel *> * dataArray;
 @property (nonatomic, strong) UITableView * tabview;
+@property (nonatomic) NSInteger index;
+@property (nonatomic, strong) AVPlayer * player;
+@property (nonatomic, strong) AVPlayerLayer * playLayer;
+
 @end
 
 @implementation SubVideoViewController
@@ -25,6 +33,7 @@
     [self getData];
 }
 - (void)creatUI{
+    
     self.dataArray = [[NSMutableArray alloc]init];
     
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64- Anno750(80)) style:UITableViewStyleGrouped delegate:self];
@@ -55,18 +64,23 @@
     return Anno750(20);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString * cellid = @"NewsAttenListCell";
-    NewsAttenListCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+    static NSString * cellid = @"VideoPlayCell";
+    VideoPlayCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
-        cell = [[NewsAttenListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell = [[VideoPlayCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    [cell updateWithObjectModel:self.dataArray[indexPath.section]];
+    [cell updateWithVideoListModel:self.dataArray[indexPath.section]];
     return cell;
 }
+
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    VideoDetailViewController * vc = [VideoDetailViewController new];
-    vc.videoID = self.dataArray[indexPath.section].id;
-    [self.navigationController pushViewController:vc animated:YES];
+    VideoPlayViewController * video = [[VideoPlayViewController alloc]initWithUrl:[NSURL URLWithString:self.dataArray[indexPath.section].src]];
+    [self presentViewController:video animated:YES completion:nil];
+//    VideoDetailViewController * vc = [VideoDetailViewController new];
+//    vc.videoID = self.dataArray[indexPath.section].id;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)refreshData{
     [self.dataArray removeAllObjects];
@@ -127,5 +141,6 @@
         [self.refreshFooter endRefreshing];
     }];
 }
+
 
 @end

@@ -21,7 +21,7 @@
     
     self.topImg = [Factory creatImageViewWithImage:@"list_img_Journalism1"];
     
-    self.grayView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.5)];
+    self.grayView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.3)];
     
     self.nameLabel = [Factory creatLabelWithText:@"詹姆斯-考瑟:\n在中国做着很酷的事"
                                        fontValue:font750(36)
