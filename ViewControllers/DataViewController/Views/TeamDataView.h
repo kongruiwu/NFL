@@ -34,4 +34,9 @@
 @property (nonatomic, strong) UILabel * redDesc;
 @property (nonatomic, strong) UILabel * blueDesc;
 
+@property (nonatomic, strong) NSMutableArray * rankLabels;
+@property (nonatomic, strong) NSMutableArray * points;
+
+- (void)updateWithValues:(NSArray *)arr;
+
 @end

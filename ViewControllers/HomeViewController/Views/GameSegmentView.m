@@ -25,7 +25,7 @@
     
     self.segmentView.titleTextAttributes = @{
                                              NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
-                                             NSForegroundColorAttributeName : UIColorFromRGBA(0xFFFFFF, 0.5)};
+                                             NSForegroundColorAttributeName : Color_White_5};
     self.segmentView.selectedTitleTextAttributes = @{
                                                      NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
                                                      NSForegroundColorAttributeName : [UIColor whiteColor]};
@@ -40,21 +40,14 @@
     [self addSubview:self.groundImg];
     [self addSubview:self.segmentView];
     
-    /**
-     @property (nonatomic, strong) UIImageView * leftImg;
-     @property (nonatomic, strong) UIImageView * rightImg;
-     @property (nonatomic, strong) UILabel * leftScore;
-     @property (nonatomic, strong) UILabel * rightScore;
-     @property (nonatomic, strong) UIView * lineView;
-     */
     self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_49ren"];
     self.rightImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
     self.leftScore = [Factory creatLabelWithText:@"13"
-                                     fontValue:font750(52)
-                                     textColor:UIColorFromRGBA(0xFFFFFF, 0.5)
+                                     fontValue:font750(48)
+                                     textColor:[UIColor whiteColor]
                                  textAlignment:NSTextAlignmentCenter];
     self.rightScore = [Factory creatLabelWithText:@"21"
-                                        fontValue:font750(52)
+                                        fontValue:font750(48)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentCenter];
     
@@ -77,7 +70,32 @@
         make.height.equalTo(@(Anno750(6)));
         make.width.equalTo(@(Anno750(18)));
     }];
-    
+}
+- (void)updateWithMatchDetailModel:(MatchDetailModel *)model{
+    self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+    self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+    switch ([model.match_state intValue]) {
+        case 0://未开始
+        {
+            self.leftScore.text = @"";
+            self.rightScore.text = @"";
+        }
+            break;
+        case 1://正在进行
+        case 2://已结束
+        {
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
+                self.rightScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.leftScore.textColor = Color_White_5;
+            }
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 @end

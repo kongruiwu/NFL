@@ -39,7 +39,7 @@
                                    textAlignment:NSTextAlignmentLeft];
     self.descLabel = [Factory creatLabelWithText:@"城市 · 性别"
                                        fontValue:font750(24)
-                                       textColor:UIColorFromRGBA(0xFFFFFF, 0.5)
+                                       textColor:Color_White_5
                                    textAlignment:NSTextAlignmentLeft];
     self.editImage = [Factory creatImageViewWithImage:@"porfile_bg_edit_default"];
     self.editLabel = [Factory creatLabelWithText:@"编辑资料 >"

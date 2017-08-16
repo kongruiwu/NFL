@@ -16,7 +16,6 @@ PODS:
     - AFNetworking/NSURLSession
   - HMSegmentedControl (1.5.4)
   - IQKeyboardManager (4.0.11)
-  - JPVideoPlayer (2.2.4)
   - Masonry (1.0.2)
   - MJRefresh (3.1.12)
   - ReactiveObjC (3.0.0)
@@ -42,7 +41,6 @@ DEPENDENCIES:
   - AFNetworking
   - HMSegmentedControl
   - IQKeyboardManager
-  - JPVideoPlayer (~> 2.2.4)
   - Masonry
   - MJRefresh
   - ReactiveObjC
@@ -57,7 +55,6 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   HMSegmentedControl: b25bc4ec44766e073d62c473188fb354ee244b76
   IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
-  JPVideoPlayer: bda1004419314109d0399ad410ad3647907b8a46
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
@@ -66,6 +63,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
 
-PODFILE CHECKSUM: 59b41b95418c836c7b48c5fa8b65b8b7c2a1439a
+PODFILE CHECKSUM: baaae1e9e1f403f0f8fbcd121b19c881e2b3f0bc
 
 COCOAPODS: 1.1.1

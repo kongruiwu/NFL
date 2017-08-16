@@ -85,7 +85,9 @@
     [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
+    self.videoPath = model.src;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.likeBtn.selected = model.collected;
 }
 
 

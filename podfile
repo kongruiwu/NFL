@@ -12,5 +12,4 @@ pod 'UMengUShare/Social/ReducedWeChat'
 pod ‘UMengUShare/Social/ReducedQQ'
 pod ‘UMengUShare/Social/Sina'
 pod ‘SVProgressHUD'
-pod 'JPVideoPlayer', '~> 2.2.4'
 end

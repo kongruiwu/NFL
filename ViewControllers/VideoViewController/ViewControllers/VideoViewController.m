@@ -52,7 +52,7 @@
     }];
     self.hmsgControl.titleTextAttributes = @{
                                              NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
-                                             NSForegroundColorAttributeName : UIColorFromRGBA(0xFFFFFF, 0.5)};
+                                             NSForegroundColorAttributeName : Color_White_5};
     self.hmsgControl.selectedTitleTextAttributes = @{
                                                      NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
                                                      NSForegroundColorAttributeName : [UIColor whiteColor]};

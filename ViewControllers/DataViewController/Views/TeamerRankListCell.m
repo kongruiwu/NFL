@@ -48,17 +48,15 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    return 10;
+    return self.dataArray.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     TeamerRankCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TeamerRankCollectionViewCell" forIndexPath:indexPath];
-//    [cell configUIwithUrls:self.skuurls[indexPath.row]];
+    [cell updateWithRankPlayer:self.dataArray[indexPath.row]];
     return cell;
 }
-//- (void)layoutSubviews{
-//    [super layoutSubviews];
-//    [self.collectView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(@0);
-//    }];
-//}
+- (void)setDataArray:(NSMutableArray *)dataArray{
+    _dataArray = dataArray;
+    [self.collectView reloadData];
+}
 @end

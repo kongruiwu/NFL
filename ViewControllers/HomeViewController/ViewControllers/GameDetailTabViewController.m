@@ -11,20 +11,34 @@
 #import "GameHeaderView.h"
 #import "GameSegmentView.h"
 #import "GameDataViewController.h"
+#import "GameInfoViewController.h"
 
+#import "GameVideoViewController.h"
 
+#import "LiveViewModel.h"
 #define GameHeadHigh    Anno750(480)
 #define GameSelectHigh  (64 + Anno750(80))
-@interface GameDetailTabViewController ()<GameLiveViewControllerDelegate,GameDataViewControllerDelegate>
+@interface GameDetailTabViewController ()<GameBassDelegate>
 
 @property (nonatomic, strong) GameHeaderView * headView;
 @property (nonatomic, strong) GameSegmentView * segementView;
 @property (nonatomic, strong) GameBassViewController * currentVC;
+
+@property (nonatomic, strong) LiveViewModel * viewModel;
+
 @property (nonatomic, strong) NSMutableArray<GameBassViewController *> * viewControllers;
 
 @end
 
 @implementation GameDetailTabViewController
+
+- (instancetype)initWithMatchDetailModel:(MatchDetailModel *)model{
+    self = [super init];
+    if (self) {
+        self.game = model;
+    }
+    return self;
+}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -44,6 +58,7 @@
     [self drawBackButton];
     [self setNavTitle:@"比赛详情"];
     [self creatUI];
+    [self getData];
 }
 - (void)creatUI{
     self.viewControllers = [NSMutableArray new];
@@ -61,17 +76,36 @@
     [self.viewControllers addObject:live];
     
     GameDataViewController * data = [[GameDataViewController alloc]init];
+    data.gameID = self.game.gameId;
+    data.homeName = self.game.home_name;
+    data.visiName = self.game.visitor_name;
     data.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
     [self addChildViewController:data];
     data.tabview.tableHeaderView = header;
     data.delegate = self;
     [self.viewControllers addObject:data];
     
+    GameVideoViewController * video = [[GameVideoViewController alloc]init];
+    video.gameID = self.game.gameId;
+    video.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+    [self addChildViewController:video];
+    video.tabview.tableHeaderView = header;
+    video.delegate = self;
+    [self.viewControllers addObject:video];
+    
+    GameInfoViewController * info = [[GameInfoViewController alloc]init];
+    info.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+    [self addChildViewController:info];
+    info.tabview.tableHeaderView = header;
+    info.delegate = self;
+    [self.viewControllers addObject:info];
     
     self.segementView = [[GameSegmentView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, GameSelectHigh)];
+    [self.segementView updateWithMatchDetailModel:self.game];
     [self.view addSubview:self.segementView];
     
     self.headView = [[GameHeaderView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, GameHeadHigh)];
+    [self.headView updateWithMatchDetailModel:self.game];
     [self.view addSubview:self.headView];
     
     __weak GameDetailTabViewController * weakself = self;
@@ -135,6 +169,7 @@
     }
     
     //动画
+    NSLog(@"%.2f",y);
     if (y>0) {
         float uas = y/(GameHeadHigh - GameSelectHigh);
         float leftImgx = Anno750(60) + uas*(Anno750(85 * 2) - Anno750(60));
@@ -146,8 +181,10 @@
         float rightScoreX = UI_WIDTH - Anno750(300) - uas * (Anno750(85 * 2 - 120));
         
         self.headView.leftName.alpha = 1 - uas;
+        self.headView.videoButton.alpha = 1 - uas;
         self.headView.rightName.alpha = 1 - uas;
         self.headView.vsLabel.alpha = 1 - uas;
+        self.headView.timeLabel.alpha = 1 - uas;
         self.headView.gameStatus.alpha = 1 - uas;
         self.navigationItem.titleView.alpha = 1- uas;
         self.headView.leftImg.frame = CGRectMake(leftImgx, imagY + y, w, w);
@@ -157,5 +194,21 @@
     }
     
 }
-
+- (void)getData{
+    NSDictionary * params = @{
+                              @"gameId":self.game.gameId,
+                              @"page":@"",
+                              };
+    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
+        if ([self.currentVC isKindOfClass:[GameLiveViewController class]]) {
+            GameLiveViewController * live = (GameLiveViewController *)self.currentVC;
+            live.isPlaying = [self.self.viewModel.match_state intValue] == 1 ? YES : NO;
+            live.dataArrays = self.viewModel.play_by_play;
+        }
+    } error:^(NFError *byerror) {
+        
+    }];
+}
 @end

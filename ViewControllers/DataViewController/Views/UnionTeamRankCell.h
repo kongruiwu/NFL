@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Factory.h"
+#import "TeamRankModel.h"
 @interface UnionTeamRankCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel * rankNum;
@@ -25,5 +26,5 @@
 @property (nonatomic, strong) UILabel * winProLabel;
 //净胜分
 @property (nonatomic, strong) UILabel * winScore;
-
+- (void)updateWithTeamRankModel:(TeamRankModel *)model;
 @end

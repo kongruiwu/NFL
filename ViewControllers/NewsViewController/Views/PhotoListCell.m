@@ -31,8 +31,8 @@
 - (void)creatUI{
     self.bgImg = [Factory creatImageViewWithImage:@"list_img_Journalism2"];
     self.grayView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.3)];
-    self.topLine = [Factory creatViewWithColor:UIColorFromRGBA(0xFFFFFF, 0.5)];
-    self.bottomLine = [Factory creatViewWithColor:UIColorFromRGBA(0xFFFFFF, 0.5)];
+    self.topLine = [Factory creatViewWithColor:Color_White_5];
+    self.bottomLine = [Factory creatViewWithColor:Color_White_5];
     self.titleLabel = [Factory creatLabelWithText:@"球星图集"
                                         fontValue:font750(40)
                                         textColor:[UIColor whiteColor]

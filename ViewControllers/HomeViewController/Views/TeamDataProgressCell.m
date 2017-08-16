@@ -78,4 +78,23 @@
     }];
 }
 
+- (void)updateWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right{
+    self.nameLabel.text = title;
+    self.leftScore.text = [NSString stringWithFormat:@"%@",left];
+    self.rightScore.text = [NSString stringWithFormat:@"%@",right];
+    int leftv = [left intValue];
+    int rightv = [right intValue];
+    int value = (leftv * 100) / (leftv + rightv);
+    self.slider.value = value;
+}
+- (void)updateThirdWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right{
+    self.nameLabel.text = title;
+    self.leftScore.text = [NSString stringWithFormat:@"%@%%",left];
+    self.rightScore.text = [NSString stringWithFormat:@"%@%%",right];
+    int leftv = [left intValue];
+    int rightv = [right intValue];
+    int value = (leftv * 100) / (leftv + rightv);
+    self.slider.value = value;
+}
+
 @end

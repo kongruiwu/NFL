@@ -10,4 +10,6 @@
 
 @interface ScheduleViewController : BaseViewController
 
+- (void)requestDataWithParmas:(NSDictionary *)params;
+
 @end

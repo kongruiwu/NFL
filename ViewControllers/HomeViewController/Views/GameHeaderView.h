@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
 #import <HMSegmentedControl.h>
+#import "MatchDetailModel.h"
 @interface GameHeaderView : UIView
 
 @property (nonatomic, strong) UIImageView * groundImg;
@@ -24,7 +25,8 @@
 @property (nonatomic, strong) UILabel * gameStatus;
 @property (nonatomic, strong) UILabel * vsLabel;
 @property (nonatomic, strong) UILabel * timeLabel;
+@property (nonatomic, strong) UIButton * videoButton;
 
-
+- (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

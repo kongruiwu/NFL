@@ -52,4 +52,23 @@
 //忘记密码 填写新密码
 #define PageNewPwd          @"repwd_new"
 
+
+//首页 赛程
+#define Route_Match          @"match2017"
+//赛程日历
+#define PageCalendar        @"calendar"
+//赛程列表
+#define PageSchedules       @"schedules"
+//赛程详情
+#define PageGameDetail      @"game_detail"
+//球队列表
+#define PageTeamList        @"team_list"
+//球队排名
+#define PageTeamRank        @"team_rank"
+//球员排名日期
+#define PageRankTime        @"player_rank_calendar"
+//球员排名
+#define PagePlayerRank      @"player_rank"
+//球队详情
+#define TeamDetail          @"team_detail"
 #endif /* API_h */

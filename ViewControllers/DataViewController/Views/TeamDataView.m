@@ -17,6 +17,10 @@
     return self;
 }
 - (void)creatUI{
+    
+    self.rankLabels = [NSMutableArray new];
+    self.points = [NSMutableArray new];
+    
     self.scoreLabel = [self creatDescLabel:@"进攻得分" textAlignment:NSTextAlignmentRight];
     self.scoreValue = [self creatValueLabel:@"26.1" textAlignment:NSTextAlignmentRight];
     
@@ -81,8 +85,6 @@
     [externalPath addLineToPoint:leftDown];
     [externalPath addLineToPoint:leftPoint];
     [externalPath closePath];
-    
-//    externalPath.lineWidth = 1.0f;
     
     CAShapeLayer * layer = [CAShapeLayer layer];
     layer.frame = CGRectMake(0, 0, UI_WIDTH,self.frame.size.height);
@@ -251,4 +253,64 @@
     label.font = [UIFont boldSystemFontOfSize:font750(27)];
     return label;
 }
+
+- (void)updateWithValues:(NSArray *)arr{
+    float attack = 0.6;
+    float pass = 0.8;
+    float run = 0.9;
+    float fang = 0.6;
+    float dpass = 0.6;
+    float drun = 0.7;
+
+    //中点 距离  各个点的位置  然后乘以   分数比 即可
+    //进攻得分
+    CGPoint leftUp = CGPointMake( UI_WIDTH/2 -  (UI_WIDTH/2 - Anno750(275)) * attack, Anno750(310) - (Anno750(310 - 130) * attack));
+    //传球码数
+    CGPoint righUp = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(275)) * pass, Anno750(310) - (Anno750(310 - 130) * pass));
+    //跑球码数
+    CGPoint left = CGPointMake(UI_WIDTH/2 - (UI_WIDTH/2 - Anno750(170))* run, Anno750(310));
+    //防守失分
+    CGPoint right = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(170)) * fang, Anno750(310));
+    //防传码数
+    CGPoint leftdown = CGPointMake( UI_WIDTH/2 - (UI_WIDTH/2 - Anno750(275)) * dpass, Anno750(310) + (Anno750(310 - 130) * dpass));
+    //防跑码数
+    CGPoint rightdown = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(275)) * drun, Anno750(310) + (Anno750(310 - 130) * drun));
+    
+    UIBezierPath * insidePath = [UIBezierPath bezierPath];
+    [insidePath moveToPoint:leftUp];
+    [insidePath addLineToPoint:righUp];
+    [insidePath addLineToPoint:right];
+    [insidePath addLineToPoint:rightdown];
+    [insidePath addLineToPoint:leftdown];
+    [insidePath addLineToPoint:left];
+    [insidePath closePath];
+    
+    CAShapeLayer * insidelayer = [CAShapeLayer layer];
+    insidelayer.frame = CGRectMake(0, 0, UI_WIDTH,self.frame.size.height);
+    insidelayer.strokeColor = Color_LightGray.CGColor;
+    insidelayer.fillColor = UIColorFromRGBA(0x003D79, 0.2).CGColor;
+    insidelayer.path = insidePath.CGPath;
+    insidelayer.lineWidth = 0.5f;
+    [self.layer addSublayer:insidelayer];
+    
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(attack * 10)] point:leftUp];
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(pass * 10)] point:righUp];
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(fang * 10)] point:right];
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(drun * 10)] point:rightdown];
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(dpass * 10)] point:leftdown];
+    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(run * 10)] point:left];
+    
+}
+- (void)creatLabelWithTitle:(NSString *)title point:(CGPoint)point{
+    UILabel * label = [Factory creatLabelWithText:title
+                                        fontValue:font750(28)
+                                        textColor:[UIColor whiteColor]
+                                    textAlignment:NSTextAlignmentCenter];
+    label.backgroundColor = Color_MainRed;
+    label.layer.cornerRadius = Anno750(20);
+    label.layer.masksToBounds = YES;
+    label.frame = CGRectMake(point.x - Anno750(20), point.y - Anno750(20), Anno750(40), Anno750(40));
+    [self addSubview:label];
+}
+
 @end

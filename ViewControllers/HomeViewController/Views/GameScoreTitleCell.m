@@ -29,7 +29,7 @@
     return self;
 }
 - (void)creatUI{
-    NSArray * arr =@[@"1",@"2",@"3",@"4",@"总分"];
+    NSArray * arr =@[@"1",@"2",@"3",@"4",@"加时",@"总分"];
     self.labels = [NSMutableArray new];
     for (int i = 0; i<arr.count; i++) {
         UILabel * label = [Factory creatLabelWithText:arr[i]

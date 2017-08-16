@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "PlayerRankModel.h"
 @interface TeamerRankCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong) UILabel * rankNum;
 @property (nonatomic, strong) UIImageView * teamerImg;
 @property (nonatomic, strong) UILabel * nameLabel;
 @property (nonatomic, strong) UILabel * teamLabel;
+- (void)updateWithRankPlayer:(RankPlayer *)player;
 @end

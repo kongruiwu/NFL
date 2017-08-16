@@ -8,11 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "TeamImageView.h"
+#import "TeamModel.h"
+
+@protocol AddTeamCellDelegate <NSObject>
+
+- (void)selectTeamAtIndex:(NSInteger)index Button:(UIButton *)btn;
+
+@end
+
 @interface AddTeamCell : UITableViewCell
 
 @property (nonatomic, strong) TeamImageView * teamOne;
 @property (nonatomic, strong) TeamImageView * teamTwo;
 @property (nonatomic, strong) TeamImageView * teamThree;
 @property (nonatomic, strong) TeamImageView * teamFour;
-
+@property (nonatomic, assign) id<AddTeamCellDelegate> delegate;
+- (void)updateWithArray:(NSArray *)arr;
 @end

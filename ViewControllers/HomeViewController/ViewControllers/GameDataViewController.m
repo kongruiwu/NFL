@@ -11,13 +11,18 @@
 #import "GameScoreDescCell.h"
 #import "TeamDataProgressCell.h"
 #import "DataTeamTitleCell.h"
+#import "MatchOverDataModel.h"
 
-
+//数据
 @interface GameDataViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
 @property (nonatomic, strong) NSArray * sectionTitles;
 @property (nonatomic, strong) UISegmentedControl * segmentbtn;
+@property (nonatomic, strong) MatchOverDataModel * dataModel;
+@property (nonatomic, strong) NSArray * scoreSections;
+/**是否是客场球队*/
+@property (nonatomic) BOOL isVisitor;
 
 @end
 
@@ -27,22 +32,23 @@
     [super viewDidLoad];
     [self creatUI];
     [self setNavAlpha];
+    [self getData];
    
 }
 - (void)creatUI{
     self.sectionTitles = @[@"得分",@"球队数据",@"球员"];
+    self.scoreSections = @[@"传球码数",@"跑球码数",@"控球时间",@"攻防转换",@"3档转换成功率"];
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
     self.tabview.tag = 1000;
     [self.view addSubview:self.tabview];
-    
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 4;
     }else if(section == 1){
-        return 6;
+        return self.scoreSections.count + 1;
     }else if(section == 2){
-        return 13;
+        return self.isVisitor ? self.dataModel.player_state.visitor.count : self.dataModel.player_state.home.count;
     }
     return 0;
 }
@@ -86,7 +92,7 @@
         label.backgroundColor = Color_BackGround2;
         [header addSubview:label];
         
-        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[@"新英格兰爱国者",@"休斯顿德州人"]];
+        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[self.homeName,self.visiName]];
         self.segmentbtn.backgroundColor = [UIColor whiteColor];
         self.segmentbtn.layer.borderColor = Color_MainBlue.CGColor;
         self.segmentbtn.tintColor = Color_MainBlue;
@@ -98,6 +104,7 @@
         [self.segmentbtn setTitleTextAttributes:@{NSForegroundColorAttributeName:Color_MainBlue} forState:UIControlStateNormal];
         self.segmentbtn.selectedSegmentIndex = 0;
         [self.segmentbtn addTarget:self action:@selector(segmentbtnSelect:) forControlEvents:UIControlEventValueChanged];
+        self.segmentbtn.selectedSegmentIndex = self.isVisitor ? 1 : 0;
         [header addSubview:self.segmentbtn];
         
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,7 +163,14 @@
         if (!cell) {
             cell = [[GameScoreDescCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        [cell updateWithTitles:@[@"1",@"13",@"3",@"13",@"28"]];
+        ScoreModel * model ;
+        if (index.row == 1) {
+            model = self.dataModel.detail_point.home;
+        }else{
+            model = self.dataModel.detail_point.visitor;
+        }
+        NSArray * arr = @[model.Q1,model.Q2,model.Q3,model.Q4,model.OT,model.total];
+        [cell updateWithTitles:arr];
         return cell;
     }
 }
@@ -176,6 +190,34 @@
     if (!cell) {
         cell = [[TeamDataProgressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    TeamScoreModel * model ;
+    switch (index.row) {
+        case 0:
+            model = self.dataModel.team_state.pass_yards;
+            break;
+        case 1:
+            model = self.dataModel.team_state.rush_yards;
+            break;
+        case 2:
+            model = self.dataModel.team_state.hold_time;
+            break;
+        case 3:
+            model = self.dataModel.team_state.turn_over;
+            break;
+        case 4:
+            model = self.dataModel.team_state.thirddown_rate;
+            break;
+        default:
+            break;
+    }
+    if (index.row == 4) {
+        [cell updateThirdWithTitles:self.scoreSections[index.row] leftScore:model.home
+                    rightScore:model.visitor];
+    }else{
+        [cell updateWithTitles:self.scoreSections[index.row] leftScore:model.home
+                    rightScore:model.visitor];
+    }
+    
     return cell;
 }
 - (UITableViewCell *)getThirdSectionCell:(NSIndexPath *)index{
@@ -184,17 +226,38 @@
     if (!cell) {
         cell = [[DataTeamTitleCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    if (index.row == 0 || index.row == 2 || index.row == 6 || index.row == 9) {
-        [cell updateWithtitles:@[@"冲球",@"接球率",@"码数",@"达阵",@"抄截"] isTitle:YES];
+    NSArray * arr ;
+    if (self.isVisitor) {
+        arr = self.dataModel.player_state.visitor;
     }else{
-        [cell updateWithtitles:@[@"汤姆·布雷迪",@"24/38",@"302",@"3",@"1"] isTitle:NO];
+        arr = self.dataModel.player_state.home;
+    }
+    id values = arr[index.row];
+    if ([values isKindOfClass:[NSArray class]]) {
+        [cell updateWithtitles:arr[index.row]];
     }
     return cell;
+}
+- (void)getData
+{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"gameId":self.gameID,
+                              @"page":@"data",
+                              };
+    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.dataModel = [[MatchOverDataModel alloc]initWithDictionary:dic];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 
 - (void)segmentbtnSelect:(UISegmentedControl *)segement{
-    
+    self.isVisitor = !self.isVisitor;
+    [self.tabview reloadData];
 }
 
 
@@ -203,11 +266,6 @@
         targetContentOffset->y = Anno750(480 - 80) - 64;
     }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
         targetContentOffset->y = 0;
-    }
-}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if ([self.delegate respondsToSelector:@selector(hiddenOutHeadView:)]) {
-        [self.delegate hiddenOutHeadView:scrollView.contentOffset.y];
     }
 }
 

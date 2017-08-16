@@ -24,4 +24,8 @@
 @property (nonatomic, strong) NSString * time;
 /**收藏数*/
 @property (nonatomic, strong) NSString * collect_num;
+/**是否收藏*/
+@property (nonatomic, assign) BOOL collected;
+/**图片缩略图*/
+@property (nonatomic, strong) NSString * pic_thumbnail;
 @end

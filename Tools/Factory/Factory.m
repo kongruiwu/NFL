@@ -149,4 +149,26 @@
     textField.font = [UIFont systemFontOfSize:Anno750(28)];
     return textField;
 }
+
+/**
+ 将时间戳转化为时间
+ */
++ (NSString *)timestampSwitchWithHourStyleTime:(NSInteger)timestamp{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"HH:ss"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timestamp];
+    
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
+    return confromTimespStr;
+}
 @end

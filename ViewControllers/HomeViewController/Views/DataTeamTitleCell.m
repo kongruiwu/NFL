@@ -62,15 +62,21 @@
         }];
     }
 }
-- (void)updateWithtitles:(NSArray *)titles isTitle:(BOOL)rec{
+- (void)updateWithtitles:(NSArray *)titles{
+    BOOL rec = YES;
+    for (id obj in titles) {
+        if (![obj isKindOfClass:[NSString class]]) {
+            rec = NO;
+        }
+    }
     self.backgroundColor = rec ? Color_MainBlue : [UIColor whiteColor];
     self.nameLabel.textColor = rec ? [UIColor whiteColor] : Color_MainBlue;
     for (int i = 0; i<self.labels.count; i++) {
         UILabel * label = self.labels[i];
         label.textColor = rec ? [UIColor whiteColor] : Color_DarkGray;
-        label.text = titles[i+1];
+        label.text = [NSString stringWithFormat:@"%@",titles[i+1]];
     }
-    self.nameLabel.text = titles[0];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@",titles[0]];
 }
 
 @end

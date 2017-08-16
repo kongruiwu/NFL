@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) UICollectionView * collectView;
 
+@property (nonatomic, strong) NSArray * dataArray;
+
 @end

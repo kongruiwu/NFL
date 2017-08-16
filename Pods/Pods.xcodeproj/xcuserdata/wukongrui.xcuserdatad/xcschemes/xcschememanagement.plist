@@ -19,11 +19,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JPVideoPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>MJRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -62,22 +57,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>03321B2F8180A4076BB3ACB5CB36ACCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>211D767D3E0E306796CDF653BB7618BE</key>
+		<key>147E0F4EB02FABB81CAD1042D4D7346A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66281874B8FF9FD6168F4942C1C7894D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6920499CD81A5149259936977889886F</key>
+		<key>394C5F7EAABC94A615729657B790848F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,12 +82,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7BCC93A7F5FB5AECBB68F2A71EFFF34D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8FC512A87F62347F6D91F9AFCA5140A0</key>
+		<key>83B1FC0487BE27EE4842674ECE936DDC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A15C3549C1695AF6DA4CDC521B4BECDB</key>
+		<key>D671E94074574F742AC1D048CA8D1C5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

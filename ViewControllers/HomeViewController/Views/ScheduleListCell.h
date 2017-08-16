@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
-
+#import "MatchDetailModel.h"
 
 @interface ScheduleListCell : UITableViewCell
 
@@ -24,11 +24,15 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) UILabel * statusLabel;
 
+@property (nonatomic, strong) UILabel * vsLabel;
+
 //视屏标签  未开赛时 使用
-@property (nonatomic, strong) NSArray * tagImgs;
+@property (nonatomic, strong) NSMutableArray * tagImgs;
 //精彩视频
 @property (nonatomic, strong) UIButton * videoButton;
 
 @property (nonatomic, strong) UIView * line;
+
+- (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

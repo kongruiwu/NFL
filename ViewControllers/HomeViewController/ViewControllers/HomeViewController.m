@@ -12,16 +12,14 @@
 #import "SelectTimeView.h"
 #import "AttentionteamViewController.h"
 
+@interface HomeViewController ()<UIScrollViewDelegate,SelectTimeViewDelegate>
 
-#import "GameDetailTabViewController.h"
-
-@interface HomeViewController ()<UIScrollViewDelegate>
+@property (nonatomic, strong) SelectTimeView * timeView;
 
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
 @property (nonatomic, strong) UIScrollView * mainScroll;
-@property (nonatomic, strong) SelectTimeView * timeView;
-
 @property (nonatomic, strong) NSMutableArray * viewControllers;
+@property (nonatomic) NSInteger defaultWeek;
 
 @end
 
@@ -32,24 +30,26 @@
     [self setNavLineHidden];
     self.tabBarController.tabBar.hidden = NO;
     
-    self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT)];
+    self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) isTeam:NO defaultWeek:self.defaultWeek];
+    self.timeView.delegate = self;
     [self.tabBarController.view addSubview:self.timeView];
     
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.timeView.delegate = nil;
     [self.timeView removeFromSuperview];
-    
-    
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.defaultWeek = -1;
     [self drawNavLogo];
     [self setNavLineHidden];
     [self drawLeftNavButton];
     [self creatUI];
-    
+    [self getData];
     
 }
 - (void)drawLeftNavButton{
@@ -76,7 +76,7 @@
     }];
     self.hmsgControl.titleTextAttributes = @{
                                              NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
-                                             NSForegroundColorAttributeName : UIColorFromRGBA(0xFFFFFF, 0.5)};
+                                             NSForegroundColorAttributeName : Color_White_5};
     self.hmsgControl.selectedTitleTextAttributes = @{
                                                      NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
                                                      NSForegroundColorAttributeName : [UIColor whiteColor]};
@@ -120,9 +120,6 @@
             weakself.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
     }];
-    
-    
-    
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;
@@ -138,9 +135,20 @@
     [self.hmsgControl setSelectedSegmentIndex:index animated:YES];
 }
 
-
 - (void)checkWeeksData{
-//    [self.timeView show];
-    [self.navigationController pushViewController:[GameDetailTabViewController new] animated:YES];
+    [self.timeView show];
 }
+
+- (void)selectTimeSection:(TimeListModel *)model{
+    self.defaultWeek = [model.week integerValue];
+    NSDictionary * params = @{
+                              @"type":model.match_type,
+                              @"week":model.week
+                              };
+    ScheduleViewController * vc = self.viewControllers[0];
+    [vc requestDataWithParmas:params];
+}
+
+
+
 @end

@@ -35,7 +35,7 @@
     self.topLine = [Factory creatLineView];
     [self addSubview:self.leftImg];
     [self addSubview:self.topLine];
-    for (int i = 0; i<5; i++) {
+    for (int i = 0; i<6; i++) {
         UILabel * label = [Factory creatLabelWithText:@""
                                             fontValue:font750(24)
                                             textColor:Color_MainBlack
@@ -82,7 +82,7 @@
 - (void)updateWithTitles:(NSArray *)titles{
     for (int  i = 0; i<self.labels.count; i++) {
         UILabel * label = self.labels[i];
-        label.text = titles[i];
+        label.text = [NSString stringWithFormat:@"%@",titles[i]];
     }
 }
 

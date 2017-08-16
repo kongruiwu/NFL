@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "TimeListModel.h"
 @interface SelectTimeCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel * nameLabel;
 @property (nonatomic, strong) UILabel * descLabel;
 @property (nonatomic, strong) UIImageView * selectImg;
 @property (nonatomic, strong) UIView * lineView;
-
+- (void)updateWithTimeListModel:(TimeListModel *)model;
 @end

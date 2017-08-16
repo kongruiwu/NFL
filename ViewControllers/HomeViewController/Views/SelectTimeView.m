@@ -14,9 +14,43 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self creatUI];
+        [self getData];
     }
     return self;
 }
+- (instancetype)initWithFrame:(CGRect)frame isTeam:(BOOL)rec defaultWeek:(NSInteger)index{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.isTeam = rec;
+        self.defaultWeek = index;
+        [self creatUI];
+        [self getData];
+    }
+    return self;
+}
+
+
+- (void)getData{
+    self.dateArray = [NSMutableArray new];
+    
+    [[NetWorkManger manager] sendRequest: self.isTeam ? PageRankTime: PageCalendar route:Route_Match withParams:@{} complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        NSArray * arr = dic[@"list"];
+        for (int i = 0; i<arr.count; i++) {
+            TimeListModel * model = [[TimeListModel alloc]initWithDictionary:arr[i]];
+            model.isSelect = NO;
+            if ([model.week integerValue] == self.defaultWeek) {
+                model.isSelect = YES;
+            }
+            [self.dateArray addObject:model];
+        }
+        [SVProgressHUD dismiss];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 - (void)creatUI{
     self.hidden = YES;
     self.backgroundColor = UIColorFromRGBA(0x000000, 0.3);
@@ -35,6 +69,7 @@
     
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(90), UI_WIDTH, UI_HEGIHT - Anno750(330)) style:UITableViewStylePlain delegate:self];
     self.tabview.backgroundColor = [UIColor whiteColor];
+    
     
     [self addSubview:self.showView];
     [self.showView addSubview:self.grayView];
@@ -63,7 +98,7 @@
     }];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.dateArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(100);
@@ -74,20 +109,34 @@
     if (!cell) {
         cell = [[SelectTimeCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    if (indexPath.row == 3) {
-        cell.backgroundColor = Color_MainBlue;
-        cell.nameLabel.textColor = [UIColor whiteColor];
-    }
+    [cell updateWithTimeListModel:self.dateArray[indexPath.row]];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    for (int i = 0; i<self.dateArray.count; i++) {
+        TimeListModel * model = self.dateArray[i];
+        model.isSelect = i == indexPath.row ? YES : NO;
+    }
+    [self.tabview reloadData];
+    [self disMiss];
+    if ([self.delegate respondsToSelector:@selector(selectTimeSection:)]) {
+        [self.delegate selectTimeSection:self.dateArray[indexPath.row]];
+    }
 }
 - (void)show{
     self.hidden = NO;
+    if (self.dateArray && self.dateArray.count>0) {
+        [SVProgressHUD dismiss];
+    }else{
+        [SVProgressHUD show];
+    }
     [UIView animateWithDuration:0.5 animations:^{
         self.backgroundColor = UIColorFromRGBA(0x000000, 0.5);
         self.showView.frame = CGRectMake(0, Anno750(240), UI_WIDTH, UI_HEGIHT - Anno750(240));
     }];
 }
 - (void)disMiss{
+    [SVProgressHUD dismiss];
     [UIView animateWithDuration:0.5 animations:^{
         self.backgroundColor = [UIColor clearColor];
         self.showView.frame = CGRectMake(0, UI_HEGIHT, UI_WIDTH,UI_HEGIHT - Anno750(240));
@@ -96,4 +145,6 @@
         self.hidden = YES;
     });
 }
+
+
 @end

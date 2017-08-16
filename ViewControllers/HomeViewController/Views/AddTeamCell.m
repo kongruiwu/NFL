@@ -36,6 +36,11 @@
     self.teamThree = [[TeamImageView alloc]init];
     self.teamFour = [[TeamImageView alloc]init];
     
+    [self.teamOne.clearBtn addTarget:self action:@selector(selctTeamOne:) forControlEvents:UIControlEventTouchUpInside];
+    [self.teamTwo.clearBtn addTarget:self action:@selector(selctTeamTwo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.teamThree.clearBtn addTarget:self action:@selector(selctTeamThree:) forControlEvents:UIControlEventTouchUpInside];
+    [self.teamFour.clearBtn addTarget:self action:@selector(selctTeamFour:) forControlEvents:UIControlEventTouchUpInside];
+    
     [self addSubview:self.teamOne];
     [self addSubview:self.teamTwo];
     [self addSubview:self.teamThree];
@@ -71,5 +76,49 @@
     }];
 }
 
-
+- (void)updateWithArray:(NSArray *)arr{
+    for (int i = 0; i<arr.count; i++) {
+        id obj = arr[i];
+        if ([obj isKindOfClass:[TeamModel class]]) {
+            TeamModel * model = arr[i];
+            if (i == 0) {
+                [self.teamOne updateWithTeamModel:model];
+            }else if(i == 1){
+                self.teamTwo.hidden = NO;
+                [self.teamTwo updateWithTeamModel:model];
+            }else if(i == 2){
+                self.teamThree.hidden = NO;
+                [self.teamThree updateWithTeamModel:model];
+            }else{
+                self.teamFour.hidden = NO;
+                [self.teamFour updateWithTeamModel:model];
+            }
+        }else{
+            if(i == 1){
+                self.teamTwo.hidden = YES;
+            }else if(i == 2){
+                self.teamThree.hidden = YES;
+            }else{
+                self.teamFour.hidden = YES;
+            }
+        }
+    }
+}
+- (void)selctTeamOne:(UIButton *)btn{
+    [self selectTeamIndex:0 button:btn];
+}
+- (void)selctTeamTwo:(UIButton *)btn{
+    [self selectTeamIndex:1 button:btn];
+}
+- (void)selctTeamThree:(UIButton *)btn{
+    [self selectTeamIndex:2 button:btn];
+}
+- (void)selctTeamFour:(UIButton *)btn{
+    [self selectTeamIndex:3 button:btn];
+}
+- (void)selectTeamIndex:(NSInteger)index button:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(selectTeamAtIndex:Button:)]) {
+        [self.delegate selectTeamAtIndex:index Button:btn];
+    }
+}
 @end

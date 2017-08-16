@@ -8,15 +8,12 @@
 
 #import "GameBassViewController.h"
 
-@protocol GameDataViewControllerDelegate <NSObject>
 
-- (void)hiddenOutHeadView:(CGFloat)y;
-
-@end
 
 @interface GameDataViewController : GameBassViewController
 
-
-@property (nonatomic, assign) id<GameDataViewControllerDelegate> delegate;
+@property (nonatomic, strong) NSNumber * gameID;
+@property (nonatomic, strong) NSString * homeName;
+@property (nonatomic, strong) NSString * visiName;
 
 @end

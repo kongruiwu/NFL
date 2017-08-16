@@ -12,5 +12,5 @@
 
 @property (nonatomic, strong) UILabel * nameLabel;
 @property (nonatomic, strong) NSMutableArray * labels;
-- (void)updateWithtitles:(NSArray *)titles isTitle:(BOOL)rec;
+- (void)updateWithtitles:(NSArray *)titles;
 @end

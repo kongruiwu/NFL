@@ -50,7 +50,7 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataArray.count/2;
+    return self.dataArray.count%2 == 0 ? self.dataArray.count/2 : self.dataArray.count + 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(430);
@@ -68,7 +68,12 @@
         cell = [[PhotoSubListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     cell.delegate = self;
-    [cell updateWithLeftModel:self.dataArray[indexPath.section/2] rightModel:self.dataArray[indexPath.section/2 +1]];
+    if (self.dataArray[indexPath.section/2 + 1]) {
+        [cell updateWithLeftModel:self.dataArray[indexPath.section/2] rightModel:self.dataArray[indexPath.section/2 +1]];
+    }else{
+        [cell updateWithLeftModel:self.dataArray[indexPath.section/2] rightModel:nil];
+    }
+    
     return cell;
 }
 

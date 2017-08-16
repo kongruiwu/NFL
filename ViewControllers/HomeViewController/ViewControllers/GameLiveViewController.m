@@ -9,7 +9,7 @@
 #import "GameLiveViewController.h"
 #import "GameLiveListCell.h"
 
-
+//直播
 @interface GameLiveViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -29,34 +29,36 @@
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
-
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.dataArrays[section].list.count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return self.dataArrays.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return Anno750(140);
+    CGSize size = [Factory getSize:self.dataArrays[indexPath.section].list[indexPath.row].content maxSize:CGSizeMake(Anno750(517), 999999) font:[UIFont systemFontOfSize:font750(24)]];
+    return Anno750(34 + 24) + size.height;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return Anno750(60);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (!self.isPlaying) {
+        return 0.01;
+    }
     return Anno750(50);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * head = [Factory creatViewWithColor:[UIColor whiteColor]];
     head.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(60));
-    
     UIButton * nameBtn = [Factory creatButtonWithNormalImage:@"content_icon_football_blue" selectImage:@"content_icon_football_red"];
     [nameBtn setTitleColor:Color_MainBlue forState:UIControlStateNormal];
     [nameBtn setTitleColor:Color_MainRed forState:UIControlStateSelected];
-    [nameBtn setTitle:@"  爱国者" forState:UIControlStateNormal];
-    [nameBtn setTitle:@"  德州人" forState:UIControlStateSelected];
+    NSString * teamName = [NSString stringWithFormat:@"  %@",self.dataArrays[section].team_name];
+    [nameBtn setTitle:teamName forState:UIControlStateNormal];
+    nameBtn.selected = [self.dataArrays[section].team containsString:@"home"] ? YES : NO;
     nameBtn.titleLabel.font = [UIFont systemFontOfSize:Anno750(20)];
-    
     UIView * line = [Factory creatLineView];
     [head addSubview:nameBtn];
     [head addSubview:line];
@@ -71,15 +73,17 @@
         make.right.equalTo(line.mas_left);
         make.top.equalTo(@(Anno750(20)));
     }];
-    nameBtn.selected = section%2 == 1 ? YES : NO;
     return head;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if (self.isPlaying) {
+        return nil;
+    }
     UIView * footer = [Factory creatViewWithColor:[UIColor whiteColor]];
     footer.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(50));
     
     UIView * line = [Factory creatLineView];
-    UILabel * descLabel = [Factory creatLabelWithText:@"本场比赛在腾讯体育、阿里体育、爱奇艺、新浪直播、聚力体育均有直播"
+    UILabel * descLabel = [Factory creatLabelWithText:@""
                                             fontValue:font750(20)
                                             textColor:Color_MainRed
                                         textAlignment:NSTextAlignmentLeft];
@@ -106,6 +110,7 @@
     if (!cell) {
         cell = [[GameLiveListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    [cell updateWithLiveDetailModel:self.dataArrays[indexPath.section].list[indexPath.row]];
     return cell;
 }
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
@@ -115,10 +120,9 @@
         targetContentOffset->y = 0;
     }
 }
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if ([self.delegate respondsToSelector:@selector(hiddenOutHeadView:)]) {
-        [self.delegate hiddenOutHeadView:scrollView.contentOffset.y];
-    }
+- (void)setDataArrays:(NSArray<LiveModel *> *)dataArrays{
+    _dataArrays = dataArrays;
+    [self.tabview reloadData];
 }
 
 @end

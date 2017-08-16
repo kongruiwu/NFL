@@ -67,5 +67,12 @@
         make.right.equalTo(@(Anno750(-24)));
     }];
 }
-
+- (void)updateWithTimeListModel:(TimeListModel *)model{
+    self.nameLabel.text = model.title;
+    self.descLabel.text = model.date_str;
+    self.descLabel.textColor = model.isSelect ? [UIColor whiteColor] : Color_LightGray;
+    self.nameLabel.textColor = model.isSelect ? [UIColor whiteColor] : Color_MainBlack;
+    self.selectImg.hidden = !model.isSelect;
+    self.backgroundColor = model.isSelect ? Color_MainBlue : [UIColor whiteColor];
+}
 @end

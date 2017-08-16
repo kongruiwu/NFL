@@ -99,4 +99,13 @@
     return label;
 }
 
+- (void)updateWithSubTeamRankModel:(SubTeamRankModel *)model{
+    self.rankNum.text = [NSString stringWithFormat:@"%@",model.idx];
+    self.nameLabel.text = model.name;
+    self.subScore.text = model.division_record;
+    self.winProgress.text = model.division_win_pct;
+    self.unionScore.text = model.conference_record;
+    self.outScore.text = model.non_conference_record;
+    
+}
 @end

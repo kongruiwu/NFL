@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <HMSegmentedControl.h>
 #import "ConfigHeader.h"
+#import "MatchDetailModel.h"
 @interface GameSegmentView : UIView
 
 @property (nonatomic, strong) HMSegmentedControl * segmentView;
@@ -19,5 +20,7 @@
 @property (nonatomic, strong) UILabel * leftScore;
 @property (nonatomic, strong) UILabel * rightScore;
 @property (nonatomic, strong) UIView * lineView;
+
+- (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

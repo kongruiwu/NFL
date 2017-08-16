@@ -97,9 +97,18 @@
     }];
     
 }
-- (void)updateImageSize{
-    UIImage * image = [UIImage imageNamed:@"list_logo_60x60_aiguozhe"];
-    CGSize size = image.size;
-    
+//- (void)updateImageSize{
+//    UIImage * image = [UIImage imageNamed:@"list_logo_60x60_aiguozhe"];
+//    CGSize size = image.size;
+//    
+//}
+- (void)updateWithTeamRankModel:(TeamRankModel *)model{
+    self.rankNum.text = [NSString stringWithFormat:@"%@",model.idx];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@",model.name];
+    self.winLabel.text = [NSString stringWithFormat:@"%@",model.win];
+    self.loseLabel.text = [NSString stringWithFormat:@"%@",model.lose];
+    self.drawLabel.text = [NSString stringWithFormat:@"%@",model.tie];
+    self.winProLabel.text = model.win_pct;
+    self.winScore.text = [NSString stringWithFormat:@"%@",model.net_points];
 }
 @end

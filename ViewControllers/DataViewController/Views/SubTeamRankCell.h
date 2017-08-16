@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "SubTeamRankModel.h"
 @interface SubTeamRankCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel * rankNum;
@@ -19,5 +20,5 @@
 @property (nonatomic, strong) UILabel * outScore;
 @property (nonatomic, strong) UIView * lineView;
 @property (nonatomic, strong) UIView * bottomLine;
-
+- (void)updateWithSubTeamRankModel:(SubTeamRankModel *)model;
 @end

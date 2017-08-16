@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "LiveModel.h"   
 @interface GameLiveListCell : UITableViewCell
 
 @property (nonatomic, strong) UIView * leftLine;
@@ -16,6 +17,6 @@
 @property (nonatomic, strong) UILabel * descLabel;
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) UILabel * sectionLabel;
-
+- (void)updateWithLiveDetailModel:(LiveDetailModel *)model;
 
 @end

@@ -7,9 +7,18 @@
 //
 
 #import "BaseViewController.h"
+
+@protocol  GameBassDelegate <NSObject>
+
+- (void)hiddenOutHeadView:(CGFloat)y;
+
+@end
+
 //比赛详情基类
 @interface GameBassViewController : BaseViewController
 
 @property (nonatomic, strong) UITableView * tabview;
+
+@property (nonatomic, assign) id<GameBassDelegate> delegate;
 
 @end

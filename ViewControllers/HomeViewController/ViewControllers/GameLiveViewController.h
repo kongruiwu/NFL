@@ -7,14 +7,11 @@
 //
 
 #import "GameBassViewController.h"
-
-@protocol GameLiveViewControllerDelegate <NSObject>
-
-- (void)hiddenOutHeadView:(CGFloat)y;
-
-@end
+#import "LiveModel.h"
 
 @interface GameLiveViewController : GameBassViewController
 
-@property (nonatomic, assign) id<GameLiveViewControllerDelegate> delegate;
+@property (nonatomic) BOOL isPlaying;
+@property (nonatomic, strong) NSArray<LiveModel *> * dataArrays;
+
 @end

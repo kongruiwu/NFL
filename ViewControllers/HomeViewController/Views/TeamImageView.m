@@ -18,18 +18,22 @@
     return self;
 }
 - (void)creatUI{
+    self.userInteractionEnabled = YES;
+    
     self.teamImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
     self.selectImg = [Factory creatImageViewWithImage:@"list_button_60x60_sel"];
+    self.teamImg.userInteractionEnabled = YES;
+    self.selectImg.userInteractionEnabled = YES;
     self.nameLabel = [Factory creatLabelWithText:@"亚特兰大猎鹰"
                                        fontValue:font750(24)
                                        textColor:Color_DarkGray
                                    textAlignment:NSTextAlignmentCenter];
     self.nameLabel.numberOfLines = 2;
-    
+    self.clearBtn = [Factory creatButtonWithNormalImage:@"" selectImage:@""];
     [self addSubview:self.selectImg];
     [self addSubview:self.nameLabel];
     [self.selectImg addSubview:self.teamImg];
-    
+    [self addSubview:self.clearBtn];
     self.selected = NO;
 }
 - (void)layoutSubviews{
@@ -47,6 +51,11 @@
         make.right.equalTo(@(-Anno750(14)));
         make.top.equalTo(self.selectImg.mas_bottom).offset(Anno750(10));
     }];
+    [self.clearBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(@0);
+    }];
 }
-
+- (void)updateWithTeamModel:(TeamModel *)model{
+    self.nameLabel.text = model.name;
+}
 @end

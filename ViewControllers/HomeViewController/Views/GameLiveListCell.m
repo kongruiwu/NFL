@@ -100,6 +100,19 @@
         make.top.equalTo(self.nameLabel.mas_bottom).offset(Anno750(8));
         make.right.equalTo(@(-Anno750(24)));
     }];
+}
+
+- (void)updateWithLiveDetailModel:(LiveDetailModel *)model{
+    self.sectionLabel.text = model.quarter;
+    self.timeLabel.text = model.time;
+    self.descLabel.text = model.content;
+    NSString * title ;
+    if (model.down_yards && [model.down_yards isKindOfClass:[NSString class]] && model.down_yards.length > 0) {
+        title = [NSString stringWithFormat:@"%@  %@",model.down_yards,model.yardline];
+    }else{
+        title = model.yardline;
+    }
+    self.nameLabel.text = title;;
     
 }
 

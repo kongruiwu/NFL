@@ -36,4 +36,6 @@
 + (UITextField *)creatTextFiledWithPlaceHold:(NSString *)placeHold;
 
 + (NSString *)changePhoneString:(NSString *)phone;
+
++ (NSString *)timestampSwitchWithHourStyleTime:(NSInteger)timestamp;
 @end

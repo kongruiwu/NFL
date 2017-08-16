@@ -32,7 +32,7 @@
     self.segmentView.frame = CGRectMake(0, self.frame.size.height - Anno750(80), UI_WIDTH, Anno750(80));
     self.segmentView.titleTextAttributes = @{
                                              NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
-                                             NSForegroundColorAttributeName : UIColorFromRGBA(0xFFFFFF, 0.5)};
+                                             NSForegroundColorAttributeName : Color_White_5};
     self.segmentView.selectedTitleTextAttributes = @{
                                                      NSFontAttributeName : [UIFont systemFontOfSize:font750(28)],
                                                      NSForegroundColorAttributeName : [UIColor whiteColor]};
@@ -42,57 +42,47 @@
     self.segmentView.selectionIndicatorColor = Color_HsmRed;
     [self addSubview:self.segmentView];
     
-    
-    /*
-     @property (nonatomic, strong) UIImageView * leftImg;
-     @property (nonatomic, strong) UIImageView * rightImg;
-     @property (nonatomic, strong) UILabel * leftName;
-     @property (nonatomic, strong) UILabel * rightName;
-     @property (nonatomic, strong) UILabel * leftScore;
-     @property (nonatomic, strong) UILabel * rightScore;
-     @property (nonatomic, strong) UILabel * gameStatus;
-     @property (nonatomic, strong) UILabel * vsLabel;
-     @property (nonatomic, strong) UILabel * timeLabel;
-     */
+    self.videoButton = [Factory creatButtonWithTitle:@"  点击观看视频直播"
+                                     backGroundColor:[UIColor clearColor]
+                                           textColor:[UIColor whiteColor]
+                                            textSize:font750(22)];
+    [self.videoButton setImage:[UIImage imageNamed:@"content_icon_video_normal"] forState:UIControlStateNormal];
+    self.videoButton.hidden = YES;
     self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_49ren"];
     self.rightImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
-    self.leftName = [Factory creatLabelWithText:@"新英格兰爱国者"
+    self.leftName = [Factory creatLabelWithText:@""
                                       fontValue:font750(24)
                                       textColor:[UIColor whiteColor]
                                   textAlignment:NSTextAlignmentCenter];
-    self.rightName = [Factory creatLabelWithText:@"休斯顿德州人"
+    self.rightName = [Factory creatLabelWithText:@""
                                        fontValue:font750(24)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentCenter];
-    self.leftScore = [Factory creatLabelWithText:@"13"
-                                       fontValue:font750(52)
-                                       textColor:UIColorFromRGBA(0xFFFFFF, 0.5)
+    self.leftScore = [Factory creatLabelWithText:@""
+                                       fontValue:font750(48)
+                                       textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentCenter];
-//    self.leftScore.font = [UIFont boldSystemFontOfSize:font750(52)];
-    self.rightScore = [Factory creatLabelWithText:@"21"
-                                        fontValue:font750(52)
+    self.rightScore = [Factory creatLabelWithText:@""
+                                        fontValue:font750(48)
                                         textColor:UIColorFromRGB(0xFFFFFF)
                                     textAlignment:NSTextAlignmentCenter];
-//    self.rightScore.font = [UIFont boldSystemFontOfSize:font750(52)];
     self.vsLabel = [Factory creatLabelWithText:@"VS"
                                      fontValue:font750(24)
                                      textColor:[UIColor whiteColor]
                                  textAlignment:NSTextAlignmentCenter];
-    self.gameStatus = [Factory creatLabelWithText:@"已结束"
+    self.gameStatus = [Factory creatLabelWithText:@""
                                         fontValue:Anno750(22)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentCenter];
     self.gameStatus.layer.cornerRadius = Anno750(20);
-    self.gameStatus.layer.borderColor = UIColorFromRGBA(0xFFFFFF, 0.3).CGColor;
+    self.gameStatus.layer.borderColor = Color_White_5.CGColor;
     self.gameStatus.layer.borderWidth = 0.5;
     self.gameStatus.backgroundColor = UIColorFromRGBA(0x000000, 0.3);
     self.gameStatus.layer.masksToBounds = YES;
-    self.timeLabel = [Factory creatLabelWithText:@"13:00"
+    self.timeLabel = [Factory creatLabelWithText:@""
                                        fontValue:font750(52)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentCenter];
-    self.timeLabel.hidden = YES;
-//    self.timeLabel.font = [UIFont boldSystemFontOfSize:font750(52)];
     self.leftImg.frame = CGRectMake(Anno750(60), Anno750(160), Anno750(120), Anno750(120));
     self.rightImg.frame = CGRectMake(UI_WIDTH - Anno750(120) - Anno750(60), Anno750(160), Anno750(120), Anno750(120));
     self.leftScore.frame = CGRectMake(Anno750(240), Anno750(210), Anno750(60), Anno750(60));
@@ -106,6 +96,11 @@
     [self addSubview:self.vsLabel];
     [self addSubview:self.gameStatus];
     [self addSubview:self.timeLabel];
+    [self addSubview:self.videoButton];
+    [self.videoButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(@0);
+        make.top.equalTo(self.leftImg.mas_top);
+    }];
     [self.leftName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.leftImg.mas_centerX);
         make.top.equalTo(self.leftImg.mas_bottom).offset(Anno750(6));
@@ -130,6 +125,62 @@
     }];
     
 }
-
+- (void)updateWithMatchDetailModel:(MatchDetailModel *)model{
+    self.leftName.text = model.home_name;
+    self.rightName.text = model.visitor_name;
+    switch ([model.match_state intValue]) {
+        case 0://未开始
+        {
+            self.gameStatus.backgroundColor = Color_TagBlue;
+            self.gameStatus.layer.borderColor = [UIColor clearColor].CGColor;
+            self.gameStatus.text = @"比赛前瞻";
+            self.leftScore.text = @"";
+            self.rightScore.text = @"";
+            self.timeLabel.text = [Factory timestampSwitchWithHourStyleTime:[model.time integerValue]];
+            self.videoButton.hidden = YES;
+            self.vsLabel.hidden = YES;
+        }
+            break;
+        case 1://正在进行
+        {
+            self.gameStatus.backgroundColor = Color_MainRed;
+            self.gameStatus.layer.borderColor = [UIColor clearColor].CGColor;
+            self.gameStatus.text = @"进行中";
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.timeLabel.text = @"";
+            self.videoButton.hidden = NO;
+            self.vsLabel.hidden = NO;
+            if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
+                self.rightScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.leftScore.textColor = Color_White_5;
+            }
+        }
+            break;
+        case 2://已结束
+        {
+            self.gameStatus.backgroundColor = UIColorFromRGBA(0x000000, 0.3);
+            self.gameStatus.text = @"已结束";
+            self.gameStatus.layer.borderColor = Color_White_3.CGColor;
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
+                self.rightScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.leftScore.textColor = Color_White_5;
+            }
+            self.timeLabel.text = @"";
+            self.videoButton.hidden = YES;
+            self.vsLabel.hidden = NO;
+            
+        }
+            break;
+        default:
+            break;
+    }
+    
+    
+}
 
 @end
