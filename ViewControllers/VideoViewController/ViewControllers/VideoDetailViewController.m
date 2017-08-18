@@ -10,6 +10,7 @@
 #import "SubNewsListCell.h"
 #import "VideoHeadCell.h"
 #import "VideoDetailModel.h"
+#import "VideoPlayViewController.h"
 @interface VideoDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -89,7 +90,8 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        
+        VideoPlayViewController * vc = [[VideoPlayViewController alloc]initWithUrl:[NSURL URLWithString:self.videoModel.src]];
+        [self presentViewController:vc animated:YES completion:nil];
     }else{
         VideoDetailViewController * vc = [[VideoDetailViewController alloc]init];
         vc.videoID = self.videoModel.recommend_list[indexPath.section - 1].id;

@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UILabel * rightScore;
 @property (nonatomic, strong) UIView * lineView;
 
+- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles;
+
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

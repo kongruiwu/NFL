@@ -9,6 +9,9 @@
 #import "BaseModel.h"
 #import "MatchDetailModel.h"
 
+
+
+
 @interface MatchListModel : BaseModel
 /** 周一   周二。。。。*/
 @property (nonatomic, strong) NSString * c_date_w;

@@ -24,4 +24,6 @@
 @property (nonatomic, strong) TeamImageView * teamFour;
 @property (nonatomic, assign) id<AddTeamCellDelegate> delegate;
 - (void)updateWithArray:(NSArray *)arr;
+/**是否需要显示 被关注状态*/
+- (void)updateWithArray:(NSArray *)arr NeedSelect:(BOOL)rec;
 @end

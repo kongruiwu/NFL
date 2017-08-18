@@ -52,12 +52,14 @@
     self.adLabel.layer.borderColor = Color_MainBlue.CGColor;
     self.adLabel.layer.borderWidth = 0.5f;
     self.adLabel.hidden = YES;
-    
+    self.playIcon = [Factory creatImageViewWithImage:@"content_icon_small_play"];
+    self.playIcon.hidden = YES;
     [self addSubview:self.leftImg];
     [self addSubview:self.nameLabel];
     [self addSubview:self.timeLabel];
     [self addSubview:self.adLabel];
     [self addSubview:self.likeBtn];
+    [self addSubview:self.playIcon];
     
 }
 - (void)layoutSubviews{
@@ -89,6 +91,10 @@
         make.width.equalTo(@(Anno750(60)));
         make.height.equalTo(@(Anno750(26)));
     }];
+    [self.playIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(Anno750(10)));
+        make.bottom.equalTo(@(-Anno750(10)));
+    }];
 }
 
 - (void)updateWithObjectModel:(id)model{
@@ -99,16 +105,19 @@
     }
 }
 - (void)updateWithVideoListModel:(VideoListModel *)model{
-//    self.playIcon.hidden = NO;
+    self.playIcon.hidden = NO;
     [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.likeBtn.selected = model.collected;
 }
 - (void)updateWithInfoListModel:(InfoListModel *)model{
+    self.playIcon.hidden = YES;
     [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.likeBtn.selected = model.collected;
 }
 @end

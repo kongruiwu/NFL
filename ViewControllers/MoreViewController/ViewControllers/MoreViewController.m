@@ -16,6 +16,8 @@
 #import "AboutUsViewController.h"
 #import "LoginViewController.h"
 #import "MyCollectionViewController.h"
+#import "AddAttentionViewController.h"
+#import "WKWebViewController.h"
 @interface MoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -114,8 +116,11 @@
         if (indexPath.row == 0) {
             [self.navigationController pushViewController:[OnlineQuestionViewController new] animated:YES];
         }else if(indexPath.row == 2){
-            UINavigationController * nvc =[[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
-            [self presentViewController:nvc animated:YES completion:nil];
+            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:DaydayNFL];
+            [self.navigationController pushViewController:vc animated:YES];
+        }else if(indexPath.row == 1){
+            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"101课堂" url:Teach_101];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }else if(indexPath.section == 2){
         if (indexPath.row == 0) {
@@ -128,6 +133,8 @@
     }else if(indexPath.section == 0){
         if (indexPath.row == 1) {
             [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
+        }else if(indexPath.row == 0){
+            [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];
         }
     }
 }

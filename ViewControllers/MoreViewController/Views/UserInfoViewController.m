@@ -249,4 +249,8 @@
     
 }
 
+- (void)changeUserInfo{
+    
+}
+
 @end

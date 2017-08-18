@@ -12,6 +12,7 @@
 @interface GameLiveViewController : GameBassViewController
 
 @property (nonatomic) BOOL isPlaying;
-@property (nonatomic, strong) NSArray<LiveModel *> * dataArrays;
-
+@property (nonatomic, strong) NSNumber * gameID;
+@property (nonatomic, strong) NSMutableArray<LiveModel *> * dataArrays;
+- (void)updateWithTeamFightInfo:(NSMutableArray *)array;
 @end

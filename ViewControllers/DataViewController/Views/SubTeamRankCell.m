@@ -30,7 +30,7 @@
 }
 - (void)creatUI{
     self.rankNum = [self creatlabelWithText:@"1." Alignment:NSTextAlignmentLeft];
-    self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
+    self.leftImg = [Factory creatImageViewWithImage:@""];
     self.leftImg.frame = CGRectMake(Anno750(60), Anno750(10), Anno750(70), Anno750(60));
     self.nameLabel = [self creatlabelWithText:@"印第安纳波利斯小马" Alignment:NSTextAlignmentLeft];
     self.lineView = [Factory creatLineView];
@@ -106,6 +106,7 @@
     self.winProgress.text = model.division_win_pct;
     self.unionScore.text = model.conference_record;
     self.outScore.text = model.non_conference_record;
+    self.leftImg.image = [Factory getImageWithNumer:model.team_id white:YES];
     
 }
 @end

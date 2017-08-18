@@ -22,5 +22,6 @@
 @property (nonatomic, strong) UIButton * clearBtn;
 
 - (void)updateWithTeamModel:(TeamModel *)model;
+- (void)updateWithTeamModel:(TeamModel *)model needSelect:(BOOL)rec;
 
 @end

@@ -33,6 +33,7 @@
 
 @property (nonatomic, strong) UIView * line;
 
+
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

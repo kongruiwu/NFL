@@ -7,7 +7,9 @@
 //
 
 #import "GameBassViewController.h"
-
+#import "TeamDataModel.h"
 @interface TeamDataViewController : GameBassViewController
+
+@property (nonatomic, strong) TeamDataInfoModel * dataInfo;
 
 @end

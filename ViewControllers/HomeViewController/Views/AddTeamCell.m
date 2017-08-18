@@ -77,21 +77,24 @@
 }
 
 - (void)updateWithArray:(NSArray *)arr{
+    [self updateWithArray:arr NeedSelect:NO];
+}
+- (void)updateWithArray:(NSArray *)arr NeedSelect:(BOOL)rec{
     for (int i = 0; i<arr.count; i++) {
         id obj = arr[i];
         if ([obj isKindOfClass:[TeamModel class]]) {
             TeamModel * model = arr[i];
             if (i == 0) {
-                [self.teamOne updateWithTeamModel:model];
+                [self.teamOne updateWithTeamModel:model needSelect:rec];
             }else if(i == 1){
                 self.teamTwo.hidden = NO;
-                [self.teamTwo updateWithTeamModel:model];
+                [self.teamTwo updateWithTeamModel:model needSelect:rec];
             }else if(i == 2){
                 self.teamThree.hidden = NO;
-                [self.teamThree updateWithTeamModel:model];
+                [self.teamThree updateWithTeamModel:model needSelect:rec];
             }else{
                 self.teamFour.hidden = NO;
-                [self.teamFour updateWithTeamModel:model];
+                [self.teamFour updateWithTeamModel:model needSelect:rec];
             }
         }else{
             if(i == 1){

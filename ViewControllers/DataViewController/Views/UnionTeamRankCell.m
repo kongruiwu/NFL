@@ -110,5 +110,6 @@
     self.drawLabel.text = [NSString stringWithFormat:@"%@",model.tie];
     self.winProLabel.text = model.win_pct;
     self.winScore.text = [NSString stringWithFormat:@"%@",model.net_points];
+    self.leftImg.image = [Factory getImageWithNumer:model.team_id white:YES];
 }
 @end

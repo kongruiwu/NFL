@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
 #import "SelectTopView.h"
+#import "TeamDataModel.h"
 @interface TeamDetailHeader : UIView
 
 @property (nonatomic, strong) UIImageView * bgImg;
@@ -23,4 +24,6 @@
 @property (nonatomic, strong) UILabel * playground;
 @property (nonatomic, strong) UIView * line;
 @property (nonatomic, strong) SelectTopView * selectView;
+
+- (void)updateWithTeamDataModel:(TeamDataModel *)model;
 @end

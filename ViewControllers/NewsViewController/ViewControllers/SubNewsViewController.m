@@ -78,12 +78,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString * url;
+    InfoListModel * model;
     if (indexPath.section == 0) {
         url = self.mainModel.coverModel.app_iframe;
+        model = [[InfoListModel alloc]init];
+        model.share_link = self.mainModel.coverModel.share_link;
+        model.title = self.mainModel.coverModel.title;
+        model.pic_thumbnail = self.mainModel.coverModel.pic;
     }else{
         url = self.mainModel.list[indexPath.section - 1].app_iframe;
+        model = self.mainModel.list[indexPath.section - 1];
     }
-    WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"" url:url];
+    WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"资讯" url:url];
+    vc.infoModel = model;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

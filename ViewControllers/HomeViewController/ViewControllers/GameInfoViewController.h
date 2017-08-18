@@ -7,9 +7,10 @@
 //
 
 #import "GameBassViewController.h"
-
+#import "LiveViewModel.h"
 @interface GameInfoViewController : GameBassViewController
 
+@property (nonatomic, strong) LiveViewModel * viewModel;
 
 
 @end

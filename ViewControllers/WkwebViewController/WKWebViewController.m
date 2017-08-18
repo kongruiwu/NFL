@@ -14,6 +14,7 @@
 @property (nonatomic, strong) NSString * urlStr;
 @property (nonatomic, strong) UIProgressView * progressView;
 @property (nonatomic, strong) NSString * titleStr;
+@property (nonatomic, strong) UIImageView * shareImg;
 
 @end
 
@@ -25,7 +26,12 @@
         self.titleStr = title.length > 0 ? title : @"资讯";
         self.urlStr = urlStr;
         if ([UserManager manager].isLogin) {
-            self.urlStr = [NSString stringWithFormat:@"%@&uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify];
+            if ([urlStr isEqualToString:DaydayNFL]) {
+                self.urlStr = [NSString stringWithFormat:@"%@?uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify_ttnfl];
+            }else{
+                self.urlStr = [NSString stringWithFormat:@"%@?uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify];
+            }
+            
         }
     }
     return self;
@@ -44,8 +50,14 @@
     [self drawBackButton];
     [self setNavTitle:self.titleStr];
     [self creatUI];
+    [self drawShareButton];
 }
+
 - (void)creatUI{
+    
+    self.shareImg = [Factory creatImageViewWithImage:@""];
+    [self.shareImg sd_setImageWithURL:[NSURL URLWithString:self.infoModel.pic_thumbnail]];
+    
     self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 49)];
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
     self.webview.navigationDelegate = self;
@@ -77,6 +89,34 @@
     }else{
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
+}
+
+- (void)doShare{
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        //图片
+        
+        UIImage * image = self.shareImg.image;
+        NSString * title = self.infoModel.title;
+        NSString * desc = [NSString stringWithFormat:@"NFL橄榄球：“%@“快来看看吧",self.infoModel.title];
+        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+        UMShareObject * shareObj;
+        if (platformType == UMSocialPlatformType_Sina) {
+            shareObj = [UMShareImageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        }else{
+            shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+            UMShareWebpageObject * shareWeb = (UMShareWebpageObject *)shareObj;
+            shareWeb.webpageUrl = self.infoModel.share_link;
+        }
+        if (platformType == UMSocialPlatformType_Sina) {
+            messageObject.text = [NSString stringWithFormat:@"%@%@",desc,self.infoModel.share_link];
+        }
+        messageObject.shareObject = shareObj;
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }];
 }
 
 @end

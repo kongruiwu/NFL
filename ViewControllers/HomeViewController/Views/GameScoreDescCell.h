@@ -15,6 +15,6 @@
 @property (nonatomic, strong) NSMutableArray * labels;
 @property (nonatomic, strong) UIView * topLine;
 
-- (void)updateWithTitles:(NSArray *)titles;
+- (void)updateWithTitles:(NSArray *)titles TeamId:(NSNumber *)teamid;
 
 @end

@@ -16,7 +16,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getData];
 }
 
 - (void)viewDidLoad {
@@ -39,19 +38,12 @@
     if (!cell) {
         cell = [[TeamDataCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    [cell updateWithTeamDataInfoModel:self.dataInfo];
     return cell;
 }
 
-- (void)getData{
-    [SVProgressHUD show];
-    NSDictionary * params = @{
-                              @"page":@"data"
-                              };
-    [[NetWorkManger manager] sendRequest:TeamDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-        NSLog(@"%@",result);
-    } error:^(NFError *byerror) {
-        
-    }];
+- (void)setDataInfo:(TeamDataInfoModel *)dataInfo{
+    _dataInfo = dataInfo;
+    [self.tabview reloadData];
 }
-
 @end

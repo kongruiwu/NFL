@@ -25,7 +25,6 @@
 		8B2D73531F0AA2E200E1BF4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73521F0AA2E200E1BF4B /* main.m */; };
 		8B2D73561F0AA2E200E1BF4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73551F0AA2E200E1BF4B /* AppDelegate.m */; };
 		8B2D735E1F0AA2E300E1BF4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B2D735D1F0AA2E300E1BF4B /* Assets.xcassets */; };
-		8B2D73611F0AA2E300E1BF4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B2D735F1F0AA2E300E1BF4B /* LaunchScreen.storyboard */; };
 		8B2D736C1F0AA2E300E1BF4B /* NFLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D736B1F0AA2E300E1BF4B /* NFLTests.m */; };
 		8B2D73771F0AA2E300E1BF4B /* NFLUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73761F0AA2E300E1BF4B /* NFLUITests.m */; };
 		8B2D73A41F0BD33A00E1BF4B /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73A11F0BD33A00E1BF4B /* BaseModel.m */; };
@@ -53,6 +52,8 @@
 		8B577DBB1F43DA4400CBD97A /* TeamRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DBA1F43DA4400CBD97A /* TeamRankModel.m */; };
 		8B577DBE1F43E26300CBD97A /* SubTeamRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DBD1F43E26300CBD97A /* SubTeamRankModel.m */; };
 		8B577DC11F440BEE00CBD97A /* PlayerRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DC01F440BEE00CBD97A /* PlayerRankModel.m */; };
+		8B577DC41F4416DB00CBD97A /* TeamDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DC31F4416DB00CBD97A /* TeamDataModel.m */; };
+		8B577DC71F444BD200CBD97A /* PlayerLineUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DC61F444BD200CBD97A /* PlayerLineUpModel.m */; };
 		8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1A1F2C2A50009FF50D /* UserInfoViewController.m */; };
 		8B70AD1E1F2C2DFA009FF50D /* UserInfoSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1D1F2C2DFA009FF50D /* UserInfoSettingCell.m */; };
 		8B70AD211F2C423C009FF50D /* SubNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD201F2C423C009FF50D /* SubNewsViewController.m */; };
@@ -74,6 +75,9 @@
 		8B71354D1F3C3FD4009A003F /* PhotoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71354C1F3C3FD4009A003F /* PhotoScrollView.m */; };
 		8B7135581F3C5868009A003F /* NullView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7135571F3C5868009A003F /* NullView.m */; };
 		8B71355C1F3C5FF3009A003F /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71355B1F3C5FF3009A003F /* WKWebViewController.m */; };
+		8B73AD561F467F6C005B0045 /* GameRatioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B73AD551F467F6C005B0045 /* GameRatioViewController.m */; };
+		8B73AD591F46D4D9005B0045 /* GameStarsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B73AD581F46D4D9005B0045 /* GameStarsCell.m */; };
+		8B73AD5C1F46E837005B0045 /* VideoAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B73AD5B1F46E837005B0045 /* VideoAttentionViewController.m */; };
 		8B7C0DF81F4285C2000DF4D0 /* TeamDeatailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7C0DF71F4285C2000DF4D0 /* TeamDeatailViewController.m */; };
 		8B7C0DFC1F428769000DF4D0 /* TeamDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7C0DFB1F428769000DF4D0 /* TeamDetailHeader.m */; };
 		8B7C0DFF1F428870000DF4D0 /* SelectTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7C0DFE1F428870000DF4D0 /* SelectTopView.m */; };
@@ -92,6 +96,18 @@
 		8B85E03D1F32C3F500FFBF39 /* GameLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B85E03C1F32C3F500FFBF39 /* GameLiveViewController.m */; };
 		8B85E0401F32CA2900FFBF39 /* GameLiveListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B85E03F1F32CA2900FFBF39 /* GameLiveListCell.m */; };
 		8B8DAF3C1F1CF59E00BDF1AA /* AddTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */; };
+		8B9073821F45289B005D70ED /* PlayerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9073811F45289B005D70ED /* PlayerListModel.m */; };
+		8B9073851F456F6E005D70ED /* FollowedTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9073841F456F6E005D70ED /* FollowedTeamCell.m */; };
+		8B9073881F45723C005D70ED /* SmallTeamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9073871F45723C005D70ED /* SmallTeamCell.m */; };
+		8B90738B1F457FE7005D70ED /* HomeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90738A1F457FE7005D70ED /* HomeInfoModel.m */; };
+		8B90738F1F45D2BB005D70ED /* FristViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90738E1F45D2BB005D70ED /* FristViewController.m */; };
+		8B9073951F45D3F7005D70ED /* lan1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073901F45D3F7005D70ED /* lan1.jpg */; };
+		8B9073961F45D3F7005D70ED /* lan2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073911F45D3F7005D70ED /* lan2.jpg */; };
+		8B9073971F45D3F7005D70ED /* lan3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073921F45D3F7005D70ED /* lan3.jpg */; };
+		8B9073981F45D3F7005D70ED /* lan4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073931F45D3F7005D70ED /* lan4.jpg */; };
+		8B9073991F45D3F7005D70ED /* lan5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073941F45D3F7005D70ED /* lan5.jpg */; };
+		8B90739C1F45DA39005D70ED /* LanuchMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */; };
+		8B90739E1F45DAC5005D70ED /* nfl.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B90739D1F45DAC5005D70ED /* nfl.mp4 */; };
 		8B93DA9A1F2AD0BA0087988D /* TeamUnionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B93DA991F2AD0BA0087988D /* TeamUnionHeadView.m */; };
 		8B93DA9D1F2AD4740087988D /* SubTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B93DA9C1F2AD4740087988D /* SubTeamRankCell.m */; };
 		8B9ACB5C1F263785005772ED /* TeamerRankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9ACB5B1F263785005772ED /* TeamerRankListCell.m */; };
@@ -209,7 +225,6 @@
 		8B2D73541F0AA2E200E1BF4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8B2D73551F0AA2E200E1BF4B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8B2D735D1F0AA2E300E1BF4B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8B2D73601F0AA2E300E1BF4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8B2D73621F0AA2E300E1BF4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B2D73671F0AA2E300E1BF4B /* NFLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NFLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B2D736B1F0AA2E300E1BF4B /* NFLTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NFLTests.m; sourceTree = "<group>"; };
@@ -265,6 +280,10 @@
 		8B577DBD1F43E26300CBD97A /* SubTeamRankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubTeamRankModel.m; sourceTree = "<group>"; };
 		8B577DBF1F440BEE00CBD97A /* PlayerRankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerRankModel.h; sourceTree = "<group>"; };
 		8B577DC01F440BEE00CBD97A /* PlayerRankModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRankModel.m; sourceTree = "<group>"; };
+		8B577DC21F4416DB00CBD97A /* TeamDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataModel.h; sourceTree = "<group>"; };
+		8B577DC31F4416DB00CBD97A /* TeamDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataModel.m; sourceTree = "<group>"; };
+		8B577DC51F444BD200CBD97A /* PlayerLineUpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLineUpModel.h; sourceTree = "<group>"; };
+		8B577DC61F444BD200CBD97A /* PlayerLineUpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLineUpModel.m; sourceTree = "<group>"; };
 		8B70AD191F2C2A50009FF50D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewController.h; path = ../Views/UserInfoViewController.h; sourceTree = "<group>"; };
 		8B70AD1A1F2C2A50009FF50D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = ../Views/UserInfoViewController.m; sourceTree = "<group>"; };
 		8B70AD1C1F2C2DFA009FF50D /* UserInfoSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoSettingCell.h; sourceTree = "<group>"; };
@@ -307,6 +326,12 @@
 		8B7135571F3C5868009A003F /* NullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullView.m; sourceTree = "<group>"; };
 		8B71355A1F3C5FF3009A003F /* WKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
 		8B71355B1F3C5FF3009A003F /* WKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		8B73AD541F467F6C005B0045 /* GameRatioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameRatioViewController.h; sourceTree = "<group>"; };
+		8B73AD551F467F6C005B0045 /* GameRatioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameRatioViewController.m; sourceTree = "<group>"; };
+		8B73AD571F46D4D9005B0045 /* GameStarsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStarsCell.h; sourceTree = "<group>"; };
+		8B73AD581F46D4D9005B0045 /* GameStarsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStarsCell.m; sourceTree = "<group>"; };
+		8B73AD5A1F46E837005B0045 /* VideoAttentionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoAttentionViewController.h; sourceTree = "<group>"; };
+		8B73AD5B1F46E837005B0045 /* VideoAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoAttentionViewController.m; sourceTree = "<group>"; };
 		8B7C0DF61F4285C2000DF4D0 /* TeamDeatailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDeatailViewController.h; sourceTree = "<group>"; };
 		8B7C0DF71F4285C2000DF4D0 /* TeamDeatailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDeatailViewController.m; sourceTree = "<group>"; };
 		8B7C0DFA1F428769000DF4D0 /* TeamDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDetailHeader.h; sourceTree = "<group>"; };
@@ -343,6 +368,24 @@
 		8B85E03F1F32CA2900FFBF39 /* GameLiveListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLiveListCell.m; sourceTree = "<group>"; };
 		8B8DAF3A1F1CF59E00BDF1AA /* AddTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTeamCell.h; sourceTree = "<group>"; };
 		8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTeamCell.m; sourceTree = "<group>"; };
+		8B9073801F45289B005D70ED /* PlayerListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerListModel.h; sourceTree = "<group>"; };
+		8B9073811F45289B005D70ED /* PlayerListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerListModel.m; sourceTree = "<group>"; };
+		8B9073831F456F6E005D70ED /* FollowedTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowedTeamCell.h; sourceTree = "<group>"; };
+		8B9073841F456F6E005D70ED /* FollowedTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowedTeamCell.m; sourceTree = "<group>"; };
+		8B9073861F45723C005D70ED /* SmallTeamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmallTeamCell.h; sourceTree = "<group>"; };
+		8B9073871F45723C005D70ED /* SmallTeamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallTeamCell.m; sourceTree = "<group>"; };
+		8B9073891F457FE7005D70ED /* HomeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeInfoModel.h; sourceTree = "<group>"; };
+		8B90738A1F457FE7005D70ED /* HomeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeInfoModel.m; sourceTree = "<group>"; };
+		8B90738D1F45D2BB005D70ED /* FristViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FristViewController.h; sourceTree = "<group>"; };
+		8B90738E1F45D2BB005D70ED /* FristViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FristViewController.m; sourceTree = "<group>"; };
+		8B9073901F45D3F7005D70ED /* lan1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan1.jpg; sourceTree = "<group>"; };
+		8B9073911F45D3F7005D70ED /* lan2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan2.jpg; sourceTree = "<group>"; };
+		8B9073921F45D3F7005D70ED /* lan3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan3.jpg; sourceTree = "<group>"; };
+		8B9073931F45D3F7005D70ED /* lan4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan4.jpg; sourceTree = "<group>"; };
+		8B9073941F45D3F7005D70ED /* lan5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan5.jpg; sourceTree = "<group>"; };
+		8B90739A1F45DA39005D70ED /* LanuchMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanuchMovieViewController.h; sourceTree = "<group>"; };
+		8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanuchMovieViewController.m; sourceTree = "<group>"; };
+		8B90739D1F45DAC5005D70ED /* nfl.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nfl.mp4; sourceTree = "<group>"; };
 		8B93DA981F2AD0BA0087988D /* TeamUnionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamUnionHeadView.h; sourceTree = "<group>"; };
 		8B93DA991F2AD0BA0087988D /* TeamUnionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamUnionHeadView.m; sourceTree = "<group>"; };
 		8B93DA9B1F2AD4740087988D /* SubTeamRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTeamRankCell.h; sourceTree = "<group>"; };
@@ -565,7 +608,6 @@
 				8B2D73541F0AA2E200E1BF4B /* AppDelegate.h */,
 				8B2D73551F0AA2E200E1BF4B /* AppDelegate.m */,
 				8B2D735D1F0AA2E300E1BF4B /* Assets.xcassets */,
-				8B2D735F1F0AA2E300E1BF4B /* LaunchScreen.storyboard */,
 				8B2D73621F0AA2E300E1BF4B /* Info.plist */,
 				8B2D73511F0AA2E200E1BF4B /* Supporting Files */,
 			);
@@ -683,6 +725,7 @@
 		8B2D73C51F0BDC6000E1BF4B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				8B90738C1F45D2BB005D70ED /* FristViewController */,
 				8B7135591F3C5FDC009A003F /* WkwebViewController */,
 				8B2D73DD1F0BDD2D00E1BF4B /* MoreViewController */,
 				8B2D73D91F0BDD2100E1BF4B /* DataViewController */,
@@ -744,6 +787,8 @@
 				8BDEFC871F414D89005BDD2B /* TimeListModel.m */,
 				8BDEFC891F4171B7005BDD2B /* MatchListModel.h */,
 				8BDEFC8A1F4171B7005BDD2B /* MatchListModel.m */,
+				8B9073891F457FE7005D70ED /* HomeInfoModel.h */,
+				8B90738A1F457FE7005D70ED /* HomeInfoModel.m */,
 				8BDEFC8C1F417278005BDD2B /* MatchDetailModel.h */,
 				8BDEFC8D1F417278005BDD2B /* MatchDetailModel.m */,
 				8B7C0E181F42E27F000DF4D0 /* MatchOverDataModel.h */,
@@ -779,6 +824,8 @@
 				8BDEFC901F419E1E005BDD2B /* GameVideoViewController.m */,
 				8BDEFC921F419E38005BDD2B /* GameInfoViewController.h */,
 				8BDEFC931F419E38005BDD2B /* GameInfoViewController.m */,
+				8B73AD541F467F6C005B0045 /* GameRatioViewController.h */,
+				8B73AD551F467F6C005B0045 /* GameRatioViewController.m */,
 				8BDEFC951F419E67005BDD2B /* GameNewsViewController.h */,
 				8BDEFC961F419E67005BDD2B /* GameNewsViewController.m */,
 			);
@@ -804,6 +851,10 @@
 				8B9B9EF61F13BBD5004A2283 /* TeamImageView.m */,
 				8B8DAF3A1F1CF59E00BDF1AA /* AddTeamCell.h */,
 				8B8DAF3B1F1CF59E00BDF1AA /* AddTeamCell.m */,
+				8B9073831F456F6E005D70ED /* FollowedTeamCell.h */,
+				8B9073841F456F6E005D70ED /* FollowedTeamCell.m */,
+				8B9073861F45723C005D70ED /* SmallTeamCell.h */,
+				8B9073871F45723C005D70ED /* SmallTeamCell.m */,
 				8BB90B4A1F1507B0004B29A8 /* GameHeaderView.h */,
 				8BB90B4B1F1507B0004B29A8 /* GameHeaderView.m */,
 				8BB90B4D1F150FC5004B29A8 /* GameSegmentView.h */,
@@ -919,6 +970,8 @@
 				8BD6769D1F2EB9DA00B42497 /* VideoDetailViewController.m */,
 				8B4AB09D1F3D48FD0069E31B /* VideoPlayViewController.h */,
 				8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */,
+				8B73AD5A1F46E837005B0045 /* VideoAttentionViewController.h */,
+				8B73AD5B1F46E837005B0045 /* VideoAttentionViewController.m */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -957,6 +1010,12 @@
 				8B577DBD1F43E26300CBD97A /* SubTeamRankModel.m */,
 				8B577DBF1F440BEE00CBD97A /* PlayerRankModel.h */,
 				8B577DC01F440BEE00CBD97A /* PlayerRankModel.m */,
+				8B577DC21F4416DB00CBD97A /* TeamDataModel.h */,
+				8B577DC31F4416DB00CBD97A /* TeamDataModel.m */,
+				8B577DC51F444BD200CBD97A /* PlayerLineUpModel.h */,
+				8B577DC61F444BD200CBD97A /* PlayerLineUpModel.m */,
+				8B9073801F45289B005D70ED /* PlayerListModel.h */,
+				8B9073811F45289B005D70ED /* PlayerListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1132,6 +1191,23 @@
 			path = TeamDetail;
 			sourceTree = "<group>";
 		};
+		8B90738C1F45D2BB005D70ED /* FristViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8B90738D1F45D2BB005D70ED /* FristViewController.h */,
+				8B90738E1F45D2BB005D70ED /* FristViewController.m */,
+				8B90739A1F45DA39005D70ED /* LanuchMovieViewController.h */,
+				8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */,
+				8B9073901F45D3F7005D70ED /* lan1.jpg */,
+				8B9073911F45D3F7005D70ED /* lan2.jpg */,
+				8B9073921F45D3F7005D70ED /* lan3.jpg */,
+				8B9073931F45D3F7005D70ED /* lan4.jpg */,
+				8B9073941F45D3F7005D70ED /* lan5.jpg */,
+				8B90739D1F45DAC5005D70ED /* nfl.mp4 */,
+			);
+			path = FristViewController;
+			sourceTree = "<group>";
+		};
 		8BD676A21F2ECCB300B42497 /* shareView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1164,6 +1240,8 @@
 				8BDEFC9A1F41A3BE005BDD2B /* GameInfoHeadCell.m */,
 				8BDEFC9C1F41A5F8005BDD2B /* GameInfoHistoryCell.h */,
 				8BDEFC9D1F41A5F8005BDD2B /* GameInfoHistoryCell.m */,
+				8B73AD571F46D4D9005B0045 /* GameStarsCell.h */,
+				8B73AD581F46D4D9005B0045 /* GameStarsCell.m */,
 			);
 			path = GameInfoCell;
 			sourceTree = "<group>";
@@ -1301,12 +1379,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B9073981F45D3F7005D70ED /* lan4.jpg in Resources */,
+				8B9073971F45D3F7005D70ED /* lan3.jpg in Resources */,
+				8B90739E1F45DAC5005D70ED /* nfl.mp4 in Resources */,
 				8B2D73BF1F0BD55B00E1BF4B /* toast_bg@2x.png in Resources */,
 				8B2D73C11F0BD55B00E1BF4B /* toast_icon_bg@2x.png in Resources */,
+				8B9073961F45D3F7005D70ED /* lan2.jpg in Resources */,
 				8BD676BA1F2F185400B42497 /* CropViewController.xib in Resources */,
 				8B2D73C31F0BD55B00E1BF4B /* toast_success@2x.png in Resources */,
-				8B2D73611F0AA2E300E1BF4B /* LaunchScreen.storyboard in Resources */,
+				8B9073991F45D3F7005D70ED /* lan5.jpg in Resources */,
 				8B2D735E1F0AA2E300E1BF4B /* Assets.xcassets in Resources */,
+				8B9073951F45D3F7005D70ED /* lan1.jpg in Resources */,
 				8B2D73C01F0BD55B00E1BF4B /* toast_failure@2x.png in Resources */,
 				8B2D73C21F0BD55B00E1BF4B /* toast_net_failure@2x.png in Resources */,
 			);
@@ -1387,6 +1470,8 @@
 				8B70AD211F2C423C009FF50D /* SubNewsViewController.m in Sources */,
 				8B169A8C1F340D4F00E2507E /* GameScoreDescCell.m in Sources */,
 				8B9B9EEE1F13A8C5004A2283 /* NullTeamView.m in Sources */,
+				8B90739C1F45DA39005D70ED /* LanuchMovieViewController.m in Sources */,
+				8B9073821F45289B005D70ED /* PlayerListModel.m in Sources */,
 				8BBACBF61F299362002A8D79 /* TeamHeadView.m in Sources */,
 				8B71354D1F3C3FD4009A003F /* PhotoScrollView.m in Sources */,
 				8B7C0DFC1F428769000DF4D0 /* TeamDetailHeader.m in Sources */,
@@ -1408,6 +1493,7 @@
 				8B7C0E171F42D71D000DF4D0 /* TeamRightCell.m in Sources */,
 				8BDEFC941F419E38005BDD2B /* GameInfoViewController.m in Sources */,
 				8BC44D9C1F30804A00639881 /* RightTalkCell.m in Sources */,
+				8B9073851F456F6E005D70ED /* FollowedTeamCell.m in Sources */,
 				8B2D73C41F0BD55B00E1BF4B /* ToastView.m in Sources */,
 				8BDEFC8E1F417278005BDD2B /* MatchDetailModel.m in Sources */,
 				8B4AB09F1F3D48FD0069E31B /* VideoPlayViewController.m in Sources */,
@@ -1443,8 +1529,11 @@
 				8B70AD2D1F2C5F0E009FF50D /* SubNewsListCell.m in Sources */,
 				8B169A851F3400A800E2507E /* GameDataViewController.m in Sources */,
 				8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */,
+				8B577DC41F4416DB00CBD97A /* TeamDataModel.m in Sources */,
 				8BF4947B1F394F6A00D40727 /* NSArray+AXNetworkingMethods.m in Sources */,
 				8BEF9C031F3A08820085E7B6 /* VideoDetailModel.m in Sources */,
+				8B577DC71F444BD200CBD97A /* PlayerLineUpModel.m in Sources */,
+				8B9073881F45723C005D70ED /* SmallTeamCell.m in Sources */,
 				8BEEED6A1F2B2CFF00B35BD1 /* MoreListCell.m in Sources */,
 				8BCD4E401F1E373A00E430DE /* TeamerRankViewController.m in Sources */,
 				8B577DBB1F43DA4400CBD97A /* TeamRankModel.m in Sources */,
@@ -1465,14 +1554,17 @@
 				8BD676BB1F2F185400B42497 /* FilterGridVIew.m in Sources */,
 				8BB90B4C1F1507B0004B29A8 /* GameHeaderView.m in Sources */,
 				8B577DBE1F43E26300CBD97A /* SubTeamRankModel.m in Sources */,
+				8B73AD561F467F6C005B0045 /* GameRatioViewController.m in Sources */,
 				8B7C0E021F42934D000DF4D0 /* TeamDataViewController.m in Sources */,
 				8B577DC11F440BEE00CBD97A /* PlayerRankModel.m in Sources */,
+				8B73AD5C1F46E837005B0045 /* VideoAttentionViewController.m in Sources */,
 				8B169A8F1F34163300E2507E /* TeamDataProgressCell.m in Sources */,
 				8B2A4C161F31D4A700A36D79 /* MyCollectionViewController.m in Sources */,
 				8B3ABCFD1F3FE9C600BB4C41 /* PlayerView.m in Sources */,
 				8B7C0E051F42935D000DF4D0 /* TeamMatchViewController.m in Sources */,
 				8B70AD391F2C6D05009FF50D /* PhotoListCell.m in Sources */,
 				8B7C0E1D1F4306BF000DF4D0 /* LiveModel.m in Sources */,
+				8B90738B1F457FE7005D70ED /* HomeInfoModel.m in Sources */,
 				8B2D73531F0AA2E200E1BF4B /* main.m in Sources */,
 				8B7C0E0B1F429383000DF4D0 /* TeamNewsViewController.m in Sources */,
 				8BC44D8A1F304D1500639881 /* ErrorMessageCell.m in Sources */,
@@ -1494,6 +1586,7 @@
 				8B1A223D1F3EF04C00F5E8E2 /* VideoPlayCell.m in Sources */,
 				8BF4946D1F394EE100D40727 /* NetWorkManger.m in Sources */,
 				8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */,
+				8B90738F1F45D2BB005D70ED /* FristViewController.m in Sources */,
 				8BB90B4F1F150FC5004B29A8 /* GameSegmentView.m in Sources */,
 				8B7135471F3C32A2009A003F /* PhotoDetailCell.m in Sources */,
 				8B9B9EF41F13B479004A2283 /* AttentionTeamHeader.m in Sources */,
@@ -1516,6 +1609,7 @@
 				8BC44D901F305F3800639881 /* ThirdAccountViewController.m in Sources */,
 				8B7135411F3B4B9C009A003F /* PageDetailViewController.m in Sources */,
 				8BD676A11F2EBF5200B42497 /* VideoHeadCell.m in Sources */,
+				8B73AD591F46D4D9005B0045 /* GameStarsCell.m in Sources */,
 				8B2A4C101F31ABD400A36D79 /* AboutUsCell.m in Sources */,
 				8BF4947E1F394F6A00D40727 /* UIDevice+IdentifierAddition.m in Sources */,
 			);
@@ -1551,17 +1645,6 @@
 			targetProxy = 8B2D73731F0AA2E300E1BF4B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8B2D735F1F0AA2E300E1BF4B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8B2D73601F0AA2E300E1BF4B /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8B2D73791F0AA2E300E1BF4B /* Debug */ = {
@@ -1659,6 +1742,7 @@
 			baseConfigurationReference = CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;
@@ -1676,6 +1760,7 @@
 			baseConfigurationReference = DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;

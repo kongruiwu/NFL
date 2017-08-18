@@ -21,7 +21,7 @@
     self.userInteractionEnabled = YES;
     
     self.teamImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
-    self.selectImg = [Factory creatImageViewWithImage:@"list_button_60x60_sel"];
+    self.selectImg = [Factory creatImageViewWithImage:@"content_porfile_default"];
     self.teamImg.userInteractionEnabled = YES;
     self.selectImg.userInteractionEnabled = YES;
     self.nameLabel = [Factory creatLabelWithText:@"亚特兰大猎鹰"
@@ -56,6 +56,15 @@
     }];
 }
 - (void)updateWithTeamModel:(TeamModel *)model{
+    [self updateWithTeamModel:model needSelect:NO];
+    
+}
+- (void)updateWithTeamModel:(TeamModel *)model needSelect:(BOOL)rec{
     self.nameLabel.text = model.name;
+    self.teamImg.image = [Factory getImageWithNumer:model.team_id white:YES];
+    if (rec) {
+        NSString * imageName = model.followed ? @"list_button_60x60_sel":@"content_porfile_default";
+        self.selectImg.image = [UIImage imageNamed:imageName];
+    }
 }
 @end

@@ -171,4 +171,15 @@
     
     return confromTimespStr;
 }
+
++ (UIImage *)getImageWithNumer:(NSNumber *)teamid white:(BOOL)rec{
+    NSString * imageName = [NSString stringWithFormat:@"%@",teamid];
+    if ([teamid intValue] == 3410) {
+        if (rec) {
+           imageName = [NSString stringWithFormat:@"%@w",teamid];
+        }
+    }
+    return [UIImage imageNamed:imageName];
+}
+
 @end

@@ -79,7 +79,10 @@
         }];
     }
 }
-- (void)updateWithTitles:(NSArray *)titles{
+- (void)updateWithTitles:(NSArray *)titles TeamId:(NSNumber *)teamid{
+    
+    self.leftImg.image = [Factory getImageWithNumer:teamid white:YES];
+    
     for (int  i = 0; i<self.labels.count; i++) {
         UILabel * label = self.labels[i];
         label.text = [NSString stringWithFormat:@"%@",titles[i]];

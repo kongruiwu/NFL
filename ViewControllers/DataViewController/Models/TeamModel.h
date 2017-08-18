@@ -17,5 +17,7 @@
 @property (nonatomic, strong) NSNumber * team_id;
 /**简称*/
 @property (nonatomic, strong) NSString * sname;
+/**是否被关注*/
+@property (nonatomic, assign) BOOL followed;
 
 @end

@@ -153,7 +153,7 @@
     return self;
 }
 - (void)creatUI{
-    self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[@"联盟",@"分区"]];
+    self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[@"阵容",@"名单"]];
     self.segmentbtn.backgroundColor = [UIColor whiteColor];
     self.segmentbtn.layer.borderColor = Color_MainBlue.CGColor;
     self.segmentbtn.tintColor = Color_MainBlue;
@@ -164,20 +164,16 @@
     [self.segmentbtn setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateSelected];
     [self.segmentbtn setTitleTextAttributes:@{NSForegroundColorAttributeName:Color_MainBlue} forState:UIControlStateNormal];
     self.segmentbtn.selectedSegmentIndex = 0;
-    [self.segmentbtn addTarget:self action:@selector(segmentbtnSelect:) forControlEvents:UIControlEventValueChanged];
+//    [self.segmentbtn addTarget:self action:@selector(segmentbtnSelect:) forControlEvents:UIControlEventValueChanged];
     self.segmentbtn.frame = CGRectMake((UI_WIDTH - Anno750(450))/2, Anno750(30), Anno750(450), Anno750(60));
     [self addSubview:self.segmentbtn];
 
     self.leftSection = [[TeamLeftSection alloc]initWithFrame:CGRectMake(0, Anno750(120), UI_WIDTH, Anno750(60))];
     self.rightSection = [[TeamRightSection alloc]initWithFrame:CGRectMake(0, Anno750(120), UI_WIDTH, Anno750(60))];
     
+
     [self addSubview:self.leftSection];
     [self addSubview:self.rightSection];
-}
-
-- (void)segmentbtnSelect:(UISegmentedControl *)segme{
-    
-  
 }
 
 

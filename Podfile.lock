@@ -36,6 +36,8 @@ PODS:
   - UMengUShare/Social/Sina (6.4.5):
     - UMengUShare/Core
     - UMengUShare/Social/ReducedSina
+  - UMengUShare/UI (6.4.5):
+    - UMengUShare/Core
 
 DEPENDENCIES:
   - AFNetworking
@@ -50,6 +52,7 @@ DEPENDENCIES:
   - UMengUShare/Social/ReducedQQ
   - UMengUShare/Social/ReducedWeChat
   - UMengUShare/Social/Sina
+  - UMengUShare/UI
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -63,6 +66,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
   UMengUShare: a5711c54e640b04e3048e931d2b88d50f9cfa55c
 
-PODFILE CHECKSUM: baaae1e9e1f403f0f8fbcd121b19c881e2b3f0bc
+PODFILE CHECKSUM: 2c944019d6907c9d9c11deba86bdeb7a9fc947a1
 
 COCOAPODS: 1.1.1

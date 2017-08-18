@@ -64,6 +64,7 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"专栏" url:self.dataArray[indexPath.section].app_iframe];
+    vc.infoModel = self.dataArray[indexPath.section];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

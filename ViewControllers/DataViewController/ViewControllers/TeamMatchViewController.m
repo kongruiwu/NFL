@@ -8,11 +8,20 @@
 
 #import "TeamMatchViewController.h"
 #import "ScheduleListCell.h"
+#import "MatchDetailModel.h"
+#import "GameDetailTabViewController.h"
 @interface TeamMatchViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, strong) NSMutableArray<MatchDetailModel *> * dataArray;
 
 @end
 
 @implementation TeamMatchViewController
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getData];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -20,7 +29,9 @@
 }
 
 - (void)creatUI{
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStylePlain delegate:self];
+    self.dataArray = [NSMutableArray new];
+    
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     
 }
@@ -28,13 +39,10 @@
     return Anno750(220);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return section == 0 ? 0 : Anno750(60);
+    return Anno750(60);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return nil;
-    }
-    UILabel * label = [Factory creatLabelWithText:@"08/05  周六"
+    UILabel * label = [Factory creatLabelWithText:[NSString stringWithFormat:@"%@  %@",self.dataArray[section].c_date,self.dataArray[section].c_date_w]
                                         fontValue:font750(24)
                                         textColor:Color_LightGray
                                     textAlignment:NSTextAlignmentCenter];
@@ -43,7 +51,7 @@
     return label;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return self.dataArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -54,9 +62,33 @@
     if (!cell) {
         cell = [[ScheduleListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-//    [cell updateWithMatchDetailModel:self.dataArray[indexPath.section].list[indexPath.row -1]];
-//    cell.line.hidden = indexPath.row == 1 ? YES : NO;
+    [cell updateWithMatchDetailModel:self.dataArray[indexPath.section]];
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithMatchDetailModel:self.dataArray[indexPath.section]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)getData{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"team_id":self.teamID,
+                              @"page":@"schedules"
+                              };
+    [[NetWorkManger manager] sendRequest:TeamDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+        if (self.tabview) {
+            NSDictionary * dic = result[@"data"];
+            NSArray * list = dic[@"schedules"];
+            for (int i = 0; i<list.count; i++) {
+                MatchDetailModel * model = [[MatchDetailModel alloc]initWithDictionary:list[i]];
+                [self.dataArray addObject:model];
+            }
+            [self.tabview reloadData];
+        }
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 @end

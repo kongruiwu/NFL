@@ -27,6 +27,8 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) UIButton * videoButton;
 
+- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles;
+
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

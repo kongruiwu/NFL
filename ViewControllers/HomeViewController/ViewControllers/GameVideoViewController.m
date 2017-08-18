@@ -77,6 +77,9 @@
             [self.dataArray addObject:model];
         }
         [self.tabview reloadData];
+        if (self.tabview.contentSize.height < UI_HEGIHT) {
+            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+        }
     } error:^(NFError *byerror) {
         
     }];

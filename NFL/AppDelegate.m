@@ -10,6 +10,8 @@
 #import "ConfigHeader.h"
 #import "RootViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "FristViewController.h"
+#import "LanuchMovieViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -19,10 +21,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self UmengSetting];
-    
+    [self getUserInfo];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.window = [[UIWindow alloc]initWithFrame:UI_BOUNDS];
-    [self.window setRootViewController:[RootViewController new]];
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"Frist"]) {
+        [self.window setRootViewController:[FristViewController new]];
+    }else{
+        [self.window setRootViewController:[RootViewController new]];
+    }
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -35,6 +41,21 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WxAppID appSecret:WxAppSecret redirectURL:@"NFL"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQAPPID/*设置QQ平台的appID*/  appSecret:QQAPPKEY redirectURL:@"NFL"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:SINAAPPKEY  appSecret:SINAAPPSer redirectURL:@"NFL"];
+}
+
+- (void)getUserInfo{
+    if (![UserManager manager].userID) {
+        return;
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              };
+    [[NetWorkManger manager] sendRequest:PageUserInfo route:Route_User withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        [[UserManager manager] updateUserInfo:dic];
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

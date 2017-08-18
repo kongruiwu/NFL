@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "TeamDataModel.h"
+
 @interface TeamDataView : UIView
 /**进攻得分*/
 @property (nonatomic, strong) UILabel * scoreValue;
@@ -37,6 +39,8 @@
 @property (nonatomic, strong) NSMutableArray * rankLabels;
 @property (nonatomic, strong) NSMutableArray * points;
 
-- (void)updateWithValues:(NSArray *)arr;
+@property (nonatomic, strong) CAShapeLayer * insidelayer;
+
+- (void)updateWithTeamDataInfoModel:(TeamDataInfoModel *)model;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "LiveViewModel.h"
 @interface GameInfoHistoryCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * leftImg;
@@ -17,4 +18,5 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) UIView * lineView;
 
+- (void)updateWithLiveViewModel:(VsLogModel *)model;
 @end

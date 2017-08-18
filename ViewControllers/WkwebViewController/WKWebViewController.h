@@ -7,9 +7,12 @@
 //
 
 #import "BaseViewController.h"
-
+#import "InfoListModel.h"
 
 @interface WKWebViewController : BaseViewController
+
+@property (nonatomic, strong) InfoListModel * infoModel;
+
 
 - (instancetype)initWithTitle:(NSString *)title url:(NSString *)urlStr;
 

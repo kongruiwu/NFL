@@ -15,7 +15,8 @@
 #import "Factory.h"
 #import "NetWorkManger.h"
 #import "UserManager.h"
-
+#import <UMSocialCore/UMSocialCore.h>
+#import <UShareUI/UShareUI.h>
 //全局返回通用配置选项
 typedef NS_ENUM(NSInteger, SelectorBackType){
     SelectorBackTypePopBack = 0,

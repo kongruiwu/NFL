@@ -28,4 +28,7 @@
 @property (nonatomic, strong) NSString * app_iframe;
 /**分享链接*/
 @property (nonatomic, strong) NSString * share_link;
+/**是否收藏*/
+@property (nonatomic, assign) BOOL collected;
+
 @end

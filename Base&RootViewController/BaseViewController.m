@@ -103,5 +103,12 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doBack)];
     self.navigationItem.leftBarButtonItem = leftItem;
 }
-
+- (void)drawShareButton{
+    UIImage * shareImg = [[UIImage imageNamed:@"nav_icon_share_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem * share = [[UIBarButtonItem alloc]initWithImage:shareImg style:UIBarButtonItemStylePlain target:self action:@selector(doShare)];
+    self.navigationItem.rightBarButtonItem = share;
+}
+- (void)doShare{
+    
+}
 @end

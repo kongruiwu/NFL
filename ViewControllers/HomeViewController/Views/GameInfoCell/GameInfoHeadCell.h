@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+
 @interface GameInfoHeadCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel * nameLabel;
 @property (nonatomic, strong) UILabel * contentLabel;
+@property (nonatomic, strong) UILabel * nflLabel;
 
 
 - (void)updateWithTitle:(NSString *)title content:(NSString *)content;

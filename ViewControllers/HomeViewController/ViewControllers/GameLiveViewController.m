@@ -12,22 +12,42 @@
 //直播
 @interface GameLiveViewController ()<UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) NSTimer * timer;
+
 @end
 
 @implementation GameLiveViewController
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    if (self.isPlaying) {
+        if (self.timer) {
+            [self.timer invalidate];
+            self.timer = nil;
+        }
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(getData) userInfo:nil repeats:YES];
+    }
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavAlpha];
     [self creatUI];
+    [self getData];
 }
 - (void)creatUI{
+    
+    self.dataArrays = [NSMutableArray new];
+    
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
+    
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -120,9 +140,41 @@
         targetContentOffset->y = 0;
     }
 }
-- (void)setDataArrays:(NSArray<LiveModel *> *)dataArrays{
-    _dataArrays = dataArrays;
+- (void)updateWithTeamFightInfo:(NSMutableArray *)array{
+    self.dataArrays = array;
     [self.tabview reloadData];
+    if (self.tabview.contentSize.height < UI_HEGIHT) {
+        self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+    }
+}
+
+- (void)getData{
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    NSDictionary * params =@{
+                             @"game_id":self.gameID,
+                             };
+    NSString * url = @"http://www.nflchina.com/api_nginx/get_match_info_by_gameid.php";
+    [manger GET:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary * resp = (NSDictionary *)responseObject;
+        NSDictionary * dic = resp[@"result"];
+        NSArray * arr = dic[@"play_by_play"];
+        if (arr.count == 0) {
+            if (self.timer) {
+                [self.timer invalidate];
+                self.timer = nil;
+            }
+        }
+        for (int i = 0; i<arr.count; i++) {
+            LiveModel * model = [[LiveModel alloc]initWithDictionary:arr[i]];
+            [self.dataArrays addObject:model];
+        }
+        [self.tabview reloadData];
+        if (self.tabview.contentSize.height < UI_HEGIHT) {
+            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
 }
 
 @end

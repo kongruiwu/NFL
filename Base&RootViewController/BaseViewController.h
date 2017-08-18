@@ -19,12 +19,14 @@
 @property (nonatomic, strong) NullView * nullView;
 
 - (void)doBack;
+- (void)doShare;
 - (void)setNavAlpha;
 - (void)setNavUnAlpha;
 - (void)setNavTitle:(NSString *)title;
 - (void)drawNavLogo;
 - (void)setNavLineHidden;
 - (void)drawBackButton;
+- (void)drawShareButton;
 - (void)getData;
 
 - (void)showNullViewByType:(NullType)type;

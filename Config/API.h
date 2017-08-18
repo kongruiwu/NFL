@@ -9,15 +9,18 @@
 #ifndef API_h
 #define API_h
 
-#define Base_ApiHost    @"http://api.nflchina.com"
-#define BER_APP_KEY     @"98NexY5d75M76ab"
-
+#define Base_ApiHost        @"http://api.nflchina.com"
+#define BER_APP_KEY         @"98NexY5d75M76ab"
+//天天nfl
+#define DaydayNFL           @"http://h5.ttnflchina.com"
+//101课堂
+#define Teach_101           @"http://www.nflchina.com/nfl360_app"
 
 //视频
 #define Route_Viedeo        @"video2017"
 #define Video_List          @"list"
 #define Video_Detail        @"detail"
-
+#define PageFollowVideo     @"follow_list"
 //最新
 #define Route_NewWest       @"newest2017"
 //资讯
@@ -30,6 +33,8 @@
 #define NewWest_albumDetail @"album_detail"
 //专栏
 #define NewWest_column      @"column"
+//用户关注的资讯
+#define PageFollowNews      @"follow_information"
 
 //用户中心
 #define Route_User          @"user2017"
@@ -51,10 +56,14 @@
 #define Pagerepwd           @"repwd"
 //忘记密码 填写新密码
 #define PageNewPwd          @"repwd_new"
+//获取用户信息
+#define PageUserInfo        @"get_userinfo"
+//关注球队
+#define PageFollowTeam      @"follow_single_team"
 
 
 //首页 赛程
-#define Route_Match          @"match2017"
+#define Route_Match         @"match2017"
 //赛程日历
 #define PageCalendar        @"calendar"
 //赛程列表

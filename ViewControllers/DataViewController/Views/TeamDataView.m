@@ -128,12 +128,12 @@
     centerLayer.lineWidth = 0.5;
     [self.layer addSublayer:centerLayer];
     
-    for (int i = 1; i<4; i++) {
-        CGPoint left_up = CGPointMake(leftUp.x + (centerPoint.x - leftUp.x)/3 * i, leftUp.y + (centerPoint.y - leftUp.y)/3 * i);
-        CGPoint righ_up = CGPointMake(righUp.x - (righUp.x - centerPoint.x)/3 * i, left_up.y);
-        CGPoint leftP = CGPointMake(leftPoint.x + (centerPoint.x - leftPoint.x)/3 * i, centerPoint.y);
-        CGPoint righP = CGPointMake(rightPoint.x - (rightPoint.x - centerPoint.x)/3 * i , centerPoint.y);
-        CGPoint left_down = CGPointMake(left_up.x, leftDown.y - (leftDown.y - centerPoint.y)/3 * i);
+    for (int i = 1; i<=4; i++) {
+        CGPoint left_up = CGPointMake(leftUp.x + (centerPoint.x - leftUp.x)/4 * i, leftUp.y + (centerPoint.y - leftUp.y)/4 * i);
+        CGPoint righ_up = CGPointMake(righUp.x - (righUp.x - centerPoint.x)/4 * i, left_up.y);
+        CGPoint leftP = CGPointMake(leftPoint.x + (centerPoint.x - leftPoint.x)/4 * i, centerPoint.y);
+        CGPoint righP = CGPointMake(rightPoint.x - (rightPoint.x - centerPoint.x)/4 * i , centerPoint.y);
+        CGPoint left_down = CGPointMake(left_up.x, leftDown.y - (leftDown.y - centerPoint.y)/4 * i);
         CGPoint righ_down = CGPointMake(righ_up.x, left_down.y);
         
         //内部环线
@@ -197,22 +197,22 @@
         make.top.equalTo(self.passValue.mas_bottom).offset(Anno750(5));
     }];
     
-    [self.defenseValue mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.defenRunValue mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@(Anno750(600)));
         make.top.equalTo(self.runValue.mas_top);
-    }];
-    [self.defenseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.defenseValue.mas_left);
-        make.top.equalTo(self.defenseValue.mas_bottom).offset(Anno750(5));
-    }];
-    
-    [self.defenRunValue mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.passValue.mas_left);
-        make.top.equalTo(self.defenPassValue.mas_top);
     }];
     [self.defenRunLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.defenRunValue.mas_left);
         make.top.equalTo(self.defenRunValue.mas_bottom).offset(Anno750(5));
+    }];
+    
+    [self.defenseValue mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.passValue.mas_left);
+        make.top.equalTo(self.defenPassValue.mas_top);
+    }];
+    [self.defenseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.defenseValue.mas_left);
+        make.top.equalTo(self.defenseValue.mas_bottom).offset(Anno750(5));
     }];
     
     [self.redView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -254,27 +254,38 @@
     return label;
 }
 
-- (void)updateWithValues:(NSArray *)arr{
-    float attack = 0.6;
-    float pass = 0.8;
-    float run = 0.9;
-    float fang = 0.6;
-    float dpass = 0.6;
-    float drun = 0.7;
-
-    //中点 距离  各个点的位置  然后乘以   分数比 即可
-    //进攻得分
-    CGPoint leftUp = CGPointMake( UI_WIDTH/2 -  (UI_WIDTH/2 - Anno750(275)) * attack, Anno750(310) - (Anno750(310 - 130) * attack));
+- (void)updateWithTeamDataInfoModel:(TeamDataInfoModel *)model{
+    [self.insidelayer removeFromSuperlayer];
+    
+    /**
+     
+     //中点
+     CGPoint centerPoint = CGPointMake(UI_WIDTH/2, Anno750(310));
+     //左上
+     CGPoint leftUp = CGPointMake(Anno750(275), Anno750(130));
+     //右上
+     CGPoint righUp = CGPointMake(UI_WIDTH - Anno750(275), Anno750(130));
+     //左
+     CGPoint leftPoint = CGPointMake(Anno750(170), Anno750(310));
+     //右
+     CGPoint rightPoint = CGPointMake(UI_WIDTH - Anno750(170), Anno750(310));
+     //左下
+     CGPoint leftDown = CGPointMake(leftUp.x, centerPoint.y + Anno750(310 - 130));
+     //右下
+     CGPoint rightDown = CGPointMake(righUp.x, leftDown.y);
+     */
+    
+    CGPoint leftUp = [self getPointWithStarPoint:CGPointMake(Anno750(275), Anno750(130)) rank:model.offensive_points_rank pect:[model.offensive_points_percent floatValue]];
     //传球码数
-    CGPoint righUp = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(275)) * pass, Anno750(310) - (Anno750(310 - 130) * pass));
+    CGPoint righUp = [self getPointWithStarPoint:CGPointMake(UI_WIDTH - Anno750(275), Anno750(130)) rank:model.offensive_pass_rank pect:[model.offensive_pass_percent floatValue]];
     //跑球码数
-    CGPoint left = CGPointMake(UI_WIDTH/2 - (UI_WIDTH/2 - Anno750(170))* run, Anno750(310));
-    //防守失分
-    CGPoint right = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(170)) * fang, Anno750(310));
-    //防传码数
-    CGPoint leftdown = CGPointMake( UI_WIDTH/2 - (UI_WIDTH/2 - Anno750(275)) * dpass, Anno750(310) + (Anno750(310 - 130) * dpass));
+    CGPoint left = [self getPointWithStarPoint:CGPointMake(Anno750(170), Anno750(310)) rank:model.offensive_rush_rank pect:[model.offensive_rush_percent floatValue]];
     //防跑码数
-    CGPoint rightdown = CGPointMake(UI_WIDTH/2 + (UI_WIDTH/2 - Anno750(275)) * drun, Anno750(310) + (Anno750(310 - 130) * drun));
+    CGPoint right = [self getPointWithStarPoint:CGPointMake(UI_WIDTH - Anno750(170), Anno750(310)) rank:model.defense_rush_rank pect:[model.defense_rush_percent floatValue]];
+    //防传码数
+    CGPoint leftdown = [self getPointWithStarPoint:CGPointMake(Anno750(275), Anno750(310) + Anno750(310 - 130)) rank:model.defense_pass_rank pect:[model.defense_pass_percent floatValue]];
+    //防守失分
+    CGPoint rightdown = [self getPointWithStarPoint:CGPointMake(UI_WIDTH - Anno750(275), Anno750(310) + Anno750(310 - 130)) rank:model.defense_yards_rank pect:[model.defense_yards_percent floatValue]];
     
     UIBezierPath * insidePath = [UIBezierPath bezierPath];
     [insidePath moveToPoint:leftUp];
@@ -285,25 +296,89 @@
     [insidePath addLineToPoint:left];
     [insidePath closePath];
     
-    CAShapeLayer * insidelayer = [CAShapeLayer layer];
-    insidelayer.frame = CGRectMake(0, 0, UI_WIDTH,self.frame.size.height);
-    insidelayer.strokeColor = Color_LightGray.CGColor;
-    insidelayer.fillColor = UIColorFromRGBA(0x003D79, 0.2).CGColor;
-    insidelayer.path = insidePath.CGPath;
-    insidelayer.lineWidth = 0.5f;
-    [self.layer addSublayer:insidelayer];
+    self.insidelayer = [CAShapeLayer layer];
+    self.insidelayer.frame = CGRectMake(0, 0, UI_WIDTH,self.frame.size.height);
+    self.insidelayer.strokeColor = Color_LightGray.CGColor;
+    self.insidelayer.fillColor = UIColorFromRGBA(0x003D79, 0.2).CGColor;
+    self.insidelayer.path = insidePath.CGPath;
+    self.insidelayer.lineWidth = 0.5f;
+    [self.layer addSublayer:self.insidelayer];
+    if ([model.offensive_points_rank integerValue] >0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.offensive_points_rank] point:leftUp];
+    }
+    if ([model.offensive_pass_rank integerValue] > 0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.offensive_pass_rank] point:righUp];
+    }
+    if ([model.defense_rush_rank integerValue] >0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_rush_rank] point:right];
+    }
+    if ([model.defense_yards_rank integerValue] > 0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_yards_rank] point:rightdown];
+    }
+
+    if ([model.defense_pass_rank integerValue]>0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_pass_rank] point:leftdown];
+    }
+    if ([model.offensive_rush_rank integerValue] > 0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.offensive_rush_rank] point:left];
+    }
     
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(attack * 10)] point:leftUp];
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(pass * 10)] point:righUp];
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(fang * 10)] point:right];
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(drun * 10)] point:rightdown];
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(dpass * 10)] point:leftdown];
-    [self creatLabelWithTitle:[NSString stringWithFormat:@"%d",(int)(run * 10)] point:left];
+    self.scoreValue.text = [NSString stringWithFormat:@"%@",model.offensive_points];
+    self.defenPassValue.text = [NSString stringWithFormat:@"%@",model.defense_pass];
+    self.defenseValue.text = [NSString stringWithFormat:@"%@",model.defense_yards];
+    self.defenRunValue.text = [NSString stringWithFormat:@"%@",model.defense_rush];
+    self.defenPassValue.text = [NSString stringWithFormat:@"%@",model.defense_pass];
+    self.runValue.text = [NSString stringWithFormat:@"%.2f",[model.offensive_rush floatValue]];
     
 }
+
+
+- (CGPoint)getPointWithStarPoint:(CGPoint)star rank:(NSNumber *)rank pect:(float)pect{
+    CGPoint center = CGPointMake(Anno750(375), Anno750(310));
+    //先算出终点
+    float x ;
+    float y;
+    if (star.x > center.x) {
+        //在中心点右方
+        x = center.x + (star.x - center.x)/4 ;
+    }else{
+        //中心点左方
+        x = center.x - (center.x - star.x)/4;
+    }
+    if (star.y > center.y) {
+        //在中心点下方
+        y = center.y + (star.y - center.y)/4;
+    }else{
+        //在中心点上
+        y = center.y - (center.y - star.y)/4;
+    }
+    CGPoint end = CGPointMake(x, y);
+    
+    if ([rank integerValue] == 0) {
+        return center;
+    }else if([rank integerValue] == 1){
+        return star;
+    }else if([rank integerValue] == 32){
+        return end;
+    }
+    float rankx;
+    float ranky;
+    if (end.x > star.x) { //左
+        rankx = end.x - (end.x - star.x) * pect;
+    }else{
+        rankx = end.x + (star.x - end.x) * pect;
+    }
+    if (end.y > star.y) { // 上
+        ranky = end.y - (end.y - star.y) * pect;
+    }else{
+        ranky = end.y + (star.y - end.y) * pect;
+    }
+    return CGPointMake(rankx, ranky);
+}
+
 - (void)creatLabelWithTitle:(NSString *)title point:(CGPoint)point{
     UILabel * label = [Factory creatLabelWithText:title
-                                        fontValue:font750(28)
+                                        fontValue:font750(24)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentCenter];
     label.backgroundColor = Color_MainRed;

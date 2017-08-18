@@ -10,4 +10,6 @@
 
 @interface GameNewsViewController : GameBassViewController
 
+@property (nonatomic, strong) NSNumber * gameID;
+
 @end

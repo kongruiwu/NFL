@@ -15,11 +15,11 @@
 @interface HomeViewController ()<UIScrollViewDelegate,SelectTimeViewDelegate>
 
 @property (nonatomic, strong) SelectTimeView * timeView;
-
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
 @property (nonatomic, strong) UIScrollView * mainScroll;
 @property (nonatomic, strong) NSMutableArray * viewControllers;
 @property (nonatomic) NSInteger defaultWeek;
+@property (nonatomic, strong) UIBarButtonItem  * leftItem;
 
 @end
 
@@ -56,6 +56,7 @@
     UIImage * image = [[UIImage imageNamed:@"nav_icon_calendar_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem * leftBtn = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(checkWeeksData)];
     self.navigationItem.leftBarButtonItem = leftBtn;
+    self.leftItem = leftBtn;
 }
 
 - (void)creatUI{
@@ -116,6 +117,11 @@
                 [weakself.viewControllers replaceObjectAtIndex:index withObject:attVc];
             }
         }
+        if (index == 0) {
+            weakself.navigationItem.leftBarButtonItem = weakself.leftItem;
+        }else{
+            weakself.navigationItem.leftBarButtonItem = nil;
+        }
         [UIView animateWithDuration:0.3f animations:^{
             weakself.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
@@ -123,6 +129,11 @@
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;
+    if (index == 0) {
+        self.navigationItem.leftBarButtonItem = self.leftItem;
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+    }
     if ([self.viewControllers[index] isKindOfClass:[NSString class]]) {
         if (index == 1) {
             AttentionteamViewController * attVc = [AttentionteamViewController new];

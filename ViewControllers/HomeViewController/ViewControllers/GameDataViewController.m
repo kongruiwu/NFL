@@ -164,13 +164,16 @@
             cell = [[GameScoreDescCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
         ScoreModel * model ;
+        NSNumber * teamid;
         if (index.row == 1) {
+            teamid = self.dataModel.home_teamId;
             model = self.dataModel.detail_point.home;
         }else{
+            teamid = self.dataModel.visitor_teamId;
             model = self.dataModel.detail_point.visitor;
         }
         NSArray * arr = @[model.Q1,model.Q2,model.Q3,model.Q4,model.OT,model.total];
-        [cell updateWithTitles:arr];
+        [cell updateWithTitles:arr TeamId:teamid];
         return cell;
     }
 }
@@ -249,6 +252,9 @@
         NSDictionary * dic = result[@"data"];
         self.dataModel = [[MatchOverDataModel alloc]initWithDictionary:dic];
         [self.tabview reloadData];
+        if (self.tabview.contentSize.height < UI_HEGIHT) {
+            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+        }
     } error:^(NFError *byerror) {
         
     }];

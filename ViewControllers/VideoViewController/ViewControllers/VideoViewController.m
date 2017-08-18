@@ -9,7 +9,7 @@
 #import "VideoViewController.h"
 #import <HMSegmentedControl.h>
 #import "SubVideoViewController.h"
-#import "NewsAttentionViewController.h"
+#import "VideoAttentionViewController.h"
 @interface VideoViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) HMSegmentedControl * hmsgControl;
@@ -82,7 +82,7 @@
         CGPoint point = weakSelf.mainScroll.contentOffset;
         if ([weakSelf.viewControllers[index] isKindOfClass:[NSString class]]) {
             if (index == 4) {
-                NewsAttentionViewController * vc = [NewsAttentionViewController new];
+                VideoAttentionViewController * vc = [VideoAttentionViewController new];
                 vc.view.frame = CGRectMake(index * UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
                 [weakSelf addChildViewController:vc];
                 [weakSelf.mainScroll addSubview:vc.view];
@@ -106,7 +106,7 @@
     int index = scrollView.contentOffset.x / UI_WIDTH;
     if ([self.viewControllers[index] isKindOfClass:[NSString class]]) {
         if (index == 4) {
-            NewsAttentionViewController * vc = [NewsAttentionViewController new];
+            VideoAttentionViewController * vc = [VideoAttentionViewController new];
             vc.view.frame = CGRectMake(index * UI_WIDTH, 0, UI_WIDTH, UI_HEGIHT - Anno750(80));
             [self addChildViewController:vc];
             [self.mainScroll addSubview:vc.view];

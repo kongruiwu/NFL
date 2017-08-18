@@ -24,6 +24,7 @@
     self.teamImg.layer.borderColor = Color_TagBlue.CGColor;
     self.teamImg.layer.borderWidth = 0.5f;
     self.teamImg.layer.cornerRadius = Anno750(60);
+    self.teamImg.userInteractionEnabled = YES;
     
     self.name_zn = [Factory creatLabelWithText:@"猎鹰"
                                      fontValue:font750(32)
@@ -40,7 +41,7 @@
                                           textSize:font750(18)];
     self.teamVideo.layer.cornerRadius = Anno750(18);
     
-    self.scoreLabel = [Factory creatLabelWithText:@"12胜4负"
+    self.scoreLabel = [Factory creatLabelWithText:@"0胜0负"
                                         fontValue:font750(20)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentRight];
@@ -133,10 +134,24 @@
     
 }
 
-- (void)layoutSubviews{
-    [super layoutSubviews];
+- (void)updateWithTeamDataModel:(TeamDataModel *)model{
+    self.name_zn.text = model.sname;
+    self.name_en.text = model.full_name;
+    self.teamImg.image = [Factory getImageWithNumer:model.team_id white:YES];
+    self.belongLabel.attributedText = [self setAttStringWithRange:NSMakeRange(0, 3) title:[NSString stringWithFormat:@"所属：%@",model.area]];
+    self.playground.attributedText = [self setAttStringWithRange:NSMakeRange(0, 3) title:[NSString stringWithFormat:@"球场：%@",model.stadium]];
+    self.creatAt.attributedText = [self setAttStringWithRange:NSMakeRange(0, 5) title:[NSString stringWithFormat:@"创立时间：%@",model.found_date]];
+    self.address.attributedText = [self setAttStringWithRange:NSMakeRange(0, 3) title:[NSString stringWithFormat:@"地点：%@",model.place]];
     
+    NSString * score = [NSString stringWithFormat:@"%@ 胜 %@ 负",model.win,model.lose];
+    NSMutableAttributedString * attstr = [[NSMutableAttributedString alloc]initWithString:score];
+    [attstr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font750(72)] range:NSMakeRange(0, model.win.stringValue.length)];
+    [attstr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font750(72)] range:NSMakeRange(model.win.stringValue.length + 3, model.lose.stringValue.length)];
+    self.scoreLabel.attributedText = attstr;
 }
-
-
+- (NSMutableAttributedString *)setAttStringWithRange:(NSRange)range title:(NSString *)title{
+    NSMutableAttributedString * attstr = [[NSMutableAttributedString alloc]initWithString:title];
+    [attstr addAttribute:NSForegroundColorAttributeName value:Color_White_5 range:range];
+    return attstr;
+}
 @end

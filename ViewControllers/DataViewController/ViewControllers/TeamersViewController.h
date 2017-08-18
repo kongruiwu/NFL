@@ -10,4 +10,6 @@
 
 @interface TeamersViewController : GameBassViewController
 
+@property (nonatomic, strong) NSNumber * teamID;
+
 @end

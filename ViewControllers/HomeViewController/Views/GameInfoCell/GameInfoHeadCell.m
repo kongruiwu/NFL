@@ -38,10 +38,19 @@
                                           fontValue:font750(24)
                                           textColor:Color_MainBlack
                                       textAlignment:NSTextAlignmentLeft];
-    self.contentLabel.numberOfLines = 0;
+    self.nflLabel = [Factory creatLabelWithText:@"点击进入天天NFL"
+                                      fontValue:font750(20)
+                                      textColor:Color_MainRed
+                                  textAlignment:NSTextAlignmentCenter];
+    
+    self.nflLabel.hidden = YES;
+    self.nflLabel.layer.cornerRadius = Anno750(22);
+    self.nflLabel.layer.borderColor = Color_MainRed.CGColor;
+    self.nflLabel.layer.borderWidth = 1;
     
     [self addSubview:self.nameLabel];
     [self addSubview:self.contentLabel];
+    [self addSubview:self.nflLabel];
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
@@ -54,19 +63,22 @@
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(@0);
     }];
+    [self.nflLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentLabel.mas_left);
+        make.centerY.equalTo(@0);
+        make.width.equalTo(@(Anno750(200)));
+        make.height.equalTo(@(Anno750(44)));
+    }];
 }
 - (void)updateWithTitle:(NSString *)title content:(NSString *)content{
-    if ([content containsString:@"天天NFL"]) {
-        self.contentLabel.text = @"    点击进入天天NFL    ";
-        self.contentLabel.layer.borderColor = Color_MainRed.CGColor;
-        self.contentLabel.layer.borderWidth = 1.0f;
-        self.contentLabel.layer.cornerRadius = Anno750(22);
-        self.contentLabel.textColor = Color_MainRed;
-    }else{
-        self.contentLabel.textColor = Color_MainBlack;
-        self.contentLabel.layer.borderWidth = 0;
-        self.contentLabel.text = content;
-    }
+    self.contentLabel.text = content;
     self.nameLabel.text = title;
+    if ([content containsString:@"天天NFL"]) {
+        self.contentLabel.text = @"";
+        self.nflLabel.hidden = NO;
+    }else{
+        self.nflLabel.hidden = YES;
+    }
+    
 }
 @end

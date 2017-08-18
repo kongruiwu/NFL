@@ -11,7 +11,6 @@
 #import "VideoListModel.h"
 #define VideoPlayCellHeigh  Anno750(275 * 2)
 /**
- * The style of cell cannot stop in screen center.
  * 播放滑动不可及cell的类型
  */
 typedef NS_OPTIONS(NSInteger, PlayUnreachCellStyle) {

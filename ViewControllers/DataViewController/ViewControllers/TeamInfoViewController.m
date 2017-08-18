@@ -67,7 +67,7 @@
             [self.dataArray addObject:model];
         }
         [self.tabview reloadData];
-    } error:^(NFError *byerror) {
+    } error:^(NFError * byerror) {
         
     }];
 }

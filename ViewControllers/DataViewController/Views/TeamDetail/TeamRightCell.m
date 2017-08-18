@@ -32,16 +32,16 @@
 - (void)creatUI{
     self.numlabel = [Factory creatLabelWithText:@"号码"
                                       fontValue:font750(24)
-                                      textColor:[UIColor whiteColor]
+                                      textColor:Color_MainBlack
                                   textAlignment:NSTextAlignmentCenter];
     self.numlabel.backgroundColor = Color_BackGround;
     self.nameLabel = [Factory creatLabelWithText:@"        姓名"
                                        fontValue:font750(24)
-                                       textColor:[UIColor whiteColor]
+                                       textColor:Color_MainBlue
                                    textAlignment:NSTextAlignmentLeft];
     self.addressLabel = [Factory creatLabelWithText:@"位置"
                                           fontValue:font750(24)
-                                          textColor:[UIColor whiteColor]
+                                          textColor:Color_MainBlack
                                       textAlignment:NSTextAlignmentCenter];
     self.addressLabel.backgroundColor = UIColorFromRGBA(0x000000, 0.1);
     
@@ -86,6 +86,10 @@
     }];
 
 }
-
+- (void)updateWitPlayerListModel:(PlayerListModel *)model{
+    self.numlabel.text = [NSString stringWithFormat:@"%@",model.num];
+    self.nameLabel.text = [NSString stringWithFormat:@"        %@",model.name];
+    self.addressLabel.text = model.position;
+}
 
 @end

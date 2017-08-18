@@ -154,6 +154,8 @@
     }
     self.leftName.text = model.home_name;
     self.rightName.text = model.visitor_name;
+    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:YES];
+    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:YES];
     switch ([model.match_state intValue]) {
         case 0://未开始
         {
@@ -167,17 +169,95 @@
             
             for (int i = 0; i<model.relay_list.count; i++) {
                 UIImageView * img = [Factory creatImageViewWithImage:@""];
-                [img sd_setImageWithURL:[NSURL URLWithString:model.relay_list[i].logo] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-                    [img mas_makeConstraints:^(MASConstraintMaker *make) {
-                        make.height.equalTo(@(image.size.height/2));
-                        make.width.equalTo(@(image.size.width/2));
-                    }];
-                }];
+                [img sd_setImageWithURL:[NSURL URLWithString:model.relay_list[i].logo]];
                 [self.contentView addSubview:img];
-                [img mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(@0);
-                    make.top.equalTo(@(Anno750(20)));
-                }];
+                img.tag = i;
+                if (model.relay_list.count%2 == 0) {
+                    if (i%2 == 0) {
+                        if (i == 0) {
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.right.equalTo(self.mas_centerX);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }else{
+                            UIImageView * rightImg = [self viewWithTag: i - 2];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.right.equalTo(rightImg.mas_right);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }
+                        
+                    }else if(i%2 == 1){
+                        if (i == 1) {
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.left.equalTo(self.mas_centerX);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }else{
+                            UIImageView * leftImg = [self viewWithTag: i - 2];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.left.equalTo(leftImg.mas_right);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }
+                        
+                    }
+                }else{
+                    if (i == 0) {
+                        [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.centerX.equalTo(@0);
+                            make.top.equalTo(@(Anno750(20)));
+                            make.width.equalTo(@(Anno750(100)));
+                            make.height.equalTo(@(Anno750(40)));
+                        }];
+                    }else if(i%2 == 0){
+                        if (i == 2) {
+                            UIImageView * centerImg = [self viewWithTag: 0];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.right.equalTo(centerImg.mas_left);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }else{
+                            UIImageView * rightImg = [self viewWithTag: i - 2];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.right.equalTo(rightImg.mas_right);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }
+                    }else {
+                        if (i == 1) {
+                            UIImageView * centerImg = [self viewWithTag: 0];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.left.equalTo(centerImg.mas_right);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }else{
+                            UIImageView * leftImg = [self viewWithTag: i - 2];
+                            [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.left.equalTo(leftImg.mas_right);
+                                make.top.equalTo(@(Anno750(20)));
+                                make.width.equalTo(@(Anno750(100)));
+                                make.height.equalTo(@(Anno750(40)));
+                            }];
+                        }
+                        
+                    }
+                    
+                }
                 [self.tagImgs addObject:img];
             }
         }

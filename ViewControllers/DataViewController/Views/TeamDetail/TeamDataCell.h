@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) TeamDataView * dataView;
 
+- (void)updateWithTeamDataInfoModel:(TeamDataInfoModel *)model;
+
 @end

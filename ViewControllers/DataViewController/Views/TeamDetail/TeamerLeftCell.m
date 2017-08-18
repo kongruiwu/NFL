@@ -40,11 +40,35 @@
                                         fontValue:font750(24)
                                         textColor:Color_MainBlue
                                     textAlignment:NSTextAlignmentLeft];
-    self.otherLabel = [Factory creatLabelWithText:@"    替补"
+    self.otherLabel = [Factory creatLabelWithText:@"asdadead"
                                         fontValue:font750(24)
                                         textColor:Color_MainBlack
                                     textAlignment:NSTextAlignmentLeft];
-    self.otherLabel.backgroundColor = UIColorFromRGBA(0x000000, 0.1);
+    self.otherLabel1 = [Factory creatLabelWithText:@"defngnde"
+                                        fontValue:font750(24)
+                                        textColor:Color_MainBlack
+                                    textAlignment:NSTextAlignmentLeft];
+    self.otherLabel2 = [Factory creatLabelWithText:@"addenden"
+                                        fontValue:font750(24)
+                                        textColor:Color_MainBlack
+                                    textAlignment:NSTextAlignmentLeft];
+    self.otherLabel3 = [Factory creatLabelWithText:@"232321"
+                                         fontValue:font750(24)
+                                         textColor:Color_MainBlack
+                                     textAlignment:NSTextAlignmentLeft];
+    self.otherLabel4 = [Factory creatLabelWithText:@"232321"
+                                         fontValue:font750(24)
+                                         textColor:Color_MainBlack
+                                     textAlignment:NSTextAlignmentLeft];
+    
+    
+    self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(Anno750(310), 0, UI_WIDTH - Anno750(310), Anno750(60))];
+    float w = Anno750(750 - 310 - 60)/2;
+    self.scrollview.contentSize = CGSizeMake(5 * w + 6 * Anno750(15), 0);
+    self.scrollview.showsVerticalScrollIndicator = NO;
+    self.scrollview.showsHorizontalScrollIndicator = NO;
+    
+    
     self.line1 = [Factory creatLineView];
     self.line2 = [Factory creatLineView];
     
@@ -52,7 +76,14 @@
     [self addSubview:self.line1];
     [self addSubview:self.fristLabel];
     [self addSubview:self.line2];
-    [self addSubview:self.otherLabel];
+    [self addSubview:self.scrollview];
+    [self.scrollview addSubview:self.otherLabel];
+    [self.scrollview addSubview:self.otherLabel1];
+    [self.scrollview addSubview:self.otherLabel2];
+    [self.scrollview addSubview:self.otherLabel3];
+    [self.scrollview addSubview:self.otherLabel4];
+    
+    
     
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);
@@ -79,12 +110,56 @@
         make.bottom.equalTo(@0);
     }];
     [self.otherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@0);
-        make.left.equalTo(self.line2.mas_right);
-        make.top.equalTo(@0);
-        make.bottom.equalTo(@0);
+        make.left.equalTo(@(Anno750(15)));
+        make.width.equalTo(@(w));
+        make.centerY.equalTo(@0);
+    }];
+    [self.otherLabel1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.otherLabel.mas_right).offset(Anno750(15));
+        make.width.equalTo(@(w));
+        make.centerY.equalTo(@0);
+    }];
+    [self.otherLabel2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.otherLabel1.mas_right).offset(Anno750(15));
+        make.width.equalTo(@(w));
+        make.centerY.equalTo(@0);
+    }];
+    [self.otherLabel3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.otherLabel2.mas_right).offset(Anno750(15));
+        make.width.equalTo(@(w));
+        make.centerY.equalTo(@0);
+    }];
+    [self.otherLabel4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.otherLabel3.mas_right).offset(Anno750(15));
+        make.width.equalTo(@(w));
+        make.centerY.equalTo(@0);
     }];
 }
 
+- (void)updateWithPlayerLineUpModel:(PlayerLineUpModel *)model contentoffX:(CGFloat)contentoffX{
+    self.addressLabel.text = model.position;
+    self.fristLabel.text = [NSString stringWithFormat:@"    %@",model.first];
+    self.scrollview.contentOffset = CGPointMake(contentoffX, 0);
+    self.otherLabel.text = @"";
+    self.otherLabel1.text = @"";
+    self.otherLabel2.text = @"";
+    self.otherLabel3.text = @"";
+    self.otherLabel4.text = @"";
+    
+    for (int i = 0; i<model.alternates.count; i++) {
+        if (i == 0) {
+            self.otherLabel.text = model.alternates[i];
+        }else if(i == 1){
+            self.otherLabel1.text = model.alternates[i];
+        }else if(i == 2){
+            self.otherLabel2.text = model.alternates[i];
+        }else if(i == 3){
+            self.otherLabel3.text = model.alternates[i];
+        }else if(i == 4){
+            self.otherLabel3.text = model.alternates[i];
+            return;
+        }
+    }
+}
 
 @end

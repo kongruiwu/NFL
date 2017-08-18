@@ -10,14 +10,14 @@
 
 @implementation GameHeaderView
 
-- (instancetype)initWithFrame:(CGRect)frame{
+- (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles{
     self = [super initWithFrame:frame];
     if (self) {
-        [self creatUI];
+        [self creatUIwithTitle:titles];
     }
     return self;
 }
-- (void)creatUI{
+- (void)creatUIwithTitle:(NSArray *)titles{
 
     self.blueImg = [Factory creatImageViewWithImage:@"nav_bg_default"];
     self.blueImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
@@ -26,7 +26,6 @@
     [self addSubview:self.blueImg];
     [self addSubview:self.groundImg];
     
-    NSArray * titles = @[@"直播",@"数据",@"视频"];
     self.segmentView = [[HMSegmentedControl alloc]initWithSectionTitles:titles];
     self.segmentView.backgroundColor = [UIColor clearColor];
     self.segmentView.frame = CGRectMake(0, self.frame.size.height - Anno750(80), UI_WIDTH, Anno750(80));
@@ -128,6 +127,8 @@
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model{
     self.leftName.text = model.home_name;
     self.rightName.text = model.visitor_name;
+    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:NO];
+    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:NO];
     switch ([model.match_state intValue]) {
         case 0://未开始
         {

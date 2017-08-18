@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
-@interface AttentionTeamHeader : UIView
+@interface AttentionTeamHeader : UIView<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong) UIImageView * groundImg;
 @property (nonatomic, strong) UIButton * addBtn;
-@property (nonatomic, strong) NSMutableArray * teams;
 
+@property (nonatomic, strong) UICollectionView * collectView;
+
+@property (nonatomic, strong) NSArray * dataArray;
 @end

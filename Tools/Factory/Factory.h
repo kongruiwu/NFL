@@ -38,4 +38,6 @@
 + (NSString *)changePhoneString:(NSString *)phone;
 
 + (NSString *)timestampSwitchWithHourStyleTime:(NSInteger)timestamp;
+
++ (UIImage *)getImageWithNumer:(NSNumber *)teamid white:(BOOL)rec;
 @end

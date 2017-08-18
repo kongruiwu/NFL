@@ -32,9 +32,9 @@
 - (void)creatUI{
     self.dataView = [[TeamDataView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(820))];
     [self addSubview:self.dataView];
-    
-    [self.dataView updateWithValues:@[]];
 }
-
+- (void)updateWithTeamDataInfoModel:(TeamDataInfoModel *)model{
+    [self.dataView updateWithTeamDataInfoModel:model];
+}
 
 @end

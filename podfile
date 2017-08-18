@@ -11,5 +11,6 @@ pod 'ReactiveObjC'
 pod 'UMengUShare/Social/ReducedWeChat'
 pod ‘UMengUShare/Social/ReducedQQ'
 pod ‘UMengUShare/Social/Sina'
+pod ‘UMengUShare/UI’
 pod ‘SVProgressHUD'
 end

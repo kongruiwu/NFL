@@ -67,6 +67,7 @@
     for (id obj in titles) {
         if (![obj isKindOfClass:[NSString class]]) {
             rec = NO;
+            break;
         }
     }
     self.backgroundColor = rec ? Color_MainBlue : [UIColor whiteColor];

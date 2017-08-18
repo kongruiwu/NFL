@@ -25,6 +25,15 @@
             [muarr addObject:model];
         }
         self.relay_list = [NSArray arrayWithArray:muarr];
+        if (!self.gameId) {
+            self.gameId = dic[@"game_id"];
+        }
+        if (!self.home_teamId) {
+            self.home_teamId = dic[@"home_id"];
+        }
+        if (!self.visitor_teamId) {
+            self.visitor_teamId = dic[@"visitor_id"];
+        }
     }
     return self;
 }

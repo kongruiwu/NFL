@@ -88,4 +88,30 @@
     }];
 }
 
+- (void)updateWithLiveViewModel:(VsLogModel *)model{
+    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:YES];
+    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:YES];
+    self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+    self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+    
+    self.leftScore.textColor = model.home_scores.intValue >= model.visitor_scores.intValue ? Color_MainBlack : Color_LightGray;
+    self.rightScore.textColor = model.home_scores.intValue <= model.visitor_scores.intValue ? Color_MainBlack : Color_LightGray;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"YYYY年\nMM月dd日"];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
+    
+    [formatter setTimeZone:timeZone];
+    
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:model.time.integerValue];
+    
+    NSString *confromTimespStr = [formatter stringFromDate:confromTimesp];
+    self.timeLabel.text = confromTimespStr;
+}
+
 @end

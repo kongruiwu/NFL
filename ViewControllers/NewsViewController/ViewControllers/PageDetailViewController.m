@@ -43,7 +43,6 @@
 }
 - (void)creatUI{
     self.view.backgroundColor = [UIColor blackColor];
-    
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     layout.itemSize =CGSizeMake(UI_WIDTH, UI_HEGIHT);
@@ -121,7 +120,32 @@
 }
 #pragma mark - 分享
 - (void)shareThisImages{
-
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        //图片
+        int index = self.photoView.contentOffset.x / UI_WIDTH;
+        PhotoDetailCell * cell = (PhotoDetailCell *)[self.photoView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+        UIImage * image = cell.photoView.imageView.image;
+        NSString * title = self.photoModel.album_title;
+        NSString * desc = self.photoModel.list[index].title;
+        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+        UMShareObject * shareObj;
+        if (platformType == UMSocialPlatformType_Sina) {
+            shareObj = [UMShareImageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        }else{
+            shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+            UMShareWebpageObject * shareWeb = (UMShareWebpageObject *)shareObj;
+            shareWeb.webpageUrl = self.photoModel.share_link;
+        }
+        if (platformType == UMSocialPlatformType_Sina) {
+            messageObject.text = [NSString stringWithFormat:@"%@%@",desc,self.photoModel.share_link];
+        }
+        messageObject.shareObject = shareObj;
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }];
 }
 
 

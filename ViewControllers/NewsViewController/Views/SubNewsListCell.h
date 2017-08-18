@@ -18,5 +18,6 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UILabel * adLabel;
+@property (nonatomic, strong) UIImageView * playIcon;
 - (void)updateWithObjectModel:(id)model;
 @end
