@@ -40,6 +40,7 @@
                                            textColor:Color_MainBlue
                                             textSize:font750(22)];
     [self.videoButton setImage:[UIImage imageNamed:@"list_icon_video_default"] forState:UIControlStateNormal];
+    [self.videoButton addTarget:self action:@selector(videoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     self.videoButton.hidden = YES;
     
     self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_49ren"];
@@ -281,7 +282,7 @@
             self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
             self.timeLabel.text = @"";
-            self.videoButton.hidden = NO;
+            self.videoButton.hidden = model.video.length> 0 ? NO : YES;
             self.vsLabel.hidden = NO;
             
         }
@@ -291,4 +292,11 @@
     }
     
 }
+- (void)videoButtonClick:(UIButton *)btn{
+    if ([self.delgate respondsToSelector:@selector(checkOverMatchVideo:)]) {
+        [self.delgate checkOverMatchVideo:btn];
+    }
+
+}
+
 @end

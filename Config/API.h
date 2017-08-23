@@ -10,11 +10,14 @@
 #define API_h
 
 #define Base_ApiHost        @"http://api.nflchina.com"
+
 #define BER_APP_KEY         @"98NexY5d75M76ab"
 //天天nfl
 #define DaydayNFL           @"http://h5.ttnflchina.com"
 //101课堂
 #define Teach_101           @"http://www.nflchina.com/nfl360_app"
+//用户使用协议
+#define UserProtocol        @"http://www.nflchina.com/regAgreement?app_iframe"
 
 //视频
 #define Route_Viedeo        @"video2017"
@@ -25,6 +28,8 @@
 #define Route_NewWest       @"newest2017"
 //资讯
 #define NewWest_Info        @"information"
+//101课堂
+#define PageClass101        @"class101"
 //图集
 #define NewWest_album       @"album"
 //图集列表
@@ -40,8 +45,14 @@
 #define Route_User          @"user2017"
 //三方登录完善注册资料
 #define Page_Oauth          @"oauth_info"
+//修改密码
+#define PageUpdatePwd       @"update_pwd"
+//三方登录列表
+#define PageThirdList       @"oauth_list"
 //检测三方帐号是否注册
 #define Page_CheckOauth     @"check_oauth"
+//三方帐号绑定
+#define Page_bind           @"oauth_binding"
 //手机注册
 #define Page_MobRegister    @"mobile_register"
 //手机注册信息完善
@@ -60,8 +71,20 @@
 #define PageUserInfo        @"get_userinfo"
 //关注球队
 #define PageFollowTeam      @"follow_single_team"
-
-
+//内容收藏
+#define PageCollect         @"collect_content"
+//我的收藏
+#define PageMyCollect       @"my_collect_list"
+//意见反馈
+#define PageFeedBack        @"feedback"
+//在线答疑 历史记录
+#define PageOnlineList      @"online_answer_list"
+//在线问答 提问
+#define PageSubmitQuest     @"online_answer_submit"
+//在线问题 回复
+#define PageAnswer          @"online_answer_polling"
+//更新用户信息
+#define PageUpdateUserInfo  @"update_userinfo"
 //首页 赛程
 #define Route_Match         @"match2017"
 //赛程日历

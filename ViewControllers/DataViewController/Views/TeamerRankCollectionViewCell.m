@@ -22,7 +22,7 @@
                                      fontValue:font750(24)
                                      textColor:Color_MainBlack
                                  textAlignment:NSTextAlignmentLeft];
-    self.teamerImg = [Factory creatImageViewWithImage:@"porfile_photo_default1"];
+    self.teamerImg = [Factory creatImageViewWithImage:@"list_img_user_normal"];
     self.teamerImg.layer.cornerRadius = Anno750(60);
     self.teamerImg.layer.masksToBounds = YES;
     self.nameLabel = [Factory creatLabelWithText:@"格斯特考斯基"
@@ -61,7 +61,10 @@
 }
 - (void)updateWithRankPlayer:(RankPlayer *)player{
     self.rankNum.text = [NSString stringWithFormat:@"%@",player.idx];
-    [self.teamerImg sd_setImageWithURL:[NSURL URLWithString:player.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    if ([UserManager manager].hasPic) {
+        [self.teamerImg sd_setImageWithURL:[NSURL URLWithString:player.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    }
+    
     self.nameLabel.text = player.name;
     self.teamLabel.text = player.team_name;
 }

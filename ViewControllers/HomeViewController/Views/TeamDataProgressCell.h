@@ -15,7 +15,7 @@
 @property (nonatomic, strong) UILabel * nameLabel;
 
 @property (nonatomic, strong) UISlider * slider;
-- (void)updateWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right;
+- (void)updateWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right isTime:(BOOL)rec;
 - (void)updateThirdWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right;
 
 @end

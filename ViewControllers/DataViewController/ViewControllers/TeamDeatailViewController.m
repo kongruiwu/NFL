@@ -14,7 +14,7 @@
 #import "TeamersViewController.h"
 #import "TeamNewsViewController.h"
 #import "TeamDataModel.h"
-
+#import "LoginViewController.h"
 #define TeamHeaderHigh  Anno750(148 *2)
 
 @interface TeamDeatailViewController ()<GameBassDelegate>
@@ -25,7 +25,6 @@
 @property (nonatomic, strong) GameBassViewController * currentVC;
 @property (nonatomic, strong) NSMutableArray<GameBassViewController *> * viewControllers;
 @property (nonatomic, strong) TeamDataModel * teamModel;
-@property (nonatomic) BOOL isFollow;
 
 @end
 
@@ -46,25 +45,53 @@
 
 }
 - (void)setRightBarItem{
-    self.isFollow = NO;
-    if ([UserManager manager].isLogin) {
-        for (int i = 0; i<[UserManager manager].info.follow_teams.count; i++) {
-            if ([[UserManager manager].info.follow_teams[i].team_id isEqual:self.teamID]) {
-                self.isFollow = YES;
-            }
-        }
-    }
-    NSString * imageName = self.isFollow ? @"nav_icon_collection_hig" : @"nav_icon_collection_normal";
-    UIImage * image=  [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage * image=  [[UIImage imageNamed:@"nav_icon_collection_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     self.baritem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(collectionThiesTeam:)];
     self.navigationItem.rightBarButtonItem = self.baritem;
 }
 - (void)collectionThiesTeam:(UIBarButtonItem *)baritem{
+    if (![UserManager manager].isLogin) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:1.0f];
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"team_id":self.teamModel.team_id
+                              };
+    [[NetWorkManger manager] sendRequest:PageFollowTeam route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSString * title = @"关注成功";
+        if (self.teamModel.followed) {
+            title = @"取消关注成功";
+        }
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title duration:1.0f];
+        self.teamModel.followed = !self.teamModel.followed;
+        if (self.teamModel.followed) {
+            HomeTeam * model = [[HomeTeam alloc]init];
+            model.team_id = self.teamModel.team_id;
+            model.team_name = self.teamModel.name;
+            [[UserManager manager].info.follow_teams addObject:model];
+        }else{
+            for (int i = 0; i<[UserManager manager].info.follow_teams.count; i++) {
+                HomeTeam * team = [UserManager manager].info.follow_teams[i];
+                if ([team.team_id integerValue] == [self.teamModel.team_id integerValue]) {
+                    [[UserManager manager].info.follow_teams removeObject:team];
+                    break;
+                }
+            }
+        }
+        [self updateRightBarItem];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
     
-//    NSString * imageName = self.isFollow ? @"nav_icon_collection_hig" : @"nav_icon_collection_normal";
-//    UIImage * image=  [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    [baritem setImage:image];
-    
+}
+- (void)updateRightBarItem{
+    NSString * imageName = self.teamModel.followed ? @"nav_icon_collection_hig" : @"nav_icon_collection_normal";
+    UIImage * image=  [[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [self.baritem setImage:image];
 }
 - (void)creatUI{
     self.viewControllers = [NSMutableArray new];
@@ -174,7 +201,8 @@
     [SVProgressHUD show];
     NSDictionary * params = @{
                               @"team_id":self.teamID,
-                              @"page":@"data"
+                              @"page":@"data",
+                              @"uid":[UserManager manager].isLogin ? [UserManager manager].userID : @""
                               };
     [[NetWorkManger manager] sendRequest:TeamDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
@@ -185,6 +213,7 @@
             TeamDataViewController * vc = (TeamDataViewController *)self.currentVC;
             vc.dataInfo = self.teamModel.data_info;
         }
+        [self updateRightBarItem];
     } error:^(NFError *byerror) {
         
     }];

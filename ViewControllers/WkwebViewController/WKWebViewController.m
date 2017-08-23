@@ -29,7 +29,7 @@
             if ([urlStr isEqualToString:DaydayNFL]) {
                 self.urlStr = [NSString stringWithFormat:@"%@?uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify_ttnfl];
             }else{
-                self.urlStr = [NSString stringWithFormat:@"%@?uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify];
+                self.urlStr = [NSString stringWithFormat:@"%@&uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify];
             }
             
         }
@@ -50,7 +50,10 @@
     [self drawBackButton];
     [self setNavTitle:self.titleStr];
     [self creatUI];
-    [self drawShareButton];
+    if (![self.titleStr isEqualToString:@"用户使用协议"] && ![self.titleStr isEqualToString:@"视频直播"]) {
+        [self drawShareButton];
+    }
+    
 }
 
 - (void)creatUI{
@@ -58,7 +61,7 @@
     self.shareImg = [Factory creatImageViewWithImage:@""];
     [self.shareImg sd_setImageWithURL:[NSURL URLWithString:self.infoModel.pic_thumbnail]];
     
-    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 49)];
+    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64)];
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
     self.webview.navigationDelegate = self;
     [self.view addSubview:self.webview];
@@ -99,24 +102,26 @@
         UIImage * image = self.shareImg.image;
         NSString * title = self.infoModel.title;
         NSString * desc = [NSString stringWithFormat:@"NFL橄榄球：“%@“快来看看吧",self.infoModel.title];
+        if (desc.length == 0) {
+            desc = @"更多精彩内容来自[NFL橄榄球]APP";
+        }
         UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-        UMShareObject * shareObj;
-        if (platformType == UMSocialPlatformType_Sina) {
-            shareObj = [UMShareImageObject shareObjectWithTitle:title descr:desc thumImage:image];
-        }else{
-            shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
-            UMShareWebpageObject * shareWeb = (UMShareWebpageObject *)shareObj;
-            shareWeb.webpageUrl = self.infoModel.share_link;
-        }
-        if (platformType == UMSocialPlatformType_Sina) {
-            messageObject.text = [NSString stringWithFormat:@"%@%@",desc,self.infoModel.share_link];
-        }
+        UMShareWebpageObject * shareObj;
+        shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        shareObj.webpageUrl = self.infoModel.share_link;
         messageObject.shareObject = shareObj;
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
             NSLog(@"%@",error);
         }];
         
     }];
+}
+- (void)doBack{
+    if (self.webview.canGoBack) {
+        [self.webview goBack];
+    }else{
+        [super doBack];
+    }
 }
 
 @end

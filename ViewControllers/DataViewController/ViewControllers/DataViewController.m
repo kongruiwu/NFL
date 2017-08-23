@@ -95,6 +95,10 @@
         }];
     }];
     
+    [self.mainScroll setContentOffset:CGPointMake(2 * UI_WIDTH, 0) animated:NO];
+    self.hmsgControl.selectedSegmentIndex = 2;
+    
+    
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;

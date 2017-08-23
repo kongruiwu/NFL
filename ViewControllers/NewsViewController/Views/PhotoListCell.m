@@ -29,7 +29,10 @@
     return self;
 }
 - (void)creatUI{
-    self.bgImg = [Factory creatImageViewWithImage:@"list_img_Journalism2"];
+    self.bgImg = [Factory creatImageViewWithImage:@"plac_holder"];
+    self.bgImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.bgImg.clipsToBounds = YES;
+    
     self.grayView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.3)];
     self.topLine = [Factory creatViewWithColor:Color_White_5];
     self.bottomLine = [Factory creatViewWithColor:Color_White_5];
@@ -71,7 +74,10 @@
     }];
 }
 - (void)updateWithPhotoSetModel:(PhotoSetModel *)model{
-    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    if ([UserManager manager].hasPic) {
+        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
+    
     self.titleLabel.text = model.title;
     
 }

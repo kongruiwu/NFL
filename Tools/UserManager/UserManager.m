@@ -24,6 +24,13 @@
             }else{
                 manager.isLogin = NO;
             }
+            id pic = [[NSUserDefaults standardUserDefaults] objectForKey:@"hasPic"];
+            if (pic) {
+                NSNumber * num = pic;
+                manager.hasPic = [num boolValue];
+            }else{
+                manager.hasPic = YES;
+            }
         }
     });
     return manager;

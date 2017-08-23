@@ -126,9 +126,7 @@
     _viewModel = viewModel;
     self.descs = @[_viewModel.relay_platform,_viewModel.game_time_str,_viewModel.game_place,@"天天NFL"];
     [self.tabview reloadData];
-    if (self.tabview.contentSize.height < UI_HEGIHT) {
-        self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-    }
+    [self updateTabFooter];
 }
 
 @end

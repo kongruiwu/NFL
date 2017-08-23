@@ -11,7 +11,9 @@
 #import "MatchListModel.h"
 #import "GameDetailTabViewController.h"
 #import "HomeInfoModel.h"
-@interface ScheduleViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "VideoPlayViewController.h"
+
+@interface ScheduleViewController ()<UITableViewDelegate,UITableViewDataSource,ScheduleListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic, strong) NSMutableArray<MatchListModel *> * dataArray;
@@ -20,7 +22,8 @@
 @property (nonatomic, strong) InfoParams * preInfo;
 //当加载更多下周数据时  下周参数
 @property (nonatomic, strong) InfoParams * nextInfo;
-
+//滑动到的位置，先获取是否有直播的，没有直播则使用第一个 将要开赛的
+@property (nonatomic, strong) NSIndexPath * indexPath;
 @end
 
 @implementation ScheduleViewController
@@ -96,6 +99,7 @@
     if (!cell) {
         cell = [[ScheduleListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    cell.delgate = self;
     [cell updateWithMatchDetailModel:self.dataArray[indexPath.section].list[indexPath.row -1]];
     cell.line.hidden = indexPath.row == 1 ? YES : NO;
     return cell;
@@ -106,7 +110,10 @@
         return;
     }
     MatchDetailModel * model = self.dataArray[indexPath.section].list[indexPath.row - 1];
-    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithMatchDetailModel:model];
+    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithGameID:model.gameId matchStatus:model.match_state.integerValue];
+    if (model.live_h5_url.length>0) {
+        vc.liveUrl = model.live_h5_url;
+    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)getData{
@@ -133,6 +140,15 @@
         NSMutableArray * muarr = [NSMutableArray new];
         for (int i = 0; i<arr.count; i++) {
             MatchListModel * model = [[MatchListModel alloc]initWithDictionary:arr[i]];
+            
+            if (!self.indexPath) {
+                for (int j = 0; j<model.list.count; j++) {
+                    if (model.list[j].match_state.integerValue != 2) {
+                        self.indexPath = [NSIndexPath indexPathForRow:j+1 inSection:i];
+                        break;
+                    }
+                }
+            }
             [muarr addObject:model];
         }
         if (rec && !isUp) {//当在加载更多   且属于 下拉时
@@ -149,7 +165,17 @@
                 self.preInfo = self.requestInfo.pre;
             }
         }
+        //判断第一次进入时 是否存在indexpath
+        if (!self.indexPath) {
+            MatchListModel * model = self.dataArray.lastObject;
+            self.indexPath = [NSIndexPath indexPathForRow:model.list.count inSection:self.dataArray.count - 1];
+        }
         [self.tabview reloadData];
+        //证明是的第一次进入  需要移动到最近比赛的地方
+        if (params.allKeys.count == 0) {
+            [self.tabview scrollToRowAtIndexPath:self.indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+        
         [self.refreshHeader endRefreshing];
         if (self.requestInfo.next.match_type && self.requestInfo.next.match_type.length>0) {
             [self.refreshFooter endRefreshing];
@@ -188,6 +214,17 @@
 }
 
 
-
+- (void)checkOverMatchVideo:(UIButton *)btn{
+    UITableViewCell * cell = (UITableViewCell *)[[btn superview] superview];
+    NSIndexPath * index = [self.tabview indexPathForCell:cell];
+    MatchListModel * list = self.dataArray[index.section];
+    MatchDetailModel * model = list.list[index.row - 1];
+    if (model.video.length>0) {
+        VideoPlayViewController * vc = [[VideoPlayViewController alloc]initWithUrl:[NSURL URLWithString:model.video]];
+        [self presentViewController:vc animated:YES completion:nil];
+    }else{
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"链接丢失了。。去看看其他的吧" duration:1.0f];
+    }
+}
 
 @end

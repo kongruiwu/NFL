@@ -8,12 +8,13 @@
 
 #import "PhotoListViewController.h"
 #import "PhotoSubListCell.h"
-#import "PhotoListModel.h"
 #import "PageDetailViewController.h"
+#import "InfoListModel.h"
+#import "LoginViewController.h"
 @interface PhotoListViewController ()<UITableViewDelegate,UITableViewDataSource,PhotoSubListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
-@property (nonatomic, strong) NSMutableArray<PhotoListModel *> * dataArray;
+@property (nonatomic, strong) NSMutableArray<InfoListModel *> * dataArray;
 
 
 @end
@@ -23,7 +24,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    [self refreshData];
 }
 
 - (void)viewDidLoad {
@@ -31,7 +32,6 @@
     [self drawBackButton];
     [self setNavTitle:@"专题图集"];
     [self creatUI];
-    [self getData];
 }
 
 - (void)creatUI{
@@ -50,7 +50,10 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataArray.count%2 == 0 ? self.dataArray.count/2 : self.dataArray.count + 1;
+    if (self.dataArray.count == 0) {
+        return 0;
+    }
+    return self.dataArray.count%2 == 0 ? self.dataArray.count/2 : self.dataArray.count/2 + 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(430);
@@ -68,10 +71,10 @@
         cell = [[PhotoSubListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     cell.delegate = self;
-    if (self.dataArray[indexPath.section/2 + 1]) {
-        [cell updateWithLeftModel:self.dataArray[indexPath.section/2] rightModel:self.dataArray[indexPath.section/2 +1]];
+    if (self.dataArray.count > indexPath.section * 2 + 1) {
+        [cell updateWithLeftModel:self.dataArray[indexPath.section * 2] rightModel:self.dataArray[indexPath.section * 2 +1]];
     }else{
-        [cell updateWithLeftModel:self.dataArray[indexPath.section/2] rightModel:nil];
+        [cell updateWithLeftModel:self.dataArray[indexPath.section * 2] rightModel:nil];
     }
     
     return cell;
@@ -91,6 +94,39 @@
     vc.photoID = self.dataArray[index.row/2 + 1].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
+- (void)collectThisPictures:(UIButton *)btn{
+    if (![UserManager manager].isLogin) {
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+    }else{
+        [SVProgressHUD show];
+        UITableViewCell * cell = (UITableViewCell *)[[btn superview] superview];
+        NSIndexPath * index = [self.tabview indexPathForCell:cell];
+        InfoListModel * model = self.dataArray[index.row/2 + btn.tag - 1];
+        NSDictionary * params = @{
+                                  @"uid":[UserManager manager].userID,
+                                  @"type":model.cont_type,
+                                  @"id":model.id
+                                  };
+        [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+            NSString * title = @"收藏成功";
+            if (model.collected) {
+                title = @"取消收藏成功";
+            }
+            model.collected = !model.collected;
+            if (model.collected) {
+                model.collect_num = @(model.collect_num.intValue + 1);
+            }else{
+                model.collect_num = @(model.collect_num.intValue - 1);
+            }
+            [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title  duration:1.0f];
+            [self.tabview reloadData];
+        } error:^(NFError *byerror) {
+            [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+        }];
+    }
+}
+
 
 
 - (void)refreshData{
@@ -112,7 +148,7 @@
         NSDictionary * data = result[@"data"];
         NSArray * arr = data[@"list"];
         for (int i = 0; i<arr.count; i++) {
-            PhotoListModel * model = [[PhotoListModel alloc]initWithDictionary:arr[i]];
+            InfoListModel * model = [[InfoListModel alloc]initWithDictionary:arr[i]];
             [self.dataArray addObject:model];
         }
         if (arr.count == 0 && self.dataArray.count == 0) {

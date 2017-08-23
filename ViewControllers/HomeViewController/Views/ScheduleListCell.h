@@ -10,6 +10,12 @@
 #import "ConfigHeader.h"
 #import "MatchDetailModel.h"
 
+@protocol ScheduleListCellDelegate <NSObject>
+
+- (void)checkOverMatchVideo:(UIButton *)btn;
+
+@end
+
 @interface ScheduleListCell : UITableViewCell
 
 
@@ -32,6 +38,8 @@
 @property (nonatomic, strong) UIButton * videoButton;
 
 @property (nonatomic, strong) UIView * line;
+
+@property (nonatomic, assign) id<ScheduleListCellDelegate> delgate;
 
 
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model;

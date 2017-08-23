@@ -22,9 +22,9 @@
 @property (nonatomic, strong) NSNumber * defense_rush_rank;
 @property (nonatomic, strong) NSNumber * defense_rush_percent;
 /**防守*/
-@property (nonatomic, strong) NSNumber * defense_yards;
-@property (nonatomic, strong) NSNumber * defense_yards_rank;
-@property (nonatomic, strong) NSNumber * defense_yards_percent;
+@property (nonatomic, strong) NSNumber * defense_points;
+@property (nonatomic, strong) NSNumber * defense_points_rank;
+@property (nonatomic, strong) NSNumber * defense_points_percent;
 /**传球*/
 @property (nonatomic, strong) NSNumber * offensive_pass;
 @property (nonatomic, strong) NSNumber * offensive_pass_rank;

@@ -9,5 +9,7 @@
 #import "BaseViewController.h"
 
 @interface TeamInfoViewController : BaseViewController
+//是否为设置界面进入
+@property (nonatomic, assign) BOOL isSet;
 
 @end

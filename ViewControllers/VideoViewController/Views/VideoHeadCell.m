@@ -29,7 +29,9 @@
     return self;
 }
 - (void)creatUI{
-    self.topImg = [Factory creatImageViewWithImage:@"list_img_Journalism1"];
+    self.topImg = [Factory creatImageViewWithImage:@"plac_holder"];
+    self.topImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.topImg.clipsToBounds = YES;
     self.playIcon = [Factory creatImageViewWithImage:@"content_icon_big_play"];
     self.nameLabel = [Factory creatLabelWithText:@"视频-爱国者13-21德州人"
                                        fontValue:font750(34)
@@ -83,15 +85,20 @@
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(Anno750(-24)));
         make.centerY.equalTo(self.timeLabel.mas_centerY);
+        make.height.equalTo(@(Anno750(50)));
+        make.width.equalTo(@(Anno750(100)));
     }];
 }
 
 - (void)updateWithDetailModel:(VideoDetailModel *)model{
-    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    if ([UserManager manager].hasPic) {
+        [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     self.descLabel.text = model.content;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.likeBtn.selected = model.collected;
     
 }
 

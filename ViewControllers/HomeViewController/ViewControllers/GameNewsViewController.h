@@ -7,9 +7,8 @@
 //
 
 #import "GameBassViewController.h"
+#import "SubNewsListCell.h"
 
 @interface GameNewsViewController : GameBassViewController
-
-@property (nonatomic, strong) NSNumber * gameID;
-
+@property (nonatomic, strong) NSArray<InfoListModel *> * dataArray;
 @end

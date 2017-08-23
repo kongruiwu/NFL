@@ -20,7 +20,7 @@
 
 - (void)creatUI{
 
-    self.userIcon = [Factory creatImageViewWithImage:@""];
+    self.userIcon = [Factory creatImageViewWithImage:@"list_img_user_normal"];
     self.userIcon.layer.cornerRadius = Anno750(80);
     self.userIcon.layer.masksToBounds = YES;
     self.nameLabel = [Factory creatLabelWithText:@""
@@ -79,12 +79,20 @@
     }];
 }
 - (void)updateWithStarDetailModel:(StarDetailModel *)model{
-    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    if ([UserManager manager].hasPic) {
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    }
     self.nameLabel.text = model.name;
-    self.scorekey.text = [NSString stringWithFormat:@"%@：",model.data_list[0].key];
-    self.desckey.text = [NSString stringWithFormat:@"%@：",model.data_list[1].key];
-    self.scorevalue.text = model.data_list[0].value;
-    self.descvalue.text = model.data_list[1].value;
+    if (model.data_list.count>0) {
+       self.scorekey.text = [NSString stringWithFormat:@"%@：",model.data_list[0].key];
+        self.scorevalue.text = model.data_list[0].value;
+        if (model.data_list.count>1) {
+            self.desckey.text = [NSString stringWithFormat:@"%@：",model.data_list[1].key];
+            self.descvalue.text = model.data_list[1].value;
+        }
+    }
+    
+    
 }
 
 

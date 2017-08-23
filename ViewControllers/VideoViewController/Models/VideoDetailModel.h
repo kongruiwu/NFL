@@ -20,4 +20,5 @@
 @property (nonatomic, strong) NSNumber * collect_num;
 @property (nonatomic, strong) NSString * share_link;
 @property (nonatomic, strong) NSArray<VideoListModel *> * recommend_list;
+@property (nonatomic, assign) BOOL collected;
 @end

@@ -11,15 +11,12 @@
 #import "GameScoreDescCell.h"
 #import "TeamDataProgressCell.h"
 #import "DataTeamTitleCell.h"
-#import "MatchOverDataModel.h"
-
 //数据
 @interface GameDataViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
 @property (nonatomic, strong) NSArray * sectionTitles;
 @property (nonatomic, strong) UISegmentedControl * segmentbtn;
-@property (nonatomic, strong) MatchOverDataModel * dataModel;
 @property (nonatomic, strong) NSArray * scoreSections;
 /**是否是客场球队*/
 @property (nonatomic) BOOL isVisitor;
@@ -48,12 +45,12 @@
     }else if(section == 1){
         return self.scoreSections.count + 1;
     }else if(section == 2){
-        return self.isVisitor ? self.dataModel.player_state.visitor.count : self.dataModel.player_state.home.count;
+        return self.isVisitor ? self.viewModel.player_state.visitor.count : self.viewModel.player_state.home.count;
     }
     return 0;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.sectionTitles.count;
+    return self.viewModel ? self.sectionTitles.count : 0;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -92,7 +89,7 @@
         label.backgroundColor = Color_BackGround2;
         [header addSubview:label];
         
-        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[self.homeName,self.visiName]];
+        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[self.viewModel.home_name,self.viewModel.visitor_name]];
         self.segmentbtn.backgroundColor = [UIColor whiteColor];
         self.segmentbtn.layer.borderColor = Color_MainBlue.CGColor;
         self.segmentbtn.tintColor = Color_MainBlue;
@@ -166,11 +163,11 @@
         ScoreModel * model ;
         NSNumber * teamid;
         if (index.row == 1) {
-            teamid = self.dataModel.home_teamId;
-            model = self.dataModel.detail_point.home;
+            teamid = self.viewModel.home_teamId;
+            model = self.viewModel.detail_point.home;
         }else{
-            teamid = self.dataModel.visitor_teamId;
-            model = self.dataModel.detail_point.visitor;
+            teamid = self.viewModel.visitor_teamId;
+            model = self.viewModel.detail_point.visitor;
         }
         NSArray * arr = @[model.Q1,model.Q2,model.Q3,model.Q4,model.OT,model.total];
         [cell updateWithTitles:arr TeamId:teamid];
@@ -196,19 +193,19 @@
     TeamScoreModel * model ;
     switch (index.row) {
         case 0:
-            model = self.dataModel.team_state.pass_yards;
+            model = self.viewModel.team_state.pass_yards;
             break;
         case 1:
-            model = self.dataModel.team_state.rush_yards;
+            model = self.viewModel.team_state.rush_yards;
             break;
         case 2:
-            model = self.dataModel.team_state.hold_time;
+            model = self.viewModel.team_state.hold_time;
             break;
         case 3:
-            model = self.dataModel.team_state.turn_over;
+            model = self.viewModel.team_state.turn_over;
             break;
         case 4:
-            model = self.dataModel.team_state.thirddown_rate;
+            model = self.viewModel.team_state.thirddown_rate;
             break;
         default:
             break;
@@ -218,7 +215,7 @@
                     rightScore:model.visitor];
     }else{
         [cell updateWithTitles:self.scoreSections[index.row] leftScore:model.home
-                    rightScore:model.visitor];
+                    rightScore:model.visitor isTime:index.row == 2 ? YES : NO];
     }
     
     return cell;
@@ -231,9 +228,9 @@
     }
     NSArray * arr ;
     if (self.isVisitor) {
-        arr = self.dataModel.player_state.visitor;
+        arr = self.viewModel.player_state.visitor;
     }else{
-        arr = self.dataModel.player_state.home;
+        arr = self.viewModel.player_state.home;
     }
     id values = arr[index.row];
     if ([values isKindOfClass:[NSArray class]]) {
@@ -241,24 +238,24 @@
     }
     return cell;
 }
-- (void)getData
-{
-    [SVProgressHUD show];
-    NSDictionary * params = @{
-                              @"gameId":self.gameID,
-                              @"page":@"data",
-                              };
-    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-        NSDictionary * dic = result[@"data"];
-        self.dataModel = [[MatchOverDataModel alloc]initWithDictionary:dic];
-        [self.tabview reloadData];
-        if (self.tabview.contentSize.height < UI_HEGIHT) {
-            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-        }
-    } error:^(NFError *byerror) {
-        
-    }];
-}
+//- (void)getData
+//{
+//    [SVProgressHUD show];
+//    NSDictionary * params = @{
+//                              @"gameId":self.gameID,
+//                              @"page":@"data",
+//                              };
+//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+//        NSDictionary * dic = result[@"data"];
+//        self.dataModel = [[MatchOverDataModel alloc]initWithDictionary:dic];
+//        [self.tabview reloadData];
+//        if (self.tabview.contentSize.height < UI_HEGIHT) {
+//            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+//        }
+//    } error:^(NFError *byerror) {
+//        
+//    }];
+//}
 
 
 - (void)segmentbtnSelect:(UISegmentedControl *)segement{
@@ -274,5 +271,9 @@
         targetContentOffset->y = 0;
     }
 }
-
+- (void)setViewModel:(LiveViewModel *)viewModel{
+    _viewModel = viewModel;
+    [self.tabview reloadData];
+    [self updateTabFooter];
+}
 @end

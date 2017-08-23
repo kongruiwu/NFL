@@ -11,14 +11,12 @@
 #import "RightTalkCell.h"
 #import "TalkeInputView.h"
 #import <IQKeyboardManager.h>
+#import "OnlineAnswerModel.h"
 @interface OnlineQuestionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
-
 @property (nonatomic, strong) UITableView * tabview;
-
-@property (nonatomic, strong) NSMutableArray * titles;
-
 @property (nonatomic, strong) TalkeInputView * talkView;
-
+@property (nonatomic, strong) NSMutableArray * dataArray;
+@property (nonatomic, strong) NSTimer * timer;
 @end
 
 @implementation OnlineQuestionViewController
@@ -28,12 +26,20 @@
     self.tabBarController.tabBar.hidden = YES;
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrameNotify:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0f target:self selector:@selector(getAnswer) userInfo:nil repeats:YES];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:YES];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
 - (void)viewDidLoad {
@@ -41,13 +47,19 @@
     [self setNavTitle:@"在线问答"];
     [self drawBackButton];
     [self creatUI];
+    [self scrollToEnd];
+    [self getData];
 }
 - (void)creatUI{
     
-    self.titles = [NSMutableArray arrayWithObjects:@"#方式一：需要在包含 name.xcodeproj 的目录下执行 xcodebuild命令，且如果该目录下有多个 projects，那么需要使用 -project 指定需要 build 的项目。xcodebuild -project $appName.xcodeproj -scheme ${targetName} -configuration $conf -derivedDataPath build -sdk iphoneos ${Profile_UUID} ${args} ",@"#方式一：需要在包含 name.xcodeproj 的目录下执行 xcodebuild命令，且如果该目录下有多个 projects，那么需要使用 -project 指定需要 build 的项目。xcodebuild -project",@" $conf -derivedDataPath build -sdk iphoneos ${Profile_UUID} ${args} || exit", nil];
+    self.dataArray = [NSMutableArray new];
     
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(30) - Anno750(98)) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT -Anno750(98) - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
+    
+    self.refreshHeader = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
+    self.tabview.mj_header = self.refreshHeader;
+    
     
     UIView * header = [Factory creatViewWithColor:[UIColor clearColor]];
     header.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(20));
@@ -58,7 +70,14 @@
     self.talkView.textField.delegate = self;
     [self.view addSubview:self.talkView];
     
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewCotrollerTouch)];
+    [self.tabview addGestureRecognizer:tap];
 }
+- (void)viewCotrollerTouch{
+    [self.view endEditing:YES];
+}
+
 -(void)keyboardWillChangeFrameNotify:(NSNotification*)notify {
     
     // 0.取出键盘动画的时间
@@ -69,28 +88,24 @@
     CGFloat transformY = keyboardFrame.origin.y - self.view.frame.size.height;
     // 3.执行动画
     [UIView animateWithDuration:duration animations:^{
-        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT + transformY - Anno750(98) - 64 - Anno750(30));
+        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT + transformY - Anno750(98) - 64 - 64);
         self.talkView.transform = CGAffineTransformMakeTranslation(0, transformY - 64);
-        [self scrollTableViewToBottom];
-        
+        [self scrollToEnd];
     }];
-}
-/**
- *  tableView快速滚动到底部
- */
-- (void)scrollTableViewToBottom {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(self.titles.count - 1) inSection:0];
-    [self.tabview scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.dataArray.count;
 }
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.titles.count;
+    NSArray * arr = self.dataArray[section];
+    return arr.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CGSize size = [Factory getSize:self.titles[indexPath.row] maxSize:CGSizeMake(Anno750(750 - 270), 99999) font:[UIFont systemFontOfSize:font750(28)]];
+    NSArray * arr = self.dataArray[indexPath.section];
+    OnlineAnswerModel * model = arr[indexPath.row];
+    CGSize size = [Factory getSize:model.content maxSize:CGSizeMake(Anno750(750 - 270), 99999) font:[UIFont systemFontOfSize:font750(28)]];
     return size.height >= Anno750(42) ? size.height + Anno750(50) : Anno750(92) ;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -102,7 +117,10 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * header = [Factory creatViewWithColor:[UIColor clearColor]];
     header.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(64));
-    UILabel * time = [Factory creatLabelWithText:@"10:26"
+    NSArray * arr = self.dataArray[section];
+    OnlineAnswerModel * model = arr.firstObject;
+    NSString * timestr = [Factory timestampSwitchWithHourStyleTime:model.time.integerValue];
+    UILabel * time = [Factory creatLabelWithText:timestr
                                        fontValue:font750(20)
                                        textColor:[UIColor whiteColor]
                                    textAlignment:NSTextAlignmentCenter];
@@ -121,13 +139,15 @@
     return header;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row % 2 ==1) {
+    NSArray * arr = self.dataArray[indexPath.section];
+    OnlineAnswerModel * model = arr[indexPath.row];
+    if (!model.is_admin) {
         static NSString * cellid = @"RightTalkCell";
         RightTalkCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
         if (!cell) {
             cell = [[RightTalkCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        [cell updateWithText:self.titles[indexPath.row]];
+        [cell updateWithOnlineAnswerModel:model];
         return cell;
     }
     static NSString * cellid = @"leftCell";
@@ -135,7 +155,7 @@
     if (!cell) {
         cell = [[LeftTalkCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    [cell updateWithText:self.titles[indexPath.row]];
+    [cell updateWithOnlineAnswerModel:model];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -146,9 +166,148 @@
     return YES;
 }
 - (void)SendMessage{
-    [self.titles addObject:self.talkView.textField.text];
-    self.talkView.textField.text = @"";
-    [self.tabview reloadData];
     [self.view endEditing:YES];
+    [self sendMessageRequest];
 }
+- (void)scrollToEnd{
+    NSUInteger section = [self.tabview numberOfSections];
+    if (section == 0 ) {
+        return;
+    }
+    NSUInteger rowCount = [self.tabview numberOfRowsInSection:section - 1];
+    if (rowCount == 0) {
+        return;
+    }
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:rowCount-1 inSection:section-1];
+    [self.tabview scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)getData{
+    NSString * num = @"";
+    if (self.dataArray.count>0) {
+        NSArray * arr = self.dataArray.firstObject;
+        if (arr.count>0) {
+            OnlineAnswerModel * model = arr.firstObject;
+            num = [NSString stringWithFormat:@"%@",model.id];
+        }
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"oldest_id":num,
+                              };
+    [[NetWorkManger manager] sendRequest:PageOnlineList route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSArray * arr = result[@"data"];
+        NSMutableArray * datas = [NSMutableArray new];
+        for (int i = 0; i<arr.count/5; i++) {
+            NSMutableArray * muarr = [NSMutableArray new];
+            for (int j = 0; j<5; j++) {
+                OnlineAnswerModel * model = [[OnlineAnswerModel alloc] initWithDictionary:arr[i * 5 + j]];
+                [muarr addObject:model];
+            }
+            
+            [datas addObject:muarr];
+        }
+        NSMutableArray * muarry = [NSMutableArray new];
+        for (int i = (int)arr.count/5 * 5; i<arr.count; i++) {
+            OnlineAnswerModel * model = [[OnlineAnswerModel alloc]initWithDictionary:arr[i]];
+            [muarry addObject:model];
+        }
+        if (muarry.count >0) {
+            [datas addObject:muarry];
+        }
+        [datas addObjectsFromArray:self.dataArray];
+        self.dataArray = [NSMutableArray arrayWithArray:datas];
+        [self.tabview reloadData];
+        if (num.length == 0) {
+            [self scrollToEnd];
+        }
+        [self.refreshHeader endRefreshing];
+    } error:^(NFError *byerror) {
+        [self.refreshHeader endRefreshing];
+    }];
+}
+
+
+- (void)sendMessageRequest{
+    if (self.talkView.textField.text.length == 0) {
+        return;
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"content":self.talkView.textField.text,
+                              };
+    [[NetWorkManger manager] sendRequest:PageSubmitQuest route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        NSNumber * idNum = dic[@"id"];
+        OnlineAnswerModel * model  =[[OnlineAnswerModel alloc]init];
+        model.content = self.talkView.textField.text;
+        model.uid = [UserManager manager].userID;
+        model.username = [UserManager manager].info.username;
+        model.avatar = [UserManager manager].info.avatar;
+        model.is_admin = NO;
+        NSNumber * num = @(time(NULL));
+        model.time = num;
+        model.id = idNum;
+        
+        NSMutableArray * muarr = self.dataArray.lastObject;
+        if (muarr.count == 5) {
+            NSMutableArray * newMuarr = [NSMutableArray new];
+            [newMuarr addObject:model];
+            [self.dataArray addObject:newMuarr];
+        }else{
+            [muarr addObject:model];
+        }
+        self.talkView.textField.text = @"";
+        [self.tabview reloadData];
+        [self scrollToEnd];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
+- (void)getAnswer{
+    NSString * idnum = @"";
+    if (self.dataArray.count >0) {
+        NSMutableArray * arr = self.dataArray.lastObject;
+        if (arr.count>0) {
+            OnlineAnswerModel * model = arr.lastObject;
+            idnum = [NSString stringWithFormat:@"%@",model.id];
+        }
+    }
+    if (idnum.length == 0) {
+        return;
+    }
+    
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"last_id":idnum
+                              };
+    [[NetWorkManger manager] sendRequest:PageAnswer route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSArray * arr = result[@"data"];
+        NSMutableArray * datas = [NSMutableArray new];
+        for (int i = 0; i<arr.count/5; i++) {
+            NSMutableArray * muarr = [NSMutableArray new];
+            for (int j = 0; j<5; j++) {
+                OnlineAnswerModel * model = [[OnlineAnswerModel alloc] initWithDictionary:arr[i * 5 + j]];
+                [muarr addObject:model];
+            }
+            
+            [datas addObject:muarr];
+        }
+        NSMutableArray * muarry = [NSMutableArray new];
+        for (int i = (int)arr.count/5 * 5; i<arr.count; i++) {
+            OnlineAnswerModel * model = [[OnlineAnswerModel alloc]initWithDictionary:arr[i]];
+            [muarry addObject:model];
+        }
+        if (muarry.count >0) {
+            [datas addObject:muarry];
+        }
+        [self.dataArray addObjectsFromArray:datas];
+        [self.tabview reloadData];
+        [self scrollToEnd];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 @end

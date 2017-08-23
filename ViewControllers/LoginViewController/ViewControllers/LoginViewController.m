@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "PhoneAboutViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "WKWebViewController.h"
 @interface LoginViewController ()
 
 @property (nonatomic, strong) UITextField * phoneNum;
@@ -85,6 +86,7 @@
     NSMutableAttributedString * attstr = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"登录即表示你同意NFL中国%@",proName]];
     [attstr addAttribute:NSForegroundColorAttributeName value:Color_MainBlue range:NSMakeRange(13, proName.length)];
     [protocolBtn setAttributedTitle:attstr forState:UIControlStateNormal];
+    [protocolBtn addTarget:self action:@selector(checkProtocol) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:whiteView];
     [self.view addSubview:whiteView2];
@@ -221,6 +223,7 @@
             return ;
         }
         NSString * type;
+        [SVProgressHUD show];
         UMSocialUserInfoResponse * resp = result;
         if (platformType == UMSocialPlatformType_QQ) {
             type = @"qq";
@@ -273,6 +276,12 @@
         self.loginBtn.enabled = NO;
         self.loginBtn.backgroundColor = Color_alphaBlue;
     }
+}
+
+#pragma mark - 查看协议
+- (void)checkProtocol{
+    WKWebViewController * web = [[WKWebViewController alloc]initWithTitle:@"用户使用协议" url:UserProtocol];
+    [self.navigationController pushViewController:web animated:YES];
 }
 
 @end

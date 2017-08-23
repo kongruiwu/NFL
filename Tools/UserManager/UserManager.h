@@ -15,7 +15,8 @@
 @property (nonatomic, strong) NSNumber * userID;
 /**用户是否登录*/
 @property (nonatomic, assign) BOOL isLogin;
-
+/**是否开启无图模式*/
+@property (nonatomic, assign) BOOL hasPic;
 
 + (instancetype)manager;
 - (void)updateUserInfo:(NSDictionary *)dic;

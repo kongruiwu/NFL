@@ -8,12 +8,10 @@
 
 #import "GameBassViewController.h"
 
-
+#import "LiveViewModel.h"
 
 @interface GameDataViewController : GameBassViewController
 
-@property (nonatomic, strong) NSNumber * gameID;
-@property (nonatomic, strong) NSString * homeName;
-@property (nonatomic, strong) NSString * visiName;
+@property (nonatomic, strong) LiveViewModel * viewModel;
 
 @end

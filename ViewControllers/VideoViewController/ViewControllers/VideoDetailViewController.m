@@ -11,7 +11,8 @@
 #import "VideoHeadCell.h"
 #import "VideoDetailModel.h"
 #import "VideoPlayViewController.h"
-@interface VideoDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "LoginViewController.h"
+@interface VideoDetailViewController ()<UITableViewDelegate,UITableViewDataSource,SubNewsListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic, strong) VideoDetailModel * videoModel;
@@ -75,7 +76,7 @@
         if (!cell) {
             cell = [[VideoHeadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        
+        [cell.likeBtn addTarget:self action:@selector(collectThisVideo) forControlEvents:UIControlEventTouchUpInside];
         [cell updateWithDetailModel:self.videoModel];
         return cell;
     }else{
@@ -84,6 +85,7 @@
         if (!cell) {
             cell = [[SubNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
+        cell.delegate = self;
         [cell updateWithObjectModel:self.videoModel.recommend_list[indexPath.section - 1]];
         return cell;
     }
@@ -124,6 +126,72 @@
         [self.tabview reloadData];
     } error:^(NFError *byerror) {
         [self showNullViewByType:NullTypeNetError];
+    }];
+}
+
+- (void)collectThisCellItem:(UIButton *)btn{
+    
+    if (![UserManager manager].isLogin) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:1.0f];
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    [SVProgressHUD show];
+    UITableViewCell * cell = (UITableViewCell *)[btn superview];
+    NSIndexPath * indexpath = [self.tabview indexPathForCell:cell];
+    VideoListModel * model = self.videoModel.recommend_list[indexpath.section - 1];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"type":model.cont_type,
+                              @"id":model.id
+                              };
+    [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSString * title = @"收藏成功";
+        if (model.collected) {
+            title = @"取消收藏";
+        }
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title duration:1.0f];
+        model.collected = !model.collected;
+        if (model.collected) {
+            model.collect_num = @(model.collect_num.intValue + 1);
+        }else{
+            model.collect_num = @(model.collect_num.intValue - 1);
+        }
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
+
+- (void)collectThisVideo{
+    if (![UserManager manager].isLogin) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:1.0f];
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"type":self.videoModel.recommend_list.firstObject.cont_type,
+                              @"id":self.videoModel.id
+                              };
+    [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSString * title = @"收藏成功";
+        if (self.videoModel.collected) {
+            title = @"取消收藏";
+        }
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title duration:1.0f];
+        self.videoModel.collected = !self.videoModel.collected;
+        if (self.videoModel.collected) {
+            self.videoModel.collect_num = @(self.videoModel.collect_num.intValue + 1);
+        }else{
+            self.videoModel.collect_num = @(self.videoModel.collect_num.intValue - 1);
+        }
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
     }];
 }
 

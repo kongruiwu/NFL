@@ -31,7 +31,8 @@
     return self;
 }
 - (void)creatUI{
-    self.leftImg = [Factory creatImageViewWithImage:@"list_img_video1"];
+    self.leftImg = [Factory creatImageViewWithImage:@"plac_holder"];
+    
     self.nameLabel = [Factory creatLabelWithText:@"詹姆斯-考瑟: 在中国做着很酷的事"
                                        fontValue:font750(28)
                                        textColor:Color_MainBlack
@@ -43,6 +44,7 @@
                                    textAlignment:NSTextAlignmentLeft];
     
     self.likeBtn = [LikeButton buttonWithType:UIButtonTypeCustom];
+    [self.likeBtn addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.adLabel = [Factory creatLabelWithText:@"推广"
                                      fontValue:font750(22)
@@ -84,6 +86,8 @@
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.timeLabel.mas_centerY);
         make.right.equalTo(@(-Anno750(24)));
+        make.width.equalTo(@(Anno750(100)));
+        make.height.equalTo(@(Anno750(50)));
     }];
     [self.adLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(-Anno750(24)));
@@ -106,7 +110,9 @@
 }
 - (void)updateWithVideoListModel:(VideoListModel *)model{
     self.playIcon.hidden = NO;
-    [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    if ([UserManager manager].hasPic) {
+        [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic_thumbnail] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
@@ -114,10 +120,18 @@
 }
 - (void)updateWithInfoListModel:(InfoListModel *)model{
     self.playIcon.hidden = YES;
-    [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    if ([UserManager manager].hasPic) {
+        [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.pic_thumbnail] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
     self.likeBtn.selected = model.collected;
+}
+
+- (void)likeBtnClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(collectThisCellItem:)]) {
+        [self.delegate collectThisCellItem:btn];
+    }
 }
 @end

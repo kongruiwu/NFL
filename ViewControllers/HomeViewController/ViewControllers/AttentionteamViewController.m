@@ -129,7 +129,7 @@
         return;
     }
     MatchDetailModel * model = self.dataArray[indexPath.section].list[indexPath.row - 1];
-    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithMatchDetailModel:model];
+    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithGameID:model.gameId matchStatus:model.match_state.integerValue];
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)pushToSelectTeamViewController{
@@ -148,6 +148,7 @@
 
 
 - (void)getData{
+    [self.dataArray removeAllObjects];
     [self requestDataWithParmas:@{@"follow_team_uid":[UserManager manager].userID}];
 }
 - (void)requestDataWithParmas:(NSDictionary *)params{

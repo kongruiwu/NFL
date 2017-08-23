@@ -82,7 +82,7 @@
         if (!cell) {
             cell = [[TeamDataProgressCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        [cell updateWithTitles:self.titles[indexPath.row] leftScore:self.leftScores[indexPath.row] rightScore:self.rightScores[indexPath.row]];
+        [cell updateWithTitles:self.titles[indexPath.row] leftScore:self.leftScores[indexPath.row] rightScore:self.rightScores[indexPath.row] isTime:NO];
         return cell;
     }
     static NSString * cellid = @"GameStarsCell";
@@ -93,30 +93,28 @@
     [cell updateWithArray:self.viewModel.stars];
     return cell;
 }
-- (void)getData{
-    [SVProgressHUD show];
-    NSDictionary * params = @{
-                              @"gameId":self.gameID,
-                              @"page":@"compare"
-                              };
-    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-        if (self.tabview) {
-            NSDictionary * dic = result[@"data"];
-            self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
-        }
-    } error:^(NFError *byerror) {
-        
-    }];
-}
+//- (void)getData{
+//    [SVProgressHUD show];
+//    NSDictionary * params = @{
+//                              @"gameId":self.gameID,
+//                              @"page":@"compare"
+//                              };
+//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+//        if (self.tabview) {
+//            NSDictionary * dic = result[@"data"];
+//            self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
+//        }
+//    } error:^(NFError *byerror) {
+//        
+//    }];
+//}
 
 - (void)setViewModel:(LiveViewModel *)viewModel{
     _viewModel = viewModel;
     self.leftScores = @[_viewModel.offensive_points.home,_viewModel.offensive_yards.home,_viewModel.defense_points.home,_viewModel.defense_yards.home];
     self.rightScores = @[_viewModel.offensive_points.visitor,_viewModel.offensive_yards.visitor,_viewModel.defense_points.visitor,_viewModel.defense_yards.visitor];
     [self.tabview reloadData];
-    if (self.tabview.contentSize.height < UI_HEGIHT) {
-        self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-    }
+    [self updateTabFooter];
 }
 
 @end

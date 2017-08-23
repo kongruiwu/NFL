@@ -100,7 +100,7 @@
                                      backGroundColor:[UIColor whiteColor]
                                            textColor:Color_MainBlack
                                             textSize:font750(28)];
-        [self updateWithTeamName:@"卡罗莱纳黑豹"];
+        
         [self.setTeam addTarget:self action:@selector(checkWeiBoDetail) forControlEvents:UIControlEventTouchUpInside];
         self.teamDesc = [Factory creatLabelWithText:@"(点击蓝字可跳转到该球队官方微博)"
                                           fontValue:font750(28)
@@ -122,7 +122,7 @@
                                           textColor:Color_LightGray
                                            textSize:font750(28)];
     [self.cannceBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    [self.sureButton addTarget:self action:@selector(sureButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.sureButton addTarget:self action:@selector(sureButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.showView addSubview:self.sureButton];
     [self.showView addSubview:self.cannceBtn];
@@ -250,15 +250,20 @@
     });
 }
 
-- (void)sureButtonClick:(UIButton *)button{
-    if ([self.delegate respondsToSelector:@selector(UserClickSureButtonWithType:)]) {
-        [self.delegate UserClickSureButtonWithType:self.messageType];
-    }
-    [self dismiss];
-}
+//- (void)sureButtonClick:(UIButton *)button{
+//    if ([self.delegate respondsToSelector:@selector(UserClickSureButtonWithType:)]) {
+//        [self.delegate UserClickSureButtonWithType:self.messageType];
+//    }
+//    [self dismiss];
+//}
 
 - (void)checkWeiBoDetail{
     
+}
+
+- (void)setHomeTeam:(HomeTeam *)homeTeam{
+    _homeTeam = homeTeam;
+    [self updateWithTeamName:homeTeam.team_name];
 }
 
 - (void)updateWithTeamName:(NSString *)teamName{
@@ -268,6 +273,7 @@
     [self.setTeam setAttributedTitle:attstr forState:UIControlStateNormal];
 }
 - (void)sexButtonClick:(UIButton *)btn{
+    self.gender = btn.titleLabel.text;
     btn.backgroundColor = Color_BackGround;
     UIButton * btn1 = btn == self.menButton ? self.womButton : self.menButton;
     btn1.backgroundColor = [UIColor clearColor];

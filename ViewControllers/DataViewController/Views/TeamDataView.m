@@ -30,17 +30,17 @@
     self.runLabel = [self creatDescLabel:@"跑球码数" textAlignment:NSTextAlignmentRight];
     self.runValue = [self creatValueLabel:@"112" textAlignment:NSTextAlignmentRight];
     
-    self.defenPassLabel = [self creatDescLabel:@"防传码数" textAlignment:NSTextAlignmentRight];
+    self.defenPassLabel = [self creatDescLabel:@"防传失码" textAlignment:NSTextAlignmentRight];
     self.defenPassValue = [self creatValueLabel:@"202" textAlignment:NSTextAlignmentRight];
     
     self.defenseLabel = [self creatDescLabel:@"防守失分" textAlignment:NSTextAlignmentLeft];
     self.defenseValue = [self creatValueLabel:@"18.7" textAlignment:NSTextAlignmentLeft];
     
-    self.defenRunLabel = [self creatDescLabel:@"防跑码数" textAlignment:NSTextAlignmentLeft];
+    self.defenRunLabel = [self creatDescLabel:@"防跑失码" textAlignment:NSTextAlignmentLeft];
     self.defenRunValue = [self creatValueLabel:@"154" textAlignment:NSTextAlignmentLeft];
     
     self.redDesc = [self creatDescLabel:@"该参数联盟排名" textAlignment:NSTextAlignmentLeft];
-    self.blueDesc = [self creatDescLabel:@"该参数当前数据" textAlignment:NSTextAlignmentLeft];
+    self.blueDesc = [self creatDescLabel:@"该参数当前场均数据" textAlignment:NSTextAlignmentLeft];
     self.redView = [Factory creatViewWithColor:[UIColor redColor]];
     self.blueView = [Factory creatViewWithColor:Color_MainBlue];
     
@@ -285,7 +285,7 @@
     //防传码数
     CGPoint leftdown = [self getPointWithStarPoint:CGPointMake(Anno750(275), Anno750(310) + Anno750(310 - 130)) rank:model.defense_pass_rank pect:[model.defense_pass_percent floatValue]];
     //防守失分
-    CGPoint rightdown = [self getPointWithStarPoint:CGPointMake(UI_WIDTH - Anno750(275), Anno750(310) + Anno750(310 - 130)) rank:model.defense_yards_rank pect:[model.defense_yards_percent floatValue]];
+    CGPoint rightdown = [self getPointWithStarPoint:CGPointMake(UI_WIDTH - Anno750(275), Anno750(310) + Anno750(310 - 130)) rank:model.defense_points_rank pect:[model.defense_points_percent floatValue]];
     
     UIBezierPath * insidePath = [UIBezierPath bezierPath];
     [insidePath moveToPoint:leftUp];
@@ -312,8 +312,8 @@
     if ([model.defense_rush_rank integerValue] >0) {
         [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_rush_rank] point:right];
     }
-    if ([model.defense_yards_rank integerValue] > 0) {
-        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_yards_rank] point:rightdown];
+    if ([model.defense_points_rank integerValue] > 0) {
+        [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.defense_points_rank] point:rightdown];
     }
 
     if ([model.defense_pass_rank integerValue]>0) {
@@ -324,8 +324,8 @@
     }
     
     self.scoreValue.text = [NSString stringWithFormat:@"%@",model.offensive_points];
-    self.defenPassValue.text = [NSString stringWithFormat:@"%@",model.defense_pass];
-    self.defenseValue.text = [NSString stringWithFormat:@"%@",model.defense_yards];
+    self.passValue.text = [NSString stringWithFormat:@"%@",model.offensive_pass];
+    self.defenseValue.text = [NSString stringWithFormat:@"%@",model.defense_points];
     self.defenRunValue.text = [NSString stringWithFormat:@"%@",model.defense_rush];
     self.defenPassValue.text = [NSString stringWithFormat:@"%@",model.defense_pass];
     self.runValue.text = [NSString stringWithFormat:@"%.2f",[model.offensive_rush floatValue]];

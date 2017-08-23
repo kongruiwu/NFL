@@ -58,6 +58,8 @@
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(-Anno750(24)));
         make.bottom.equalTo(self.titleLabel.mas_bottom);
+        make.width.equalTo(@(Anno750(100)));
+        make.height.equalTo(@(Anno750(50)));
     }];
 }
 - (void)updateWithPhotoDetail:(PhotoDetailModel *)model withIndex:(int)index{
@@ -69,5 +71,6 @@
     self.countLabel.attributedText = attstr;
     self.descLabel.text = model.list[index].title;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
+    self.likeBtn.selected = model.collected;
 }
 @end

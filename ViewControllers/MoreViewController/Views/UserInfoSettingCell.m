@@ -116,6 +116,10 @@
     self.descLabel.hidden = YES;
     self.userIcon.hidden = NO;
     self.nameLabel.text = title;
+    if ([UserManager manager].hasPic) {
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserManager manager].info.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    }
+    
 }
 - (void)updateWithTitle:(NSString *)title desc:(NSString *)desc hidden:(BOOL)rec{
     self.nameLabel.text = title;

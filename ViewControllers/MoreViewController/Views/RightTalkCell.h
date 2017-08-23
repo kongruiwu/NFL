@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
+#import "OnlineAnswerModel.h"
 @interface RightTalkCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * rightImg;
 @property (nonatomic, strong) UIImageView * bgImg;
 @property (nonatomic, strong) UILabel * contentLabel;
-- (void)updateWithText:(NSString *)text;
+- (void)updateWithOnlineAnswerModel:(OnlineAnswerModel *)model;
 @end

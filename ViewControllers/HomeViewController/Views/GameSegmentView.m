@@ -70,7 +70,7 @@
         make.width.equalTo(@(Anno750(18)));
     }];
 }
-- (void)updateWithMatchDetailModel:(MatchDetailModel *)model{
+- (void)updateWithMatchLiveViewModel:(LiveViewModel *)model{
     self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
     self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
     self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:NO];
@@ -96,6 +96,9 @@
             break;
         default:
             break;
+    }
+    if (model.page_list.count>= 3) {
+        self.segmentView.sectionTitles = @[model.page_list[0].title,model.page_list[1].title,model.page_list[2].title];
     }
 }
 

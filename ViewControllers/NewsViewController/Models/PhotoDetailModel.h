@@ -23,4 +23,5 @@
 @property (nonatomic, strong) NSNumber * collect_num;
 @property (nonatomic, strong) NSNumber * photo_num;
 @property (nonatomic, strong) NSArray<PhotoModel *> * list;
+@property (nonatomic, assign) BOOL collected;
 @end

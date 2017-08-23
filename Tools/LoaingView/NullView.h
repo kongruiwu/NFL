@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger,NullType){
     NullTypeNetError = 0,   //网络不给力
     NullTypeNoneLike    ,   //暂无点赞
     NullTypeNoneData  ,   //暂无数据
+    NullTypeNoneCollect,    //暂无收藏
 };
 
 @interface NullView : UIView

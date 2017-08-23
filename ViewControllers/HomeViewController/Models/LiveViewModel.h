@@ -8,6 +8,50 @@
 
 #import "BaseModel.h"
 #import "LiveModel.h"
+#import "InfoListModel.h"
+#import "VideoListModel.h"
+//#import "MatchOverDataModel.h"
+
+@interface TeamScoreModel : BaseModel
+
+@property (nonatomic, strong) NSNumber * visitor;
+@property (nonatomic, strong) NSNumber * home;
+
+@end
+
+@interface TeamStateModel : BaseModel
+
+@property (nonatomic, strong) TeamScoreModel * hold_time;
+@property (nonatomic, strong) TeamScoreModel * rush_yards;
+@property (nonatomic, strong) TeamScoreModel * turn_over;
+@property (nonatomic, strong) TeamScoreModel * pass_yards;
+@property (nonatomic, strong) TeamScoreModel * thirddown_rate;
+
+@end
+
+@interface PlayerStateModel : BaseModel
+
+@property (nonatomic, strong) NSArray * visitor;
+@property (nonatomic, strong) NSArray * home;
+
+@end
+
+@interface ScoreModel : BaseModel
+
+@property (nonatomic, strong) NSNumber * Q1;
+@property (nonatomic, strong) NSNumber * Q2;
+@property (nonatomic, strong) NSNumber * Q3;
+@property (nonatomic, strong) NSNumber * Q4;
+@property (nonatomic, strong) NSNumber * OT;
+@property (nonatomic, strong) NSNumber * total;
+@end
+
+@interface DetailPointModel : BaseModel
+
+@property (nonatomic, strong) ScoreModel * visitor;
+@property (nonatomic, strong) ScoreModel * home;
+
+@end
 
 @interface StarDetailScoreModel : BaseModel
 
@@ -110,4 +154,18 @@
 @property (nonatomic, strong) MatchScoreModel * defense_yards;
 /**球星*/
 @property (nonatomic, strong) StarModel * stars;
+
+//资讯信息
+@property (nonatomic, strong) NSArray<InfoListModel *> * news_list;
+
+//视频列表
+@property (nonatomic, strong) NSArray<VideoListModel *> * video_list;
+
+//数据详情
+/**球队数据*/
+@property (nonatomic, strong) TeamStateModel * team_state;
+/**球员 类别*/
+@property (nonatomic, strong) PlayerStateModel * player_state;
+/**得分 对应每一节得分*/
+@property (nonatomic, strong) DetailPointModel * detail_point;
 @end

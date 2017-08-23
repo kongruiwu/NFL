@@ -22,4 +22,5 @@ typedef void(^ ErrorBlock)(NFError *byerror);
 + (instancetype)manager;
 - (void)sendRequest:(NSString *)action route:(NSString *)route withParams:(NSDictionary *)dataDic complete:(CompleteBlock)complete error:(ErrorBlock)byerror;
 - (void)postRequest:(NSString *)action route:(NSString *)route withParams:(NSDictionary *)dataDic complete:(CompleteBlock)complete error:(ErrorBlock)byerror;
+- (void)uploadUserImageWithParams:(NSDictionary *)params complete:(CompleteBlock)complete error:(ErrorBlock)byerror;
 @end

@@ -29,6 +29,9 @@
 /**分享链接*/
 @property (nonatomic, strong) NSString * share_link;
 /**是否收藏*/
-@property (nonatomic, assign) BOOL collected;
-
+@property (nonatomic) BOOL collected;
+/**用于加载更多使用*/
+@property (nonatomic, strong) NSNumber * cid;
+/**图片张数*/
+@property (nonatomic, strong) NSNumber * num;
 @end

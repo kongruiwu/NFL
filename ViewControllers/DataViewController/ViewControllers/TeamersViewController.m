@@ -111,6 +111,7 @@
             
             [self.tabview reloadData];
         }
+        [self updateTabFooter];
     } error:^(NFError *byerror) {
         
     }];

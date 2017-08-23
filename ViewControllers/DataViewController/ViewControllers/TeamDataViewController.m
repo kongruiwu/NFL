@@ -45,5 +45,6 @@
 - (void)setDataInfo:(TeamDataInfoModel *)dataInfo{
     _dataInfo = dataInfo;
     [self.tabview reloadData];
+    [self updateTabFooter];
 }
 @end

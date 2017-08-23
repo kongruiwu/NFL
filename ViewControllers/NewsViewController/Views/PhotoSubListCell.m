@@ -19,7 +19,10 @@
 }
 - (void)creatUI{
     
-    self.topImg = [Factory creatImageViewWithImage:@"list_img_Journalism1"];
+    self.topImg = [Factory creatImageViewWithImage:@"plac_holderZ"];
+    
+    self.topImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.topImg.clipsToBounds = YES;
     
     self.grayView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.3)];
     
@@ -95,16 +98,21 @@
     [self.likeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(@0);
+        make.height.equalTo(@(Anno750(50)));
+        make.width.equalTo(@(Anno750(100)));
     }];
     
 }
 
-- (void)updateWithPhotoListModel:(PhotoListModel *)model{
-    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holderZ"]];
+- (void)updateWithPhotoListModel:(InfoListModel *)model{
+    if ([UserManager manager].hasPic) {
+        [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holderZ"]];
+    }
     self.nameLabel.text = model.title;
     self.timelabel.text = model.time;
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",model.collect_num] forState:UIControlStateNormal];
     self.countLabel.text = [NSString stringWithFormat:@"%@张",model.num];
+    self.likeBtn.selected = model.collected;
 }
 
 @end
@@ -137,6 +145,11 @@
     self.leftButton = [Factory creatButtonWithNormalImage:@"" selectImage:@""];
     self.rightButton =[Factory creatButtonWithNormalImage:@"" selectImage:@""];
     
+    self.leftView.likeBtn.tag = 1;
+    self.rightView.likeBtn.tag = 2;
+    [self.leftView.likeBtn addTarget:self action:@selector(likeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightView.likeBtn addTarget:self action:@selector(likeButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.leftButton.frame = CGRectMake(0, 0, Anno750(365), Anno750(365));
     self.rightButton.frame = CGRectMake(Anno750(385), 0, Anno750(365), Anno750(365));
     
@@ -159,12 +172,17 @@
         [self.delegate checkRightPhotos:btn];
     }
 }
+- (void)likeButtonClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(collectThisPictures:)]) {
+        [self.delegate collectThisPictures:btn];
+    }
+}
 
-- (void)updateWithLeftModel:(PhotoListModel *)leftm rightModel:(id)rightm{
+- (void)updateWithLeftModel:(InfoListModel *)leftm rightModel:(id)rightm{
     [self.leftView updateWithPhotoListModel:leftm];
     if (rightm) {
         self.rightView.hidden = NO;
-        PhotoListModel * model = (PhotoListModel *)rightm;
+        InfoListModel * model = (InfoListModel *)rightm;
         [self.rightView updateWithPhotoListModel:model];
     }else{
         self.rightView.hidden = YES;

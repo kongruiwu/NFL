@@ -9,10 +9,8 @@
 #import "GameVideoViewController.h"
 #import "VideoPlayCell.h"
 #import "VideoDetailViewController.h"
-#import "VideoListModel.h"
-@interface GameVideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) NSMutableArray<VideoListModel *> * dataArray;
+@interface GameVideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -62,27 +60,32 @@
     vc.videoID = self.dataArray[indexPath.section].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
-- (void)getData
-{
-    [SVProgressHUD show];
-    NSDictionary * params = @{
-                              @"gameId":self.gameID,
-                              @"page":@"videos",
-                              };
-    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-        NSDictionary * dic = result[@"data"];
-        NSArray * arr = dic[@"video_list"];
-        for (int i = 0; i<arr.count; i++) {
-            VideoListModel * model = [[VideoListModel alloc]initWithDictionary:arr[i]];
-            [self.dataArray addObject:model];
-        }
-        [self.tabview reloadData];
-        if (self.tabview.contentSize.height < UI_HEGIHT) {
-            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-        }
-    } error:^(NFError *byerror) {
-        
-    }];
+//- (void)getData
+//{
+//    [SVProgressHUD show];
+//    NSDictionary * params = @{
+//                              @"gameId":self.gameID,
+//                              @"page":@"videos",
+//                              };
+//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+//        NSDictionary * dic = result[@"data"];
+//        NSArray * arr = dic[@"video_list"];
+//        for (int i = 0; i<arr.count; i++) {
+//            VideoListModel * model = [[VideoListModel alloc]initWithDictionary:arr[i]];
+//            [self.dataArray addObject:model];
+//        }
+//        [self.tabview reloadData];
+//        if (self.tabview.contentSize.height < UI_HEGIHT) {
+//            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+//        }
+//    } error:^(NFError *byerror) {
+//        
+//    }];
+//}
+- (void)setDataArray:(NSMutableArray<VideoListModel *> *)dataArray{
+    _dataArray = dataArray;
+    [self.tabview reloadData];
+    [self updateTabFooter];
 }
 
 @end

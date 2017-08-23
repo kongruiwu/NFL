@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LikeButton.h"
-#import "PhotoListModel.h"
+#import "InfoListModel.h"
 
 @interface PhotoSubListView : UIView
 
@@ -21,7 +21,7 @@
 @property (nonatomic, strong) UILabel * timelabel;
 @property (nonatomic, strong) LikeButton * likeBtn;
 
-- (void)updateWithPhotoListModel:(PhotoListModel *)model;
+- (void)updateWithPhotoListModel:(InfoListModel *)model;
 
 @end
 
@@ -29,7 +29,7 @@
 
 - (void)checkLeftPhotos:(UIButton *)button;
 - (void)checkRightPhotos:(UIButton *)button;
-
+- (void)collectThisPictures:(UIButton *)button;
 @end
 
 @interface PhotoSubListCell : UITableViewCell
@@ -40,5 +40,5 @@
 @property (nonatomic, strong) UIButton * rightButton;
 @property (nonatomic, assign) id<PhotoSubListCellDelegate> delegate;
 
-- (void)updateWithLeftModel:(PhotoListModel *)leftm rightModel:(id)rightm;
+- (void)updateWithLeftModel:(InfoListModel *)leftm rightModel:(id)rightm;
 @end

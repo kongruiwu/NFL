@@ -10,6 +10,5 @@
 #import "LiveViewModel.h"
 @interface GameRatioViewController : GameBassViewController
 @property (nonatomic, strong) LiveViewModel * viewModel;
-@property (nonatomic, strong) NSNumber * gameID;
 
 @end

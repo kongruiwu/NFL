@@ -16,6 +16,7 @@
 #import "GameNewsViewController.h"
 #import "GameRatioViewController.h"
 #import "LiveViewModel.h"
+#import "WKWebViewController.h"
 #define GameHeadHigh    Anno750(480)
 #define GameSelectHigh  (64 + Anno750(80))
 @interface GameDetailTabViewController ()<GameBassDelegate>
@@ -31,14 +32,6 @@
 @end
 
 @implementation GameDetailTabViewController
-
-- (instancetype)initWithMatchDetailModel:(MatchDetailModel *)model{
-    self = [super init];
-    if (self) {
-        self.game = model;
-    }
-    return self;
-}
 - (instancetype)initWithGameID:(NSNumber *)gameID matchStatus:(MacthStatus)status{
     self = [super init];
     if (self) {
@@ -70,106 +63,45 @@
     [self getData];
 }
 - (void)creatUI{
-    self.viewControllers = [NSMutableArray new];
-    NSArray * titles;
-    UIView * header = [Factory creatViewWithColor:[UIColor clearColor]];
-    header.frame = CGRectMake(0, 0, UI_WIDTH, GameHeadHigh - GameSelectHigh);
-    switch ([self.game.match_state integerValue]) {
-        case 0: //未开始
-        {
-            titles = @[@"对阵信息",@"数据对比",@"资讯"];
-            GameInfoViewController * info = [[GameInfoViewController alloc]init];
-            info.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
-            [self.view addSubview:info.view];
-            [self addChildViewController:info];
-            info.tabview.tableHeaderView = header;
-            info.delegate = self;
-            [self.viewControllers addObject:info];
-            self.currentVC = info;
-            
-            GameRatioViewController * ratio = [[GameRatioViewController alloc]init];
-            ratio.gameID = self.game.gameId;
-            ratio.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
-            [self addChildViewController:ratio];
-            ratio.tabview.tableHeaderView = header;
-            ratio.delegate = self;
-            [self.viewControllers addObject:ratio];
-            
-            GameNewsViewController * news = [[GameNewsViewController alloc]init];
-            news.gameID =self.game.gameId;
-            news.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
-            [self addChildViewController:news];
-            news.tabview.tableHeaderView = header;
-            news.delegate = self;
-            [self.viewControllers addObject:news];
-            
-        }
-            break;
-        case 1: //正在进行
-        case 2: //已结束
-        {
-            titles = @[[self.game.match_state integerValue] == 1 ? @"直播" :@"战报",@"数据",@"视频"];
-            GameLiveViewController * live = [[GameLiveViewController alloc]init];
-            live.gameID = self.game.gameId;
-            live.isPlaying = [self.game.match_state integerValue] == 1 ? YES : NO;
-            live.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT );
-            [self addChildViewController:live];
-            live.delegate = self;
-            live.tabview.tableHeaderView = header;
-            [self.view addSubview:live.view];
-            self.currentVC = live;
-            [self.viewControllers addObject:live];
-            
-            GameDataViewController * data = [[GameDataViewController alloc]init];
-            data.gameID = self.game.gameId;
-            data.homeName = self.game.home_name;
-            data.visiName = self.game.visitor_name;
-            data.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
-            [self addChildViewController:data];
-            data.tabview.tableHeaderView = header;
-            data.delegate = self;
-            [self.viewControllers addObject:data];
-            
-            GameVideoViewController * video = [[GameVideoViewController alloc]init];
-            video.gameID = self.game.gameId;
-            video.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
-            [self addChildViewController:video];
-            video.tabview.tableHeaderView = header;
-            video.delegate = self;
-            [self.viewControllers addObject:video];
-            
-        }
-            break;
-            
-        default:
-            break;
+    NSArray * titles ;
+    if (self.gameStatus == MacthStatusReady) {
+        titles = @[@"对阵信息",@"数据对比",@"资讯"];
+    }else{
+        titles = @[(self.gameStatus == MacthStatusPlaying ? @"直播" :@"战报"),@"数据",@"视频"];
     }
+    self.viewControllers = [NSMutableArray new];
     
     self.segementView = [[GameSegmentView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, GameSelectHigh) titles:titles];
-    [self.segementView updateWithMatchDetailModel:self.game];
     [self.view addSubview:self.segementView];
     
     self.headView = [[GameHeaderView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, GameHeadHigh) titles:titles];
-    [self.headView updateWithMatchDetailModel:self.game];
+    [self.headView.videoButton addTarget:self action:@selector(checkLiveVideo) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.headView];
     
     __weak GameDetailTabViewController * weakself = self;
     [self.headView.segmentView setIndexChangeBlock:^(NSInteger index) {
-        [weakself changeControllerFromOldController:weakself.currentVC toNewController:weakself.viewControllers[index]];
+        [weakself changeControllerFromOldController:weakself.currentVC toNewController:weakself.viewControllers[index] index:index];
         [weakself.segementView.segmentView setSelectedSegmentIndex:index];
     }];
     [self.segementView.segmentView setIndexChangeBlock:^(NSInteger index) {
-        [weakself changeControllerFromOldController:weakself.currentVC toNewController:weakself.viewControllers[index]];
+        [weakself changeControllerFromOldController:weakself.currentVC toNewController:weakself.viewControllers[index] index:index];
         [weakself.headView.segmentView setSelectedSegmentIndex:index];
     }];
 }
+
+- (void)checkLiveVideo{
+    if (self.liveUrl.length>0) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.liveUrl]];
+        
+//        WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"视频直播" url:self.liveUrl];
+//        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 #pragma mark - 切换viewController
-- (void)changeControllerFromOldController:(UIViewController *)oldController toNewController:(UIViewController *)newController
+- (void)changeControllerFromOldController:(UIViewController *)oldController toNewController:(UIViewController *)newController index:(NSInteger)index
 {
     [self addChildViewController:newController];
-    /**
-     *  切换ViewController
-     */
     [self transitionFromViewController:oldController toViewController:newController duration:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
         //做一些动画
     } completion:^(BOOL finished) {
@@ -182,7 +114,11 @@
             self.currentVC = (GameBassViewController *)newController;
             [self.view bringSubviewToFront:self.headView];
             [self updateScrollerViewContentOffset];
-            
+            if (index == 0 && self.gameStatus == MacthStatusPlaying) {
+                
+            }else{
+                [self refrehSubViewControllersDataAtIndex:index];
+            }
         }else
         {
             self.currentVC = (GameBassViewController *)oldController;
@@ -239,60 +175,174 @@
     
 }
 - (void)getData{
-    
-    
-    
+    [SVProgressHUD show];
     NSDictionary * params = @{
-                              @"gameId":self.game.gameId,
+                              @"gameId":self.gameID,
                               };
     [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
-        self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
-        
-        
-        
-        if ([self.currentVC isKindOfClass:[GameLiveViewController class]]) {
-            GameLiveViewController * live = (GameLiveViewController *)self.currentVC;
-            live.isPlaying = [self.viewModel.match_state intValue] == 1 ? YES : NO;
-            if (!live.isPlaying) {
-                [live updateWithTeamFightInfo:self.viewModel.play_by_play];
-            }
-        }else if([self.currentVC isKindOfClass:[GameInfoViewController class]]){
-            GameInfoViewController * info = (GameInfoViewController *)self.currentVC;
-            info.viewModel = self.viewModel;
+        //第一次进入 与  比赛状态发生改变时  需要重绘界面
+        if (!self.viewModel || (self.gameStatus == 0 && [dic[@"match_state"] intValue] == 1)) {
+            self.gameStatus = [dic[@"match_state"] integerValue];
+            [self creatViewControllersByGamestatus];
         }
+        //界面绘制完成之后  刷新界面
+        self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
+        if (self.gameStatus == MacthStatusOver) {
+            [self changeControllerFromOldController:self.currentVC toNewController:self.viewControllers[2] index:2];
+            self.headView.segmentView.selectedSegmentIndex = 2;
+            self.segementView.segmentView.selectedSegmentIndex = 2;
+        }else{
+            if ([self.currentVC isKindOfClass:[GameLiveViewController class]]) {
+                GameLiveViewController * live = (GameLiveViewController *)self.currentVC;
+                live.viewModel = self.viewModel;
+            }else if([self.currentVC isKindOfClass:[GameInfoViewController class]]){
+                GameInfoViewController * info = (GameInfoViewController *)self.currentVC;
+                info.viewModel = self.viewModel;
+            }
+            [self.headView updateWithMatchLiveViewModel:self.viewModel];
+            [self.segementView updateWithMatchLiveViewModel:self.viewModel];
+        }
+        
+        
+        
     } error:^(NFError *byerror) {
         
     }];
 }
-/**
- *  当gamestatus == 0 时 检测 状态是否变为 1  变为 则提示用户
- *  用户提示  如果用户确定 则更改当前所有信息为 进行中 状态， 进入直播界面
- *  用户取消  原界面不做任何变化
- *  当gamestatus == 1 时 变成状态 2 则只做状态值更新
- */
-- (void)checkMatchStatusChange{
-    switch (self.gameStatus) {
-        case MacthStatusReady:
-            //比赛状态发生改变
-            if ([self.viewModel.match_state integerValue] == MacthStatusPlaying) {
-                
+
+- (void)refrehSubViewControllersDataAtIndex:(NSInteger)index{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"gameId":self.gameID,
+                              @"page":self.viewModel.page_list[index].page
+                              };
+    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
+        //这里是 检测  进入时的状态 与当前状态 是否一致
+        if (self.viewModel.match_state.integerValue != self.gameStatus) {
+            if (self.gameStatus == MacthStatusPlaying) {
+                [self showMessageToChangeStaus];
+                return;
+            }else{
+                self.headView.segmentView.sectionTitles = @[@"战报",@"数据",@"视频"];
+                self.segementView.segmentView.sectionTitles = @[@"战报",@"数据",@"视频"];
             }
-            break;
-        case MacthStatusPlaying:
+        }
+        [self.headView updateWithMatchLiveViewModel:self.viewModel];
+        [self.segementView updateWithMatchLiveViewModel:self.viewModel];
+        if ([self.currentVC isKindOfClass:[GameNewsViewController class]]) {
+            GameNewsViewController  * news = (GameNewsViewController *)self.currentVC;
+            news.dataArray = self.viewModel.news_list;
+        }else if([self.currentVC isKindOfClass:[GameRatioViewController class]]){
+            GameRatioViewController * vc = (GameRatioViewController *)self.currentVC;
+            vc.viewModel = self.viewModel;
+        }else if([self.currentVC isKindOfClass:[GameInfoViewController class]]){
+            GameInfoViewController * vc = (GameInfoViewController *)self.currentVC;
+            vc.viewModel = self.viewModel;
+        }else if([self.currentVC isKindOfClass:[GameVideoViewController class]]){
+            GameVideoViewController * vc= (GameVideoViewController *)self.currentVC;
+            vc.dataArray = self.viewModel.video_list;
+        }else if([self.currentVC isKindOfClass:[GameDataViewController class]]){
+            GameDataViewController * vc = (GameDataViewController *)self.currentVC;
+            vc.viewModel = self.viewModel;
+        }
+        
+    } error:^(NFError *byerror) {
+        
+    }];
+    
+}
+
+- (void)showMessageToChangeStaus{
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"比赛提示" message:@"比赛已经开始啦！是否进入直播界面？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getData];
+    }];
+    UIAlertAction * cannce = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:sure];
+    [alert addAction:cannce];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)creatViewControllersByGamestatus{
+    //确定清除完所有界面
+    if (self.viewControllers.count >0) {
+        for (int i = 0; i<self.viewControllers.count; i++) {
+            GameBassViewController * vc = self.viewControllers[i];
+            [vc removeFromParentViewController];
+        }
+    }
+    [self.viewControllers removeAllObjects];
+    
+    UIView * header = [Factory creatViewWithColor:[UIColor clearColor]];
+    header.frame = CGRectMake(0, 0, UI_WIDTH, GameHeadHigh - GameSelectHigh);
+    switch (self.gameStatus) {
+        case MacthStatusReady: //未开始
+        {
             
-            break;
-        case MacthStatusOver:
+            GameInfoViewController * info = [[GameInfoViewController alloc]init];
+            info.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+            [self.view addSubview:info.view];
+            [self addChildViewController:info];
+            info.tabview.tableHeaderView = header;
+            info.delegate = self;
+            [self.viewControllers addObject:info];
+            self.currentVC = info;
             
+            GameRatioViewController * ratio = [[GameRatioViewController alloc]init];
+            ratio.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+            [self addChildViewController:ratio];
+            ratio.tabview.tableHeaderView = header;
+            ratio.delegate = self;
+            [self.viewControllers addObject:ratio];
+            
+            GameNewsViewController * news = [[GameNewsViewController alloc]init];
+            news.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+            [self addChildViewController:news];
+            news.tabview.tableHeaderView = header;
+            news.delegate = self;
+            [self.viewControllers addObject:news];
+            
+        }
             break;
+        case MacthStatusPlaying: //正在进行
+        case MacthStatusOver: //已结束
+        {
+            GameLiveViewController * live = [[GameLiveViewController alloc]init];
+            live.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT );
+            [self addChildViewController:live];
+            live.delegate = self;
+            live.tabview.tableHeaderView = header;
+            [self.view addSubview:live.view];
+            self.currentVC = live;
+            [self.viewControllers addObject:live];
+            
+            GameDataViewController * data = [[GameDataViewController alloc]init];
+            data.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+            [self addChildViewController:data];
+            data.tabview.tableHeaderView = header;
+            data.delegate = self;
+            [self.viewControllers addObject:data];
+            
+            GameVideoViewController * video = [[GameVideoViewController alloc]init];
+            video.view.frame = CGRectMake(0, GameSelectHigh, UI_WIDTH, UI_HEGIHT);
+            [self addChildViewController:video];
+            video.tabview.tableHeaderView = header;
+            video.delegate = self;
+            [self.viewControllers addObject:video];
+            
+        }
+            break;
+            
         default:
             break;
     }
+    [self.view bringSubviewToFront:self.headView];
 }
-- (void)showMessageToChangeStaus{
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"比赛提示" message:@"比赛已经开始啦！是否进入直播界面？" preferredStyle:UIAlertControllerStyleAlert];
-    
-}
+
 
 //- (void)doShare{
 //    if (!self.viewModel) {

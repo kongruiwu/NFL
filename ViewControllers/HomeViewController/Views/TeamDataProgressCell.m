@@ -78,15 +78,21 @@
     }];
 }
 
-- (void)updateWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right{
+- (void)updateWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right isTime:(BOOL)rec{
     self.nameLabel.text = title;
-    self.leftScore.text = [NSString stringWithFormat:@"%@",left];
-    self.rightScore.text = [NSString stringWithFormat:@"%@",right];
     int leftv = [left intValue];
     int rightv = [right intValue];
     int value = (leftv * 100) / (leftv + rightv);
     self.slider.value = value;
+    self.leftScore.text = [NSString stringWithFormat:@"%@",left];
+    self.rightScore.text = [NSString stringWithFormat:@"%@",right];
+    if (rec) {
+        self.leftScore.text = [Factory getTimeStingWithCurrentTime:leftv andTotalTime:leftv];
+        self.rightScore.text = [Factory getTimeStingWithCurrentTime:rightv andTotalTime:rightv];
+    }
+    
 }
+
 - (void)updateThirdWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right{
     self.nameLabel.text = title;
     self.leftScore.text = [NSString stringWithFormat:@"%@%%",left];
@@ -95,6 +101,9 @@
     int rightv = [right intValue];
     int value = (leftv * 100) / (leftv + rightv);
     self.slider.value = value;
+    
+    
+    
 }
 
 @end

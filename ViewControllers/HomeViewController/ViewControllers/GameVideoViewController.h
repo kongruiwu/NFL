@@ -7,9 +7,8 @@
 //
 
 #import "GameBassViewController.h"
-
+#import "VideoListModel.h"
 @interface GameVideoViewController : GameBassViewController
 
-@property (nonatomic, strong) NSNumber * gameID;
-
+@property (nonatomic, strong) NSArray<VideoListModel *> * dataArray;
 @end

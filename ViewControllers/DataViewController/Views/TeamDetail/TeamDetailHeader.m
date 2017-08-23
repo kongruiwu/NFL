@@ -137,7 +137,7 @@
 - (void)updateWithTeamDataModel:(TeamDataModel *)model{
     self.name_zn.text = model.sname;
     self.name_en.text = model.full_name;
-    self.teamImg.image = [Factory getImageWithNumer:model.team_id white:YES];
+    self.teamImg.image = [Factory getImageWithNumer:model.team_id white:NO];
     self.belongLabel.attributedText = [self setAttStringWithRange:NSMakeRange(0, 3) title:[NSString stringWithFormat:@"所属：%@",model.area]];
     self.playground.attributedText = [self setAttStringWithRange:NSMakeRange(0, 3) title:[NSString stringWithFormat:@"球场：%@",model.stadium]];
     self.creatAt.attributedText = [self setAttStringWithRange:NSMakeRange(0, 5) title:[NSString stringWithFormat:@"创立时间：%@",model.found_date]];

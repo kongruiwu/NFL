@@ -30,7 +30,10 @@
     return self;
 }
 - (void)creatUI{
-    self.bgImg = [Factory creatImageViewWithImage:@"list_img_Journalism1"];
+    self.bgImg = [Factory creatImageViewWithImage:@"plac_holder"];
+    self.bgImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.bgImg.clipsToBounds = YES;
+    
     self.bgView = [Factory creatViewWithColor:UIColorFromRGBA(0x000000, 0.7)];
     self.nameLabel = [Factory creatLabelWithText:@"德马留斯-托马斯感觉自己重返青春"
                                        fontValue:font750(28)
@@ -59,12 +62,45 @@
         make.centerY.equalTo(self.bgView.mas_centerY);
     }];
 }
-- (void)updateWithModel:(InfoCoverModel *)model{
-    [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+
+- (void)updateWithObjModel:(id)model{
+    if ([model isKindOfClass:[InfoCoverModel class]]) {
+        [self updateWithInfoCoverModel:(InfoCoverModel *)model];
+    }else if([model isKindOfClass:[InfoListModel class]]){
+        [self updateWithInfoListModel:(InfoListModel *)model];
+    }else if([model isKindOfClass:[VideoListModel class]]){
+        [self updateWithVideoListModel:(VideoListModel *)model];
+    }
+    
+    
+}
+- (void)updateWithInfoListModel:(InfoListModel *)model{
+    if ([UserManager manager].hasPic) {
+        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     self.nameLabel.text = model.title;
     if (model.title.length>0) {
         self.bgView.hidden = NO;
     }
+}
+- (void)updateWithVideoListModel:(VideoListModel *)model{
+    if ([UserManager manager].hasPic) {
+        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     
+    self.nameLabel.text = model.title;
+    if (model.title.length>0) {
+        self.bgView.hidden = NO;
+    }
+}
+- (void)updateWithInfoCoverModel:(InfoCoverModel *)model{
+    if ([UserManager manager].hasPic) {
+        [self.bgImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
+    
+    self.nameLabel.text = model.title;
+    if (model.title.length>0) {
+        self.bgView.hidden = NO;
+    }
 }
 @end

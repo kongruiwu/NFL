@@ -25,18 +25,16 @@
 			<string>webo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb871709740</string>
+				<string>wb573513778</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>None</string>
 			<key>CFBundleURLName</key>
-			<string>sina</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>sina.1bf93e753967fdb33ad8dca25acc0e11</string>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -45,7 +43,7 @@
 			<string>qq</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1106241047</string>
+				<string>tencent1103567589</string>
 			</array>
 		</dict>
 		<dict>
@@ -55,7 +53,7 @@
 			<string>qqSpace</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41efe617</string>
+				<string>QQ41c71ae5</string>
 			</array>
 		</dict>
 		<dict>
@@ -65,7 +63,7 @@
 			<string>wechat</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx39c19501fef6c3cb</string>
+				<string>wx5e816cb5cd5c0dea</string>
 			</array>
 		</dict>
 	</array>

@@ -8,6 +8,44 @@
 
 #import "LiveViewModel.h"
 
+@implementation TeamScoreModel
+
+@end
+
+@implementation TeamStateModel
+- (instancetype)initWithDictionary:(NSDictionary *)dic{
+    self = [super initWithDictionary:dic];
+    if (self) {
+        self.hold_time = [[TeamScoreModel alloc]initWithDictionary:dic[@"hold_time"]];
+        self.rush_yards = [[TeamScoreModel alloc]initWithDictionary:dic[@"rush_yards"]];
+        self.turn_over = [[TeamScoreModel alloc]initWithDictionary:dic[@"turn_over"]];
+        self.pass_yards = [[TeamScoreModel alloc]initWithDictionary:dic[@"pass_yards"]];
+        self.thirddown_rate = [[TeamScoreModel alloc]initWithDictionary:dic[@"thirddown_rate"]];
+    }
+    return self;
+}
+
+@end
+
+@implementation PlayerStateModel
+
+@end
+
+@implementation ScoreModel
+
+
+@end
+@implementation DetailPointModel
+- (instancetype)initWithDictionary:(NSDictionary *)dic{
+    self = [super initWithDictionary:dic];
+    if (self) {
+        self.visitor = [[ScoreModel alloc]initWithDictionary:dic[@"visitor"]];
+        self.home = [[ScoreModel alloc]initWithDictionary:dic[@"home"]];
+    }
+    return self;
+}
+
+@end
 @implementation StarDetailScoreModel
 
 @end
@@ -103,6 +141,36 @@
         if (dic[@"stars"]) {
             self.stars = [[StarModel alloc]initWithDictionary:dic[@"stars"]];
         }
+        
+        if (dic[@"news_list"]) {
+            arr = dic[@"news_list"];
+            [muarr removeAllObjects];
+            for (int i = 0; i<arr.count; i++) {
+                InfoListModel * model = [[InfoListModel alloc]initWithDictionary:arr[i]];
+                [muarr addObject:model];
+            }
+            self.news_list = [NSArray arrayWithArray:muarr];
+        }
+        //video_list
+        if (dic[@"video_list"]) {
+            arr = dic[@"video_list"];
+            [muarr removeAllObjects];
+            for (int i = 0; i<arr.count; i++) {
+                VideoListModel * model = [[VideoListModel alloc]initWithDictionary:arr[i]];
+                [muarr addObject:model];
+            }
+            self.video_list = [NSArray arrayWithArray:muarr];
+        }
+        if (dic[@"team_state"]) {
+            self.team_state = [[TeamStateModel alloc]initWithDictionary:dic[@"team_state"]];
+        }
+        if (dic[@"player_state"]) {
+            self.player_state = [[PlayerStateModel alloc]initWithDictionary:dic[@"player_state"]];
+        }
+        if (dic[@"detail_point"]) {
+            self.detail_point = [[DetailPointModel alloc]initWithDictionary:dic[@"detail_point"]];
+        }
+        
     }
     return self;
 }

@@ -113,7 +113,24 @@
 - (void)textViewDidChange:(UITextView *)textView{
     self.placeLabel.hidden = textView.text.length > 0 ? YES : NO;
 }
+
 - (void)sendMessageRequest{
-    [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"问题反馈成功，请耐心等待回复" duration:1.0f];
+    if (self.textView.text.length < 6) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"为了让我们能够清晰理解您的描述，文字不得少于6位哦" duration:2.0f];
+        return;
+    }
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"email":self.mailTextf.text,
+                              @"uid":[UserManager manager].isLogin ? [UserManager manager].userID : @"",
+                              @"username":[UserManager manager].info.username,
+                              @"content":self.textView.text
+                              };
+    [[NetWorkManger manager] sendRequest:PageFeedBack route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"问题反馈成功，请耐心等待回复" duration:2.0f];
+        [self doBack];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
 }
 @end

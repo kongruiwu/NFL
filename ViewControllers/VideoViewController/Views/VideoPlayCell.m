@@ -29,7 +29,9 @@
     return self;
 }
 - (void)creatUI{
-    self.topImg = [Factory creatImageViewWithImage:@"list_img_video2"];
+    self.topImg = [Factory creatImageViewWithImage:@"plac_holder"];
+    self.topImg.contentMode = UIViewContentModeScaleAspectFill;
+    self.topImg.clipsToBounds = YES;
     self.nameLabel = [Factory creatLabelWithText:@"爱国者13-21德州人"
                                        fontValue:font750(28)
                                        textColor:Color_MainBlack
@@ -39,7 +41,7 @@
                                        textColor:Color_LightGray
                                    textAlignment:NSTextAlignmentLeft];
     self.likeBtn = [LikeButton buttonWithType:UIButtonTypeCustom];
-    self.likeBtn.selected = YES;
+    [self.likeBtn addTarget:self action:@selector(likeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.playIcon = [Factory creatImageViewWithImage:@"content_icon_big_play"];
     
     self.playIcon.hidden = YES;
@@ -72,6 +74,7 @@
         make.right.equalTo(@(-Anno750(24)));
         make.centerY.equalTo(self.timeLabel.mas_centerY);
         make.height.equalTo(@(Anno750(80)));
+        make.width.equalTo(@(Anno750(120)));
     }];
     [self.playIcon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(@0);
@@ -82,7 +85,9 @@
 
 - (void)updateWithVideoListModel:(VideoListModel *)model{
     self.playIcon.hidden = NO;
-    [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    if([UserManager manager].hasPic){
+        [self.topImg sd_setImageWithURL:[NSURL URLWithString:model.pic] placeholderImage:[UIImage imageNamed:@"plac_holder"]];
+    }
     self.nameLabel.text = model.title;
     self.timeLabel.text = model.time;
     self.videoPath = model.src;
@@ -90,5 +95,9 @@
     self.likeBtn.selected = model.collected;
 }
 
-
+- (void)likeBtnClick:(UIButton *)btn{
+    if ([self.delegate respondsToSelector:@selector(collectThisCellItem:)]) {
+        [self.delegate collectThisCellItem:btn];
+    }
+}
 @end

@@ -44,6 +44,10 @@
 @property (nonatomic, strong) NSNumber * match_state;
 
 @property (nonatomic, assign) BOOL hasLive;
+
+/**直播地址*/
+@property (nonatomic, strong) NSString * live_h5_url;
+
 /**转播平台*/
 @property (nonatomic, strong) NSArray<LiveTypeModel *> * relay_list;
 /**视屏地址*/

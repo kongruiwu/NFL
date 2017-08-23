@@ -66,7 +66,7 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithMatchDetailModel:self.dataArray[indexPath.section]];
+    GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithGameID:self.dataArray[indexPath.section].gameId matchStatus:self.dataArray[indexPath.section].match_state.integerValue];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -86,6 +86,7 @@
             }
             [self.tabview reloadData];
         }
+        [self updateTabFooter];
     } error:^(NFError *byerror) {
         
     }];

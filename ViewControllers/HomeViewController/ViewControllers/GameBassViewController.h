@@ -21,4 +21,6 @@
 
 @property (nonatomic, assign) id<GameBassDelegate> delegate;
 
+
+- (void)updateTabFooter;
 @end

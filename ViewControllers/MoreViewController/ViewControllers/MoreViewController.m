@@ -18,6 +18,7 @@
 #import "MyCollectionViewController.h"
 #import "AddAttentionViewController.h"
 #import "WKWebViewController.h"
+#import "TeachViewController.h"
 @interface MoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -108,18 +109,22 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (![UserManager manager].isLogin) {
-        [self presentLoginView];
-        return;
-    }
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
+            if (![UserManager manager].isLogin) {
+                [self presentLoginView];
+                return;
+            }
             [self.navigationController pushViewController:[OnlineQuestionViewController new] animated:YES];
         }else if(indexPath.row == 2){
+            if (![UserManager manager].isLogin) {
+                [self presentLoginView];
+                return;
+            }
             WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:DaydayNFL];
             [self.navigationController pushViewController:vc animated:YES];
         }else if(indexPath.row == 1){
-            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"101课堂" url:Teach_101];
+            TeachViewController * vc = [[TeachViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else if(indexPath.section == 2){
@@ -131,6 +136,10 @@
             [self.navigationController pushViewController:[AboutUsViewController new] animated:YES];
         }
     }else if(indexPath.section == 0){
+        if (![UserManager manager].isLogin) {
+            [self presentLoginView];
+            return;
+        }
         if (indexPath.row == 1) {
             [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
         }else if(indexPath.row == 0){

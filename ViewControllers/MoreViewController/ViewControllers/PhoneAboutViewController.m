@@ -355,6 +355,14 @@
             self.overButton.enabled = NO;
             self.overButton.backgroundColor = Color_alphaBlue;
         }
+    }else if(self.vcType == ChangeTypeChangePwd){
+        if (self.oldPwd.text.length>= 6 && self.checkPwd.text.length>= 6 && self.pwdTextF.text.length>= 6) {
+            self.overButton.enabled = YES;
+            self.overButton.backgroundColor = Color_MainBlue;
+        }else{
+            self.overButton.enabled = NO;
+            self.overButton.backgroundColor = Color_alphaBlue;
+        }
     }
 }
 
@@ -395,6 +403,7 @@
 }
 #pragma mark - 确认
 - (void)SureButtonClick{
+    NSLog(@"11111");
     if (self.vcType == ChangeTypeOverThirdInfo) {
         [self ThirdLoginRegister];
     }else if(self.vcType == ChangeTypeRegister){
@@ -405,6 +414,8 @@
         [self forgotPwdRequest];
     }else if(self.vcType == ChangeTypeFindToChangePwd){
         [self getPwdRequest];
+    }else if(self.vcType == ChangeTypeChangePwd){
+        [self changePasswordRequest];
     }
 }
 
@@ -488,7 +499,7 @@
                               @"openid":self.thirdResp.openid,
                               @"mobile":self.phoneNumber.text,
                               @"authcode":self.codeTextF.text,
-                              @"username":self.thirdResp.name,
+                              @"username":self.nameTextF.text,
                               @"password":self.pwdTextF.text,
                               @"re_password":self.checkPwd.text
                               };
@@ -496,6 +507,24 @@
         NSDictionary * dic = result[@"data"];
         [[UserManager manager] updateInfoByEditstatus:dic];
         [self dismissViewControllerAnimated:YES completion:nil];
+    } error:^(NFError *byerror) {
+        self.errorMessage = byerror.errorMessage;
+        [self.tabview reloadData];
+    }];
+}
+#pragma mark - 修改密码
+- (void)changePasswordRequest{
+    [SVProgressHUD show];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"old_password":self.oldPwd.text,
+                              @"password":self.pwdTextF.text,
+                              @"re_password":self.checkPwd.text,
+                              };
+    [[NetWorkManger manager] sendRequest:PageUpdatePwd route:Route_User withParams:params complete:^(NSDictionary *result) {
+        
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"修改成功" duration:2.0f];
+        [self.navigationController popViewControllerAnimated:YES];
     } error:^(NFError *byerror) {
         self.errorMessage = byerror.errorMessage;
         [self.tabview reloadData];

@@ -9,7 +9,7 @@
 #import "BaseModel.h"
 
 @interface HomeTeam : BaseModel
-
+/**没有主队*/
 @property (nonatomic, strong) NSNumber * team_id;
 @property (nonatomic, strong) NSString * team_name;
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
 #import <HMSegmentedControl.h>
-#import "MatchDetailModel.h"
+#import "LiveViewModel.h"
 @interface GameHeaderView : UIView
 
 @property (nonatomic, strong) UIImageView * groundImg;
@@ -29,6 +29,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles;
 
-- (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
+- (void)updateWithMatchLiveViewModel:(LiveViewModel *)model;
 
 @end

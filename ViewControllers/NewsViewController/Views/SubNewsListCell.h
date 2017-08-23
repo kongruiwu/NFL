@@ -11,6 +11,13 @@
 #import "LikeButton.h"
 #import "VideoListModel.h"
 #import "InfoListModel.h"
+@protocol SubNewsListCellDelegate <NSObject>
+
+- (void)collectThisCellItem:(UIButton *)btn;
+
+@end
+
+
 @interface SubNewsListCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * leftImg;
@@ -19,5 +26,7 @@
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UILabel * adLabel;
 @property (nonatomic, strong) UIImageView * playIcon;
+@property (nonatomic, assign) id<SubNewsListCellDelegate> delegate;
+
 - (void)updateWithObjectModel:(id)model;
 @end

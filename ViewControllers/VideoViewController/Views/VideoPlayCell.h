@@ -18,7 +18,11 @@ typedef NS_OPTIONS(NSInteger, PlayUnreachCellStyle) {
     PlayUnreachCellStyleUp = 1 << 1,    // top 顶部不可及
     PlayUnreachCellStyleDown = 1<< 2    // bottom 底部不可及
 };
+@protocol VideoPlayCellDelegate <NSObject>
 
+- (void)collectThisCellItem:(UIButton *)btn;
+
+@end
 
 @interface VideoPlayCell : UITableViewCell
 
@@ -31,6 +35,7 @@ typedef NS_OPTIONS(NSInteger, PlayUnreachCellStyle) {
 @property (nonatomic, strong) UIImageView * playIcon;
 /** videoPath */
 @property(nonatomic, strong)NSString *videoPath;
+@property (nonatomic, assign) id<VideoPlayCellDelegate> delegate;
 
 - (void)updateWithVideoListModel:(VideoListModel *)model;
 

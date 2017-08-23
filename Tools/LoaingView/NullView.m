@@ -62,6 +62,10 @@
             imageName = @"empty_page4";
             desc = @"暂无数据，敬请期待";
             break;
+        case NullTypeNoneCollect:
+            imageName = @"empty_page2";
+            desc = @"暂无收藏，快去收藏吧！";
+            break;
         default:
             break;
     }

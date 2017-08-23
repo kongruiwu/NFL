@@ -13,6 +13,8 @@
 #import "PhoneAboutViewController.h"
 #import "ChangeAddresViewController.h"
 #import "ThirdAccountViewController.h"
+#import "TeamInfoViewController.h"
+#import "GTMBase64.h"
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIPickerViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -21,7 +23,6 @@
 
 @property (nonatomic, strong) ShowMessageView * sexView;
 @property (nonatomic, strong) ShowMessageView * brithView;
-@property (nonatomic, strong) ShowMessageView * teamView;
 
 @property (nonatomic, strong) UIImageView * userIcon;
 
@@ -33,6 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self updateTabview];
 }
 
 - (void)viewDidLoad {
@@ -44,7 +46,19 @@
 - (void)creatUI{
     
     self.titles = @[@[@"头像",@"用户名",@"性别",@"生日",@"城市",@"主队"],@[@"手机",@"密码"],@[@"第三方帐号绑定"]];
-    self.descs = @[@[@"",@"汤姆布雷迪",@"设置",@"设置",@"设置",@"设置"],@[@"173****8962",@"设置"],@[@""]];
+    UserInfo * info = [UserManager manager].info;
+    self.descs = @[@[@"",
+                     info.username && info.username.length > 0? info.username : @"设置",
+                     info.gender && info.gender.length>0 ? info.gender : @"设置",
+                     info.birthday && info.birthday.length > 0 ? info.birthday : @"设置",
+                     info.city && info.city.length > 0 ? info.city : @"设置",
+                     [info.home_team.team_id integerValue] != 0 ? info.home_team.team_name :@"设置"],
+                   @[
+                       info.mobile && info.mobile.length>0 ? [Factory changePhoneString:info.mobile] : @"设置",
+                       @"设置"
+                      ],
+                   @[@""]
+                   ];
     
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
@@ -69,11 +83,13 @@
     
     self.sexView = [[ShowMessageView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) MessageType:MessageTypeSex];
     self.brithView = [[ShowMessageView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) MessageType:MessageTypeBrithday];
-    self.teamView = [[ShowMessageView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) MessageType:MessageTypeTeam];
+    
+    [self.sexView.sureButton addTarget:self action:@selector(changeUserSexReuqest) forControlEvents:UIControlEventTouchUpInside];
+    [self.brithView.sureButton addTarget:self action:@selector(changeUserBrithDayRequest) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.sexView];
     [self.view addSubview:self.brithView];
-    [self.view addSubview:self.teamView];
+    
     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -150,7 +166,9 @@
     [self.brithView show];
 }
 - (void)changeTeamSetting{
-    [self.teamView show];
+    TeamInfoViewController * vc = [[TeamInfoViewController alloc]init];
+    vc.isSet = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)uploadUserIcon{
@@ -200,27 +218,22 @@
         
     }];
 }
+#pragma mark - 上传头像
 - (void)uploadImagerequest:(UIImage *)image{
     
-//    NSData *data = [KTFactory dealWithAvatarImage:image];
-//    //判断图片是不是png格式的文件
-//    NSString *mimeType = nil;
-//    if (UIImagePNGRepresentation(image)) {
-//        mimeType = @"image/png";
-//    }else {
-//        mimeType = @"image/jpeg";
-//    }
-//    NSString * datastr = [NSString stringWithFormat:@"data:%@;base64,%@",mimeType,[GTMBase64 stringByEncodingData:data]];
-//    NSDictionary * params = @{
-//                              @"icon":datastr
-//                              };
-//    [[NetWorkManager manager] POSTRequest:params pageUrl:Page_UserAvater complete:^(id result) {
-//        [self dismissLoadingView];
-//        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"头像上传成功" duration:1.0f];
-//    } errorBlock:^(KTError *error) {
-//        [self dismissLoadingView];
-//        NSLog(@"%@",error.message);
-//    }];
+    NSData *data = [Factory dealWithAvatarImage:image];    
+    NSDictionary * params = @{
+                              @"avatar":[GTMBase64 stringByEncodingData:data],
+                              @"uid":[UserManager manager].userID,
+                              @"callback_verify":[UserManager manager].info.callback_verify
+                              };
+    
+    [[NetWorkManger manager] uploadUserImageWithParams:params complete:^(NSDictionary *result) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"上传成功" duration:1.0f];
+        [UserManager manager].info.avatar = result[@"avatar"];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
 }
 -(UIImage *) imageCrop:(UIImage *)sourceImage
 {
@@ -236,6 +249,7 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+#pragma mark - 用户登出
 - (void)userLogout{
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"确认退出登录么？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction * sure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -248,9 +262,65 @@
     [self presentViewController:alert animated:YES completion:nil];
     
 }
-
-- (void)changeUserInfo{
+#pragma mark - 改变性别
+- (void)changeUserSexReuqest{
+    [self.sexView dismiss];
+    if (!self.sexView.gender) {
+        return;
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"gender":self.sexView.gender
+                              };
+    [self changeUserInfo:params];
     
+}
+#pragma mark - 改变生日
+- (void)changeUserBrithDayRequest{
+    [self.brithView dismiss];
+    NSDate* date = self.brithView.datePicker.date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * dateString = [dateFormatter stringFromDate:date];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"birthday":dateString
+                              };
+    [self changeUserInfo:params];
+}
+#pragma mark - change userinfo request
+- (void)changeUserInfo:(NSDictionary *)params{
+    [SVProgressHUD show];
+    [[NetWorkManger manager] sendRequest:PageUpdateUserInfo route:Route_User withParams:params complete:^(NSDictionary *result) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"修改成功" duration:1.0f];
+        if (params[@"gender"]) {
+            [UserManager manager].info.gender = params[@"gender"];
+        }
+        if (params[@"birthday"]) {
+            [UserManager manager].info.birthday = params[@"birthday"];
+        }
+        
+        [self updateTabview];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
+#pragma mark - 更新界面
+- (void)updateTabview{
+    UserInfo * info = [UserManager manager].info;
+    self.descs = @[@[@"",
+                     info.username && info.username.length > 0? info.username : @"设置",
+                     info.gender && info.gender.length>0 ? info.gender : @"设置",
+                     info.birthday && info.birthday.length > 0 ? info.birthday : @"设置",
+                     info.city && info.city.length > 0 ? info.city : @"设置",
+                     [info.home_team.team_id integerValue] != 0 ? info.home_team.team_name :@"设置"],
+                   @[
+                       info.mobile && info.mobile.length>0 ? [Factory changePhoneString:info.mobile] : @"设置",
+                       @"设置"
+                       ],
+                   @[@""]
+                   ];
+    [self.tabview reloadData];
 }
 
 @end

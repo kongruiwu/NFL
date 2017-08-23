@@ -10,7 +10,7 @@
 #import "ConfigHeader.h"
 
 
-
+#import "UserInfo.h"
 typedef NS_ENUM(NSInteger, MessageType){
     MessageTypeSex = 0,         //性别
     MessageTypeBrithday,        //生日
@@ -18,11 +18,11 @@ typedef NS_ENUM(NSInteger, MessageType){
 };
 
 
-@protocol ShowMessageViewDelegate <NSObject>
-
-- (void)UserClickSureButtonWithType:(MessageType)type;
-
-@end
+//@protocol ShowMessageViewDelegate <NSObject>
+//
+//- (void)UserClickSureButtonWithType:(MessageType)type;
+//
+//@end
 
 
 @interface ShowMessageView : UIView
@@ -60,7 +60,11 @@ typedef NS_ENUM(NSInteger, MessageType){
 @property (nonatomic, strong) UIView * centerLine;
 @property (nonatomic, strong) UIButton * cannceBtn;
 
-@property (nonatomic, assign) id <ShowMessageViewDelegate> delegate;
+/**性别*/
+@property (nonatomic, strong) NSString * gender;
+/**主队*/
+@property (nonatomic, strong) HomeTeam * homeTeam;
+//@property (nonatomic, assign) id <ShowMessageViewDelegate> delegate;
 
 
 - (instancetype)initWithFrame:(CGRect)frame MessageType:(MessageType)type;

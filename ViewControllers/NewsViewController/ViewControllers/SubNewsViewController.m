@@ -12,8 +12,9 @@
 #import "InfoMainModel.h"
 
 #import "WKWebViewController.h"
+#import "LoginViewController.h"
 
-@interface SubNewsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SubNewsViewController ()<UITableViewDelegate, UITableViewDataSource,SubNewsListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic, strong) InfoMainModel * mainModel;
@@ -30,6 +31,9 @@
     [self refreshData];
 }
 - (void)creatUI{
+    //第一次进入时才显示
+    [SVProgressHUD show];
+    
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64 - 49 - Anno750(80)) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
@@ -64,7 +68,7 @@
         if (!cell) {
             cell = [[SubNewsHeadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        [cell updateWithModel:self.mainModel.coverModel];
+        [cell updateWithObjModel:self.mainModel.coverModel];
         return cell;
     }
     static NSString * cellid = @"SubNewsListCell";
@@ -72,6 +76,7 @@
     if (!cell) {
         cell = [[SubNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    cell.delegate = self;
     [cell updateWithObjectModel:self.mainModel.list[indexPath.section - 1]];
     return cell;
 }
@@ -104,9 +109,9 @@
     [self getData];
 }
 - (void)getData{
-    [SVProgressHUD show];
     NSDictionary * params = @{
-                              @"last_id":self.mainModel.list.count == 0 ? @"" :self.mainModel.list.lastObject.id
+                              @"last_id":self.mainModel.list.count == 0 ? @"" :self.mainModel.list.lastObject.id,
+                              @"uid":[UserManager manager].isLogin ? [UserManager manager].userID : @"",
                                   };
     [[NetWorkManger manager] sendRequest:NewWest_Info route:Route_NewWest withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
@@ -131,6 +136,40 @@
     }];
 }
 
+- (void)collectThisCellItem:(UIButton *)btn{
+    
+    if (![UserManager manager].isLogin) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:1.0f];
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    [SVProgressHUD show];
+    UITableViewCell * cell = (UITableViewCell *)[btn superview];
+    NSIndexPath * indexpath = [self.tabview indexPathForCell:cell];
+    InfoListModel * model = self.mainModel.list[indexpath.section - 1];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"type":model.cont_type,
+                              @"id":model.id
+                              };
+    [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSString * title = @"收藏成功";
+        if (model.collected) {
+            title = @"取消收藏";
+        }
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title duration:1.0f];
+        model.collected = !model.collected;
+        if (model.collected) {
+            model.collect_num = @(model.collect_num.intValue + 1);
+        }else{
+            model.collect_num = @(model.collect_num.intValue - 1);
+        }
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
 
 
 @end

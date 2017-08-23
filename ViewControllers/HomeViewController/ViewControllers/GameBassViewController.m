@@ -14,9 +14,11 @@
 
 @implementation GameBassViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tabview.delegate = self;
+
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -24,4 +26,12 @@
         [self.delegate hiddenOutHeadView:scrollView.contentOffset.y];
     }
 }
+- (void)updateTabFooter{
+    if (self.tabview.contentSize.height<UI_HEGIHT) {
+        UIView * view  = [Factory creatViewWithColor:[UIColor clearColor]];
+        view.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - self.tabview.contentSize.height+ 49);
+        self.tabview.tableFooterView = view;
+    }
+}
+
 @end

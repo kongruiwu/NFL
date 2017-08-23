@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <HMSegmentedControl.h>
 #import "ConfigHeader.h"
-#import "MatchDetailModel.h"
+#import "LiveViewModel.h"
 @interface GameSegmentView : UIView
 
 @property (nonatomic, strong) HMSegmentedControl * segmentView;
@@ -23,6 +23,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame titles:(NSArray *)titles;
 
-- (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
+- (void)updateWithMatchLiveViewModel:(LiveViewModel *)model;
 
 @end

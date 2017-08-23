@@ -9,12 +9,14 @@
 #import "PageDetailViewController.h"
 #import "PhotoDescView.h"
 #import "PhotoDetailCell.h"
+#import "LoginViewController.h"
 #import "PhotoDetailModel.h"
 @interface PageDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, strong) PhotoDetailModel * photoModel;
 @property (nonatomic, strong) PhotoDescView * descView;
 @property (nonatomic, strong) UICollectionView * photoView;
+@property (nonatomic) int index;
 
 @end
 
@@ -22,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.index = 0;
     [self drawBackButton];
     [self creatRightBarButton];
     [self setNavAlpha];
@@ -64,6 +67,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.descView = [[PhotoDescView alloc]initWithFrame:CGRectMake(0, UI_HEGIHT -Anno750(200), UI_WIDTH, Anno750(200))];
+    [self.descView.likeBtn addTarget:self action:@selector(collectThisPictures:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.descView];
 }
 
@@ -79,6 +83,7 @@
     if (scrollView == self.photoView) {
         if (0<=scrollView.contentOffset.x<= UI_WIDTH * self.photoModel.list.count) {
             int index = (scrollView.contentOffset.x / UI_WIDTH);
+            self.index = index;
             [self.descView updateWithPhotoDetail:self.photoModel withIndex:index];
         }
     }
@@ -99,6 +104,35 @@
     } error:^(NFError *byerror) {
         [self showNullViewByType:NullTypeNetError];
     }];
+}
+- (void)collectThisPictures:(UIButton *)btn{
+    if (![UserManager manager].isLogin) {
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+    }else{
+        [SVProgressHUD show];
+        NSDictionary * params = @{
+                                  @"uid":[UserManager manager].userID,
+                                  @"type":@"album",
+                                  @"id":self.photoID
+                                  };
+        [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+            NSString * title = @"收藏成功";
+            if (self.photoModel.collected) {
+                title = @"取消收藏成功";
+            }
+            self.photoModel.collected = !self.photoModel.collected;
+            if (self.photoModel.collected) {
+                self.photoModel.collect_num = @(self.photoModel.collect_num.intValue + 1);
+            }else{
+                self.photoModel.collect_num = @(self.photoModel.collect_num.intValue - 1);
+            }
+            [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title  duration:1.0f];
+            [self.descView updateWithPhotoDetail:self.photoModel withIndex:self.index];
+        } error:^(NFError *byerror) {
+            [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+        }];
+    }
 }
 
 
@@ -128,18 +162,14 @@
         UIImage * image = cell.photoView.imageView.image;
         NSString * title = self.photoModel.album_title;
         NSString * desc = self.photoModel.list[index].title;
+        if (desc.length == 0) {
+            desc = @"更多精彩内容来自[NFL橄榄球]APP";
+        }
+        
         UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-        UMShareObject * shareObj;
-        if (platformType == UMSocialPlatformType_Sina) {
-            shareObj = [UMShareImageObject shareObjectWithTitle:title descr:desc thumImage:image];
-        }else{
-            shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
-            UMShareWebpageObject * shareWeb = (UMShareWebpageObject *)shareObj;
-            shareWeb.webpageUrl = self.photoModel.share_link;
-        }
-        if (platformType == UMSocialPlatformType_Sina) {
-            messageObject.text = [NSString stringWithFormat:@"%@%@",desc,self.photoModel.share_link];
-        }
+        UMShareWebpageObject * shareObj;
+        shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        shareObj.webpageUrl = self.photoModel.share_link;
         messageObject.shareObject = shareObj;
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
             NSLog(@"%@",error);

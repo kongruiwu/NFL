@@ -40,4 +40,8 @@
 + (NSString *)timestampSwitchWithHourStyleTime:(NSInteger)timestamp;
 
 + (UIImage *)getImageWithNumer:(NSNumber *)teamid white:(BOOL)rec;
+
++ (NSData *)dealWithAvatarImage:(UIImage *)avatarImage;
+
++ (NSString *)getTimeStingWithCurrentTime:(int)num andTotalTime:(int)totalSeconds;
 @end

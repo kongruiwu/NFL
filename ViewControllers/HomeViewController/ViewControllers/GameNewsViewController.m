@@ -8,11 +8,8 @@
 
 #import "GameNewsViewController.h"
 #import "WKWebViewController.h"
-#import "SubNewsListCell.h"
 
 @interface GameNewsViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic, strong) NSMutableArray<InfoListModel *> * dataArray;
 
 @end
 
@@ -20,7 +17,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self getData];
 }
 
 - (void)viewDidLoad {
@@ -32,9 +28,6 @@
 
 
 - (void)creatUI{
-    
-    self.dataArray = [NSMutableArray new];
-    
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
 }
@@ -68,27 +61,33 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)getData{
-    [SVProgressHUD show];
-    NSDictionary * params = @{
-                              @"gameId":self.gameID,
-                              @"page":@"news"
-                              };
-    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-        if (self.tabview) {
-            NSDictionary * dic = result[@"data"];
-            NSArray * arr = dic[@"news_list"];
-            for (int i = 0; i<arr.count; i++) {
-                InfoListModel * model = [[InfoListModel alloc] initWithDictionary:arr[i]];
-                [self.dataArray addObject:model];
-            }
-            [self.tabview reloadData];
-        }
-        if (self.tabview.contentSize.height < UI_HEGIHT) {
-            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-        }
-    } error:^(NFError *byerror) {
-        
-    }];
+//- (void)getData{
+//    [SVProgressHUD show];
+//    NSDictionary * params = @{
+//                              @"gameId":self.gameID,
+//                              @"page":@"news"
+//                              };
+//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
+//        if (self.tabview) {
+//            NSDictionary * dic = result[@"data"];
+//            NSArray * arr = dic[@"news_list"];
+//            for (int i = 0; i<arr.count; i++) {
+//                InfoListModel * model = [[InfoListModel alloc] initWithDictionary:arr[i]];
+//                [self.dataArray addObject:model];
+//            }
+//            [self.tabview reloadData];
+//        }
+//        if (self.tabview.contentSize.height < UI_HEGIHT) {
+//            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
+//        }
+//    } error:^(NFError *byerror) {
+//        
+//    }];
+//}
+
+- (void)setDataArray:(NSMutableArray<InfoListModel *> *)dataArray{
+    _dataArray = dataArray;
+    [self.tabview reloadData];
+    [self updateTabFooter];
 }
 @end

@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ConfigHeader.h"
 #import "InfoMainModel.h"
+#import "VideoListModel.h"
 @interface SubNewsHeadCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView * bgImg;
 @property (nonatomic, strong) UIView * bgView;
 @property (nonatomic, strong) UILabel * nameLabel;
-- (void)updateWithModel:(InfoCoverModel *)model;
+- (void)updateWithObjModel:(id)model;
 @end

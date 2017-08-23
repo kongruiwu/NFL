@@ -10,7 +10,8 @@
 #import "NewsAttenListCell.h"
 #import "InfoListModel.h"
 #import "WKWebViewController.h"
-@interface ColumnViewController ()<UITableViewDelegate,UITableViewDataSource>
+#import "LoginViewController.h"
+@interface ColumnViewController ()<UITableViewDelegate,UITableViewDataSource,NewsAttenListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
 
@@ -59,6 +60,7 @@
     if (!cell) {
         cell = [[NewsAttenListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    cell.delegate = self;
     [cell updateWithObjectModel:self.dataArray[indexPath.section]];
     return cell;
 }
@@ -106,5 +108,37 @@
         [self.refreshFooter endRefreshing];
     }];
 }
-
+- (void)collectThisCellItem:(UIButton *)btn{
+    if (![UserManager manager].isLogin) {
+        [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:1.0f];
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+        [self presentViewController:nav animated:YES completion:nil];
+        return;
+    }
+    [SVProgressHUD show];
+    UITableViewCell * cell = (UITableViewCell *)[btn superview];
+    NSIndexPath * indexpath = [self.tabview indexPathForCell:cell];
+    InfoListModel * model = self.dataArray[indexpath.section];
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"type":model.cont_type,
+                              @"id":model.id
+                              };
+    [[NetWorkManger manager] sendRequest:PageCollect route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSString * title = @"收藏成功";
+        if (model.collected) {
+            title = @"取消收藏";
+        }
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:title duration:1.0f];
+        model.collected = !model.collected;
+        if (model.collected) {
+            model.collect_num = @(model.collect_num.intValue + 1);
+        }else{
+            model.collect_num = @(model.collect_num.intValue - 1);
+        }
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
 @end

@@ -100,5 +100,31 @@
 }
 
 
+- (void)uploadUserImageWithParams:(NSDictionary *)params complete:(CompleteBlock)complete error:(ErrorBlock)byerror{
+    NSString * url = @"http://api.nflchina.com/api/app2017/upload_avatar";
+    AFHTTPSessionManager * manger = [AFHTTPSessionManager manager];
+    manger.responseSerializer = [AFJSONResponseSerializer serializer];
+    manger.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json",nil];
+    [manger POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [SVProgressHUD dismiss];
+        NSDictionary * resultDic = (NSDictionary *)responseObject;
+        if ([resultDic[@"code"] integerValue] == 0) {
+            complete(resultDic);
+        }else{
+            NFError * error = [[NFError alloc]init];
+            error.errorCode = [NSString stringWithFormat:@"%@",resultDic[@"code"]];
+            error.errorMessage = resultDic[@"msg"];
+            byerror(error);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NFError * error1 = [[NFError alloc]init];
+        error1.errorCode = [NSString stringWithFormat:@"%ld",(long)error.code];
+        error1.errorMessage = error.description;
+        byerror(error1);
+        [SVProgressHUD dismiss];
+    }];
+}
+
+
 
 @end

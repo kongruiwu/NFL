@@ -7,12 +7,8 @@
 //
 
 #import "GameBassViewController.h"
-#import "LiveModel.h"
+#import "LiveViewModel.h"
 
 @interface GameLiveViewController : GameBassViewController
-
-@property (nonatomic) BOOL isPlaying;
-@property (nonatomic, strong) NSNumber * gameID;
-@property (nonatomic, strong) NSMutableArray<LiveModel *> * dataArrays;
-- (void)updateWithTeamFightInfo:(NSMutableArray *)array;
+@property (nonatomic, strong) LiveViewModel * viewModel;
 @end

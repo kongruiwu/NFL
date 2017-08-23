@@ -16,10 +16,10 @@ typedef NS_ENUM(NSInteger,MacthStatus){
 
 @interface GameDetailTabViewController : BaseViewController
 
+@property (nonatomic, strong) NSString * liveUrl;
+
 @property (nonatomic) MacthStatus gameStatus;
-@property (nonatomic, strong) MatchDetailModel * game;
 @property (nonatomic, strong) NSNumber * gameID;
 
-- (instancetype)initWithMatchDetailModel:(MatchDetailModel *)model;
 - (instancetype)initWithGameID:(NSNumber *)gameID matchStatus:(MacthStatus)status;
 @end

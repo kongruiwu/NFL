@@ -28,6 +28,7 @@
             [muarr addObject:model];
         }
         self.follow_teams = [NSMutableArray arrayWithArray:muarr];
+        
     }
     return self;
 }

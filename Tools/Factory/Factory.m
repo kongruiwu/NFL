@@ -182,4 +182,52 @@
     return [UIImage imageNamed:imageName];
 }
 
+/**上传图片压缩尺寸*/
++ (NSData *)dealWithAvatarImage:(UIImage *)avatarImage{
+    CGSize avatarSize = avatarImage.size;
+    CGSize newSize = CGSizeMake(640, 640);
+    //尺寸压缩
+    if (avatarSize.width <= newSize.width && avatarSize.height <= newSize.height) {
+        newSize = avatarSize;
+    }
+    else if (avatarSize.width > newSize.width && avatarSize.height > newSize.height) {
+        CGFloat tempLength = avatarSize.width > avatarSize.height ?  avatarSize.width : avatarSize.height;
+        CGFloat rate = tempLength / newSize.width;
+        newSize.width = avatarSize.width / rate;
+        newSize.height = avatarSize.height / rate;
+    }
+    else if (avatarSize.width > newSize.width) {
+        newSize.height = avatarSize.height * newSize.width / avatarSize.width;
+    }
+    else {
+        avatarSize.width = avatarSize.width * newSize.height / avatarSize.height;
+    }
+    UIImage *avatarNew = [self imageWithImage:avatarImage scaledToSize:newSize];
+    NSData *data = UIImageJPEGRepresentation(avatarNew, 0.5);
+    return data;
+}
+
++ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize{
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+/**
+ 根据总时间返回当前时间及格式
+ */
++ (NSString *)getTimeStingWithCurrentTime:(int)num andTotalTime:(int)totalSeconds{
+    int seconds = num % 60;
+    int minutes = (num / 60) % 60;
+    int hours = num / 3600;
+    int totalHour = totalSeconds / 3600;
+    if (totalHour>0) {
+        return [NSString stringWithFormat:@"%02d:%02d:%02d",hours,minutes,seconds];
+    }else{
+        return [NSString stringWithFormat:@"%02d:%02d",minutes,seconds];
+    }
+}
 @end

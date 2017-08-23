@@ -29,6 +29,7 @@
     self.userIcon.layer.cornerRadius = Anno750(50);
     self.userIcon.layer.borderColor = Color_MainBlue.CGColor;
     self.userIcon.layer.borderWidth = 1.0f;
+    self.userIcon.layer.masksToBounds = YES;
     self.loginLabel = [Factory creatLabelWithText:@"点击登录"
                                        fontValue:font750(32)
                                        textColor:[UIColor whiteColor]
@@ -109,7 +110,16 @@
     NSString * city = [UserManager manager].info.city ? [UserManager manager].info.city : @"城市 · 性别";
     self.descLabel.text = [UserManager manager].isLogin ? city : @"";
     self.editImage.hidden = ![UserManager manager].isLogin;
-    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserManager manager].info.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    if ([UserManager manager].hasPic) {
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserManager manager].info.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    }
+    if ([UserManager manager].isLogin && [[UserManager manager].info.home_team.team_id integerValue] != 0) {
+        self.teamIcon.hidden = NO;
+        self.teamIcon.image = [Factory getImageWithNumer:[UserManager manager].info.home_team.team_id white:NO];
+    }else{
+        self.teamIcon.hidden = YES;
+        self.teamIcon.image =[UIImage imageNamed:@""];
+    }
     
 //    if ([UserManager manager].isLogin) {
 //        [self.teamIcon setImage:[UIImage imageNamed:@""]];

@@ -32,7 +32,10 @@
     
     self.backgroundColor = Color_BackGround;
     
-    self.leftImg = [Factory creatImageViewWithImage:@"porfile_photo_default1"];
+    self.leftImg = [Factory creatImageViewWithImage:@"list_img_user_normal"];
+    self.leftImg.layer.cornerRadius = Anno750(36);
+    self.leftImg.layer.masksToBounds = YES;
+    
     
     UIImage * image = [UIImage imageNamed:@"content_white"];
     UIEdgeInsets insets = UIEdgeInsetsMake(Anno750(45), 10, 10, 10);
@@ -60,7 +63,8 @@
         make.height.equalTo(@(Anno750(72)));
     }];
 }
-- (void)updateWithText:(NSString *)text{
+- (void)updateWithOnlineAnswerModel:(OnlineAnswerModel *)model{
+    NSString * text = model.content;
     CGSize size = [Factory getSize:text maxSize:CGSizeMake(99999, Anno750(30)) font:[UIFont systemFontOfSize:font750(28)]];
     size.width = size.width >= Anno750(750 - 270) ? Anno750(750 - 270) : size.width;
     if (size.width >= Anno750(750 - 270)) {
@@ -70,6 +74,10 @@
     self.bgImg.frame = CGRectMake(Anno750(24 + 72 + 15), 0, size.width + Anno750(48), h);
     self.contentLabel.frame = CGRectMake(Anno750(24),(self.bgImg.frame.size.height - size.height)/2, size.width, size.height);
     self.contentLabel.text = text;
+    
+    if ([UserManager manager].hasPic) {
+        [self.leftImg sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];
+    }
 }
 
 @end

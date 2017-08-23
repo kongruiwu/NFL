@@ -12,6 +12,12 @@
 #import "VideoListModel.h"
 #import "InfoListModel.h"
 
+@protocol NewsAttenListCellDelegate <NSObject>
+
+- (void)collectThisCellItem:(UIButton *)btn;
+
+@end
+
 
 @interface NewsAttenListCell : UITableViewCell
 
@@ -20,6 +26,7 @@
 @property (nonatomic, strong) UILabel * timeLabel;
 @property (nonatomic, strong) LikeButton * likeBtn;
 @property (nonatomic, strong) UIImageView * playIcon;
+@property (nonatomic, assign) id<NewsAttenListCellDelegate> delegate;
 
 
 - (void)updateWithObjectModel:(id)model;
