@@ -10,4 +10,7 @@
 
 @interface TeachViewController : BaseViewController
 
+@property (nonatomic, assign) int index;
+
+
 @end

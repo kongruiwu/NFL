@@ -29,6 +29,7 @@
         self.nullteamView.hidden = NO;
         [self.view bringSubviewToFront:self.nullteamView];
         self.teamHeader.dataArray = @[];
+        [SVProgressHUD dismiss];
     }else{
         self.nullteamView.hidden = YES;
         [self refreshData];

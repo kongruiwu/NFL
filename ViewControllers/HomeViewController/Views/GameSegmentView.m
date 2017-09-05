@@ -71,10 +71,10 @@
     }];
 }
 - (void)updateWithMatchLiveViewModel:(LiveViewModel *)model{
-    self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-    self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
-    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:NO];
-    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:NO];
+    self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+    self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
+    self.leftImg.image = [Factory getImageWithNumer:model.visitor_teamId white:NO];
+    self.rightImg.image =[Factory getImageWithNumer:model.home_teamId white:NO];
     switch ([model.match_state intValue]) {
         case 0://未开始
         {
@@ -85,12 +85,12 @@
         case 1://正在进行
         case 2://已结束
         {
-            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
-                self.rightScore.textColor = Color_White_5;
-            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
                 self.leftScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.rightScore.textColor = Color_White_5;
             }
         }
             break;

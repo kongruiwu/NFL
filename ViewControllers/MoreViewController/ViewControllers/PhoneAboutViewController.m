@@ -143,7 +143,8 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 6) {
-        return self.errorMessage.length > 0 ? Anno750(40) : Anno750(0);
+        CGSize size = [Factory getSize:self.errorMessage maxSize:CGSizeMake(Anno750(750 - 48), 9999) font:[UIFont systemFontOfSize:font750(24)]];
+        return self.errorMessage.length > 0 ? size.height + Anno750(20) : Anno750(0);
     }
     
     //规则设置
@@ -403,7 +404,6 @@
 }
 #pragma mark - 确认
 - (void)SureButtonClick{
-    NSLog(@"11111");
     if (self.vcType == ChangeTypeOverThirdInfo) {
         [self ThirdLoginRegister];
     }else if(self.vcType == ChangeTypeRegister){

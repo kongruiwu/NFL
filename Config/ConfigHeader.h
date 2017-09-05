@@ -17,6 +17,7 @@
 #import "UserManager.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import <UShareUI/UShareUI.h>
+#import "UMMobClick/MobClick.h"
 //全局返回通用配置选项
 typedef NS_ENUM(NSInteger, SelectorBackType){
     SelectorBackTypePopBack = 0,
@@ -30,20 +31,37 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
     ScheduleStatusOvered        //比赛结束
 };
 
-
-#define UmengKey    @"54816a19fd98c5af9b001088"
-#define WxAppID     @"wx5e816cb5cd5c0dea"
-#define WxAppSecret @"d1cbdef0806d759def3608541e2b8802"
-#define QQAPPID     @"1103567589"
-#define QQAPPKEY    @"8v8XTorLUBaGcgxD"
-#define SINAAPPKEY  @"573513778"
-#define SINAAPPSer  @"302a5166018ca50c36eec62db630ca6f"
+#define UmengKey    @"599bf2c34544cb5580000c1d"
+#define WxAppID     @"wx39c19501fef6c3cb"
+#define WxAppSecret @"40e72dd216b234ff249be91fe7538d4f"
+#define QQAPPID     @"1106241047"
+#define QQAPPKEY    @"opDdDWSqNTQkV6k1"
+#define SINAAPPKEY  @"871709740"
+#define SINAAPPSer  @"1bf93e753967fdb33ad8dca25acc0e11"
 #define APPID       @"950589192"
+#define JpushKey    @"99b8ab040a1e348f937c9afb"
+
+
+
+//#define UmengKey    @"54816a19fd98c5af9b001088"
+//#define WxAppID     @"wx5e816cb5cd5c0dea"
+//#define WxAppSecret @"d1cbdef0806d759def3608541e2b8802"
+//#define QQAPPID     @"1103567589"
+//#define QQAPPKEY    @"8v8XTorLUBaGcgxD"
+//#define SINAAPPKEY  @"573513778"
+//#define SINAAPPSer  @"302a5166018ca50c36eec62db630ca6f"
+//#define APPID       @"950589192"
 
 //750状态下字体适配
 #define font750(x) ((x)/ 1334.0f) * UI_HEGIHT
 //750状态下像素适配宏
 #define Anno750(x) ((x)/ 1334.0f) * UI_HEGIHT
+
+#ifdef DEBUG
+#define isProduction YES
+#else
+#define isProduction NO
+#endif
 
 
 #define UI_BOUNDS   [UIScreen mainScreen].bounds
@@ -54,6 +72,7 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 //规避空值
 #define INCASE_EMPTY(str, replace) \
 ( ([(str) length]==0)?(replace):(str) )
+
 
 
 

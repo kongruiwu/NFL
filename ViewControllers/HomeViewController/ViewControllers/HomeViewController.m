@@ -11,6 +11,11 @@
 #import "ScheduleViewController.h"
 #import "SelectTimeView.h"
 #import "AttentionteamViewController.h"
+#import "NewUserTeachView.h"
+
+#import "GameDetailTabViewController.h"
+#import "VideoDetailViewController.h"
+#import "WKWebViewController.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate,SelectTimeViewDelegate>
 
@@ -20,6 +25,7 @@
 @property (nonatomic, strong) NSMutableArray * viewControllers;
 @property (nonatomic) NSInteger defaultWeek;
 @property (nonatomic, strong) UIBarButtonItem  * leftItem;
+@property (nonatomic, strong) NewUserTeachView * userView;
 
 @end
 
@@ -29,17 +35,17 @@
     [super viewWillAppear:animated];
     [self setNavLineHidden];
     self.tabBarController.tabBar.hidden = NO;
-    
     self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) isTeam:NO defaultWeek:self.defaultWeek];
     self.timeView.delegate = self;
     [self.tabBarController.view addSubview:self.timeView];
+    
+    [MobClick event:@"schedules"];
     
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.timeView.delegate = nil;
     [self.timeView removeFromSuperview];
-
 }
 
 - (void)viewDidLoad {
@@ -50,8 +56,19 @@
     [self drawLeftNavButton];
     [self creatUI];
     [self getData];
+    [self creatNewUserView];
     
 }
+- (void)creatNewUserView{
+    id user = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewUser"];
+    if (user && [user isKindOfClass:[NSNumber class]] && [user integerValue] == 1) {
+        return;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"NewUser"];
+    self.userView = [[NewUserTeachView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT)];
+    [[UIApplication sharedApplication].keyWindow addSubview:self.userView];
+}
+
 - (void)drawLeftNavButton{
     UIImage * image = [[UIImage imageNamed:@"nav_icon_calendar_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem * leftBtn = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(checkWeeksData)];

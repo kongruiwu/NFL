@@ -31,6 +31,7 @@
     [super viewDidLoad];
     [self setNavTitle:@"视频详情"];
     [self drawBackButton];
+    [self drawShareButton];
     [self creatUI];
     [self getData];
 }
@@ -192,6 +193,26 @@
         [self.tabview reloadData];
     } error:^(NFError *byerror) {
         [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:byerror.errorMessage duration:1.0f];
+    }];
+}
+
+- (void)doShare{
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        //图片
+        VideoHeadCell * cell = (VideoHeadCell *)[self.tabview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        UIImage * image = cell.topImg.image;
+        NSString * title = self.videoModel.title;
+        NSString * desc = self.videoModel.content;
+        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+        UMShareWebpageObject * shareObj;
+        shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        shareObj.webpageUrl = self.videoModel.share_link;
+        messageObject.shareObject = shareObj;
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
     }];
 }
 

@@ -82,7 +82,14 @@
     self.nameLabel.text = title;
     int leftv = [left intValue];
     int rightv = [right intValue];
-    int value = (leftv * 100) / (leftv + rightv);
+    int value ;
+    if (leftv+rightv == 0) {
+        value = 0;
+    }else{
+        value = (leftv * 100) / (leftv + rightv);
+    }
+    
+    
     self.slider.value = value;
     self.leftScore.text = [NSString stringWithFormat:@"%@",left];
     self.rightScore.text = [NSString stringWithFormat:@"%@",right];
@@ -99,7 +106,12 @@
     self.rightScore.text = [NSString stringWithFormat:@"%@%%",right];
     int leftv = [left intValue];
     int rightv = [right intValue];
-    int value = (leftv * 100) / (leftv + rightv);
+    int value ;
+    if (leftv+rightv == 0) {
+        value = 0;
+    }else{
+        value = (leftv * 100) / (leftv + rightv);
+    }
     self.slider.value = value;
     
     

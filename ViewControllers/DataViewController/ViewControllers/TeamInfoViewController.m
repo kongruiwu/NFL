@@ -16,6 +16,9 @@
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic, strong) NSMutableArray<TeamModel *> * dataArray;
 @property (nonatomic, strong) ShowMessageView * teamView;
+
+@property (nonatomic, strong) NSString * weibouid;
+
 @end
 
 @implementation TeamInfoViewController
@@ -95,6 +98,7 @@
         team.team_id = self.dataArray[path].team_id;
         team.team_name = self.dataArray[path].name;
         self.teamView.homeTeam = team;
+        self.weibouid = self.dataArray[path].weibo_uid;
         [self.teamView show];
     }else{
         TeamDeatailViewController * vc = [[TeamDeatailViewController alloc]init];
@@ -119,7 +123,7 @@
 }
 #pragma mark - 打开微博
 - (void)openTeamWeibo{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"sinaweibo://userinfo?uid="]];
-    //sinaweibo://userinfo?uid=
+    NSString * urlStr = [NSString stringWithFormat:@"sinaweibo://userinfo?uid=%@",self.weibouid];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlStr]];
 }
 @end

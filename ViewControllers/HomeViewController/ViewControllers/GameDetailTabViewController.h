@@ -16,8 +16,6 @@ typedef NS_ENUM(NSInteger,MacthStatus){
 
 @interface GameDetailTabViewController : BaseViewController
 
-@property (nonatomic, strong) NSString * liveUrl;
-
 @property (nonatomic) MacthStatus gameStatus;
 @property (nonatomic, strong) NSNumber * gameID;
 

@@ -12,8 +12,6 @@
 #define Base_ApiHost        @"http://api.nflchina.com"
 
 #define BER_APP_KEY         @"98NexY5d75M76ab"
-//天天nfl
-#define DaydayNFL           @"http://h5.ttnflchina.com"
 //101课堂
 #define Teach_101           @"http://www.nflchina.com/nfl360_app"
 //用户使用协议
@@ -30,6 +28,8 @@
 #define NewWest_Info        @"information"
 //101课堂
 #define PageClass101        @"class101"
+//新闻详情
+#define PageNewsDetail      @"news_detail"
 //图集
 #define NewWest_album       @"album"
 //图集列表
@@ -59,6 +59,10 @@
 #define Page_MobOverInfo    @"mobile_register_info"
 //设置
 #define Route_Set           @"setting2017"
+//关于我们
+#define PageAboutUs         @"about_us"
+//在线问答信息
+#define PageMessage         @"message_reminder"
 //发送验证码
 #define PageSendSms         @"send_sms"
 //用户登录

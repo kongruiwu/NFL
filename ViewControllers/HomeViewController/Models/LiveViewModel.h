@@ -141,7 +141,8 @@
 @property (nonatomic, strong) NSString * game_place;
 /**比赛时间*/
 @property (nonatomic, strong) NSString * game_time_str;
-
+/**分享地址*/
+@property (nonatomic, strong) NSString * share_link;
 
 //数据对比
 /**场均码数*/
@@ -168,4 +169,10 @@
 @property (nonatomic, strong) PlayerStateModel * player_state;
 /**得分 对应每一节得分*/
 @property (nonatomic, strong) DetailPointModel * detail_point;
+
+//直播视频
+/**是否有直播*/
+@property (nonatomic, assign) BOOL hasLive;
+/**直播地址*/
+@property (nonatomic, strong) NSString * live_h5_url;
 @end

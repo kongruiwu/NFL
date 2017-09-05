@@ -103,6 +103,7 @@
         }
         [self.refreshHeader endRefreshing];
     } error:^(NFError *byerror) {
+        
         [self showNullViewByType:NullTypeNetError];
         [self.refreshHeader endRefreshing];
         [self.refreshFooter endRefreshing];

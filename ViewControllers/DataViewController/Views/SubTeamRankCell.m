@@ -31,7 +31,6 @@
 - (void)creatUI{
     self.rankNum = [self creatlabelWithText:@"1." Alignment:NSTextAlignmentLeft];
     self.leftImg = [Factory creatImageViewWithImage:@""];
-    self.leftImg.frame = CGRectMake(Anno750(60), Anno750(10), Anno750(70), Anno750(60));
     self.nameLabel = [self creatlabelWithText:@"印第安纳波利斯小马" Alignment:NSTextAlignmentLeft];
     self.lineView = [Factory creatLineView];
     self.subScore = [self creatlabelWithText:@"4-1" Alignment:NSTextAlignmentCenter];
@@ -51,6 +50,12 @@
         make.left.equalTo(@(Anno750(24)));
         make.width.equalTo(@(Anno750(30)));
         make.centerY.equalTo(@0);
+    }];
+    [self.leftImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@(Anno750(60)));
+        make.centerY.equalTo(@0);
+        make.width.equalTo(@(Anno750(70)));
+        make.height.equalTo(@(Anno750(70)));
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(@0);

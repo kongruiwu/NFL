@@ -20,11 +20,6 @@
 
 @implementation GameRatioViewController
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self getData];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavAlpha];
@@ -93,22 +88,6 @@
     [cell updateWithArray:self.viewModel.stars];
     return cell;
 }
-//- (void)getData{
-//    [SVProgressHUD show];
-//    NSDictionary * params = @{
-//                              @"gameId":self.gameID,
-//                              @"page":@"compare"
-//                              };
-//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-//        if (self.tabview) {
-//            NSDictionary * dic = result[@"data"];
-//            self.viewModel = [[LiveViewModel alloc]initWithDictionary:dic];
-//        }
-//    } error:^(NFError *byerror) {
-//        
-//    }];
-//}
-
 - (void)setViewModel:(LiveViewModel *)viewModel{
     _viewModel = viewModel;
     self.leftScores = @[_viewModel.offensive_points.home,_viewModel.offensive_yards.home,_viewModel.defense_points.home,_viewModel.defense_yards.home];

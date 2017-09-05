@@ -32,7 +32,7 @@
 - (void)creatUI{
     self.rankNum = [self creatlabelWithText:@"1." Alignment:NSTextAlignmentLeft];
     self.leftImg = [Factory creatImageViewWithImage:@"list_logo_60x60_aiguozhe"];
-    self.leftImg.frame = CGRectMake(Anno750(60), Anno750(10), Anno750(70), Anno750(60));
+    self.leftImg.frame = CGRectMake(Anno750(60), Anno750(10), Anno750(70), Anno750(70));
     self.nameLabel = [self creatlabelWithText:@"印第安纳波利斯小马" Alignment:NSTextAlignmentLeft];
     self.centerLine = [Factory creatLineView];
     self.bottomLine = [Factory creatLineView];

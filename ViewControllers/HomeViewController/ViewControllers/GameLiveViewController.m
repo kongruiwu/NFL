@@ -157,12 +157,23 @@
             }
         }
         [self.tabview reloadData];
-
+        [self scrollToEnd];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
 }
-
+- (void)scrollToEnd{
+    NSUInteger section = [self.tabview numberOfSections];
+    if (section == 0 ) {
+        return;
+    }
+    NSUInteger rowCount = [self.tabview numberOfRowsInSection:section - 1];
+    if (rowCount == 0) {
+        return;
+    }
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:rowCount-1 inSection:section-1];
+    [self.tabview scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
 - (void)setViewModel:(LiveViewModel *)viewModel{
     _viewModel = viewModel;
     if (_viewModel.match_state.integerValue == 1) {

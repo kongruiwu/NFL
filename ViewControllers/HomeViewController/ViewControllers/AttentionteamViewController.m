@@ -81,6 +81,7 @@
     return Anno750(80);
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
     UIView * view = [Factory creatViewWithColor:Color_BackGround];
     view.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(80));
     UIButton * button = [Factory creatButtonWithTitle:@""
@@ -88,6 +89,7 @@
                                             textColor:Color_LightGray
                                              textSize:font750(26)];
     NSString * title = [NSString stringWithFormat:@"  %@  %@",self.dataArray[section].c_date,self.dataArray[section].c_date_w];
+    
     [button setTitle:title forState:UIControlStateNormal];
     [button setImage:[UIImage imageNamed:@"sidebar_icon_calendar_default"] forState:UIControlStateNormal];
     [view addSubview:button];
@@ -106,7 +108,7 @@
     return Anno750(220);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0 || indexPath.row == self.dataArray[indexPath.section].list.count+1) {
+    if (indexPath.row == 0 ||indexPath.row == self.dataArray[indexPath.section].list.count+1) {
         static NSString * cellid = @"grayCell";
         UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
         if (!cell) {
@@ -148,11 +150,9 @@
 
 
 - (void)getData{
-    [self.dataArray removeAllObjects];
     [self requestDataWithParmas:@{@"follow_team_uid":[UserManager manager].userID}];
 }
 - (void)requestDataWithParmas:(NSDictionary *)params{
-    [self.dataArray removeAllObjects];
     [self requestDataWithParmas:params isRefresh:NO isUp:NO];
 }
 
@@ -168,7 +168,10 @@
             self.preInfo = self.requestInfo.pre;
             self.nextInfo = self.requestInfo.next;
         }
-        
+        //刷新数据 需要置空dataArray 不能提前释放
+        if (params.allKeys.count == 0) {
+            [self.dataArray removeAllObjects];
+        }
         NSMutableArray * muarr = [NSMutableArray new];
         for (int i = 0; i<arr.count; i++) {
             MatchListModel * model = [[MatchListModel alloc]initWithDictionary:arr[i]];

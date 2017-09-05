@@ -15,6 +15,10 @@
 		8B169A931F343E0500E2507E /* DataTeamTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B169A921F343E0500E2507E /* DataTeamTitleCell.m */; };
 		8B1A223A1F3EA8CC00F5E8E2 /* VideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A22391F3EA8CC00F5E8E2 /* VideoPlayer.m */; };
 		8B1A223D1F3EF04C00F5E8E2 /* VideoPlayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A223C1F3EF04C00F5E8E2 /* VideoPlayCell.m */; };
+		8B2229101F5025F9003BA23E /* lan2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B22290D1F5025F9003BA23E /* lan2.jpg */; };
+		8B2229111F5025F9003BA23E /* lan3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B22290E1F5025F9003BA23E /* lan3.jpg */; };
+		8B2229121F5025F9003BA23E /* lan4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B22290F1F5025F9003BA23E /* lan4.jpg */; };
+		8B2229141F506474003BA23E /* lan5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B2229131F506474003BA23E /* lan5.jpg */; };
 		8B2A4C041F31984600A36D79 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C031F31984600A36D79 /* FeedBackViewController.m */; };
 		8B2A4C071F31A0B800A36D79 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C061F31A0B800A36D79 /* SettingViewController.m */; };
 		8B2A4C0A1F31A1E300A36D79 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2A4C091F31A1E300A36D79 /* SettingTableViewCell.m */; };
@@ -42,12 +46,18 @@
 		8B2D73E91F0BDE9800E1BF4B /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73E81F0BDE9800E1BF4B /* VideoViewController.m */; };
 		8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73EB1F0BDEA200E1BF4B /* DataViewController.m */; };
 		8B2D73EF1F0BDEF600E1BF4B /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2D73EE1F0BDEF600E1BF4B /* MoreViewController.m */; };
+		8B32A72A1F4E6A3C00571734 /* NewUserTeachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B32A7291F4E6A3C00571734 /* NewUserTeachView.m */; };
+		8B32A72E1F4E767900571734 /* 新手引导-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B32A72B1F4E767900571734 /* 新手引导-1.jpg */; };
+		8B32A72F1F4E767900571734 /* 新手引导-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B32A72C1F4E767900571734 /* 新手引导-2.jpg */; };
+		8B32A7301F4E767900571734 /* 新手引导-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B32A72D1F4E767900571734 /* 新手引导-3.jpg */; };
 		8B3ABCFD1F3FE9C600BB4C41 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3ABCFC1F3FE9C600BB4C41 /* PlayerView.m */; };
 		8B3CEEC61F0D427500AE5B81 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */; };
 		8B3CEEC91F0D437F00AE5B81 /* ScheduleListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */; };
+		8B4657481F5E3D1B00E2D0E0 /* JpushHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4657471F5E3D1B00E2D0E0 /* JpushHandler.m */; };
 		8B4AB0991F3C9EBA0069E31B /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB0981F3C9EBA0069E31B /* UserManager.m */; };
 		8B4AB09C1F3C9ECB0069E31B /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB09B1F3C9ECB0069E31B /* UserInfo.m */; };
 		8B4AB09F1F3D48FD0069E31B /* VideoPlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */; };
+		8B4DCBDF1F4FF38A00B22FB2 /* nflvideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B4DCBDE1F4FF38A00B22FB2 /* nflvideo.mp4 */; };
 		8B5507B21F1B59070079B3C0 /* TeamDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5507B11F1B59070079B3C0 /* TeamDataView.m */; };
 		8B577DBB1F43DA4400CBD97A /* TeamRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DBA1F43DA4400CBD97A /* TeamRankModel.m */; };
 		8B577DBE1F43E26300CBD97A /* SubTeamRankModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DBD1F43E26300CBD97A /* SubTeamRankModel.m */; };
@@ -55,6 +65,7 @@
 		8B577DC41F4416DB00CBD97A /* TeamDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DC31F4416DB00CBD97A /* TeamDataModel.m */; };
 		8B577DC71F444BD200CBD97A /* PlayerLineUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B577DC61F444BD200CBD97A /* PlayerLineUpModel.m */; };
 		8B652CE31F4A6C7A00930B3F /* OnlineAnswerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B652CE21F4A6C7A00930B3F /* OnlineAnswerModel.m */; };
+		8B6D76711F5010F3006FA8DA /* EnterTeachView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B6D76701F5010F3006FA8DA /* EnterTeachView.m */; };
 		8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1A1F2C2A50009FF50D /* UserInfoViewController.m */; };
 		8B70AD1E1F2C2DFA009FF50D /* UserInfoSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD1D1F2C2DFA009FF50D /* UserInfoSettingCell.m */; };
 		8B70AD211F2C423C009FF50D /* SubNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B70AD201F2C423C009FF50D /* SubNewsViewController.m */; };
@@ -102,12 +113,7 @@
 		8B90738B1F457FE7005D70ED /* HomeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90738A1F457FE7005D70ED /* HomeInfoModel.m */; };
 		8B90738F1F45D2BB005D70ED /* FristViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90738E1F45D2BB005D70ED /* FristViewController.m */; };
 		8B9073951F45D3F7005D70ED /* lan1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073901F45D3F7005D70ED /* lan1.jpg */; };
-		8B9073961F45D3F7005D70ED /* lan2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073911F45D3F7005D70ED /* lan2.jpg */; };
-		8B9073971F45D3F7005D70ED /* lan3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073921F45D3F7005D70ED /* lan3.jpg */; };
-		8B9073981F45D3F7005D70ED /* lan4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073931F45D3F7005D70ED /* lan4.jpg */; };
-		8B9073991F45D3F7005D70ED /* lan5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8B9073941F45D3F7005D70ED /* lan5.jpg */; };
 		8B90739C1F45DA39005D70ED /* LanuchMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */; };
-		8B90739E1F45DAC5005D70ED /* nfl.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8B90739D1F45DAC5005D70ED /* nfl.mp4 */; };
 		8B93DA9A1F2AD0BA0087988D /* TeamUnionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B93DA991F2AD0BA0087988D /* TeamUnionHeadView.m */; };
 		8B93DA9D1F2AD4740087988D /* SubTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B93DA9C1F2AD4740087988D /* SubTeamRankCell.m */; };
 		8B9ACB5C1F263785005772ED /* TeamerRankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9ACB5B1F263785005772ED /* TeamerRankListCell.m */; };
@@ -141,6 +147,7 @@
 		8BCD4E3A1F1E372000E430DE /* TeamInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E391F1E372000E430DE /* TeamInfoViewController.m */; };
 		8BCD4E3D1F1E372C00E430DE /* TeamRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E3C1F1E372C00E430DE /* TeamRankViewController.m */; };
 		8BCD4E401F1E373A00E430DE /* TeamerRankViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD4E3F1F1E373A00E430DE /* TeamerRankViewController.m */; };
+		8BCDEB951F4D7C3F00D14D89 /* AboutUsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCDEB941F4D7C3F00D14D89 /* AboutUsModel.m */; };
 		8BD6769E1F2EB9DA00B42497 /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD6769D1F2EB9DA00B42497 /* VideoDetailViewController.m */; };
 		8BD676A11F2EBF5200B42497 /* VideoHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD676A01F2EBF5200B42497 /* VideoHeadCell.m */; };
 		8BD676A51F2ECCBF00B42497 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BD676A41F2ECCBF00B42497 /* ShareView.m */; };
@@ -209,6 +216,10 @@
 		8B1A22391F3EA8CC00F5E8E2 /* VideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayer.m; sourceTree = "<group>"; };
 		8B1A223B1F3EF04C00F5E8E2 /* VideoPlayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayCell.h; sourceTree = "<group>"; };
 		8B1A223C1F3EF04C00F5E8E2 /* VideoPlayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayCell.m; sourceTree = "<group>"; };
+		8B22290D1F5025F9003BA23E /* lan2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan2.jpg; sourceTree = "<group>"; };
+		8B22290E1F5025F9003BA23E /* lan3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan3.jpg; sourceTree = "<group>"; };
+		8B22290F1F5025F9003BA23E /* lan4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan4.jpg; sourceTree = "<group>"; };
+		8B2229131F506474003BA23E /* lan5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan5.jpg; sourceTree = "<group>"; };
 		8B2A4C021F31984600A36D79 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		8B2A4C031F31984600A36D79 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		8B2A4C051F31A0B800A36D79 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -263,18 +274,27 @@
 		8B2D73EB1F0BDEA200E1BF4B /* DataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataViewController.m; sourceTree = "<group>"; };
 		8B2D73ED1F0BDEF600E1BF4B /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		8B2D73EE1F0BDEF600E1BF4B /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		8B32A7281F4E6A3C00571734 /* NewUserTeachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewUserTeachView.h; sourceTree = "<group>"; };
+		8B32A7291F4E6A3C00571734 /* NewUserTeachView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewUserTeachView.m; sourceTree = "<group>"; };
+		8B32A72B1F4E767900571734 /* 新手引导-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "新手引导-1.jpg"; sourceTree = "<group>"; };
+		8B32A72C1F4E767900571734 /* 新手引导-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "新手引导-2.jpg"; sourceTree = "<group>"; };
+		8B32A72D1F4E767900571734 /* 新手引导-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "新手引导-3.jpg"; sourceTree = "<group>"; };
 		8B3ABCFB1F3FE9C600BB4C41 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
 		8B3ABCFC1F3FE9C600BB4C41 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
 		8B3CEEC41F0D427500AE5B81 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		8B3CEEC51F0D427500AE5B81 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		8B3CEEC71F0D437F00AE5B81 /* ScheduleListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleListCell.h; sourceTree = "<group>"; };
 		8B3CEEC81F0D437F00AE5B81 /* ScheduleListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleListCell.m; sourceTree = "<group>"; };
+		8B4657461F5E3D1B00E2D0E0 /* JpushHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JpushHandler.h; sourceTree = "<group>"; };
+		8B4657471F5E3D1B00E2D0E0 /* JpushHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JpushHandler.m; sourceTree = "<group>"; };
+		8B4657491F5E4E2900E2D0E0 /* NFL.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NFL.entitlements; sourceTree = "<group>"; };
 		8B4AB0971F3C9EBA0069E31B /* UserManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
 		8B4AB0981F3C9EBA0069E31B /* UserManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
 		8B4AB09A1F3C9ECB0069E31B /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		8B4AB09B1F3C9ECB0069E31B /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
 		8B4AB09D1F3D48FD0069E31B /* VideoPlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPlayViewController.h; sourceTree = "<group>"; };
 		8B4AB09E1F3D48FD0069E31B /* VideoPlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPlayViewController.m; sourceTree = "<group>"; };
+		8B4DCBDE1F4FF38A00B22FB2 /* nflvideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nflvideo.mp4; sourceTree = "<group>"; };
 		8B5507B01F1B59070079B3C0 /* TeamDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamDataView.h; sourceTree = "<group>"; };
 		8B5507B11F1B59070079B3C0 /* TeamDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamDataView.m; sourceTree = "<group>"; };
 		8B577DB91F43DA4400CBD97A /* TeamRankModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRankModel.h; sourceTree = "<group>"; };
@@ -289,6 +309,8 @@
 		8B577DC61F444BD200CBD97A /* PlayerLineUpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLineUpModel.m; sourceTree = "<group>"; };
 		8B652CE11F4A6C7A00930B3F /* OnlineAnswerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlineAnswerModel.h; sourceTree = "<group>"; };
 		8B652CE21F4A6C7A00930B3F /* OnlineAnswerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlineAnswerModel.m; sourceTree = "<group>"; };
+		8B6D766F1F5010F3006FA8DA /* EnterTeachView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnterTeachView.h; sourceTree = "<group>"; };
+		8B6D76701F5010F3006FA8DA /* EnterTeachView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnterTeachView.m; sourceTree = "<group>"; };
 		8B70AD191F2C2A50009FF50D /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewController.h; path = ../Views/UserInfoViewController.h; sourceTree = "<group>"; };
 		8B70AD1A1F2C2A50009FF50D /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = ../Views/UserInfoViewController.m; sourceTree = "<group>"; };
 		8B70AD1C1F2C2DFA009FF50D /* UserInfoSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoSettingCell.h; sourceTree = "<group>"; };
@@ -382,13 +404,8 @@
 		8B90738D1F45D2BB005D70ED /* FristViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FristViewController.h; sourceTree = "<group>"; };
 		8B90738E1F45D2BB005D70ED /* FristViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FristViewController.m; sourceTree = "<group>"; };
 		8B9073901F45D3F7005D70ED /* lan1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan1.jpg; sourceTree = "<group>"; };
-		8B9073911F45D3F7005D70ED /* lan2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan2.jpg; sourceTree = "<group>"; };
-		8B9073921F45D3F7005D70ED /* lan3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan3.jpg; sourceTree = "<group>"; };
-		8B9073931F45D3F7005D70ED /* lan4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan4.jpg; sourceTree = "<group>"; };
-		8B9073941F45D3F7005D70ED /* lan5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lan5.jpg; sourceTree = "<group>"; };
 		8B90739A1F45DA39005D70ED /* LanuchMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanuchMovieViewController.h; sourceTree = "<group>"; };
 		8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanuchMovieViewController.m; sourceTree = "<group>"; };
-		8B90739D1F45DAC5005D70ED /* nfl.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nfl.mp4; sourceTree = "<group>"; };
 		8B93DA981F2AD0BA0087988D /* TeamUnionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamUnionHeadView.h; sourceTree = "<group>"; };
 		8B93DA991F2AD0BA0087988D /* TeamUnionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamUnionHeadView.m; sourceTree = "<group>"; };
 		8B93DA9B1F2AD4740087988D /* SubTeamRankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubTeamRankCell.h; sourceTree = "<group>"; };
@@ -456,6 +473,8 @@
 		8BCD4E3C1F1E372C00E430DE /* TeamRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRankViewController.m; sourceTree = "<group>"; };
 		8BCD4E3E1F1E373A00E430DE /* TeamerRankViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamerRankViewController.h; sourceTree = "<group>"; };
 		8BCD4E3F1F1E373A00E430DE /* TeamerRankViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamerRankViewController.m; sourceTree = "<group>"; };
+		8BCDEB931F4D7C3F00D14D89 /* AboutUsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsModel.h; sourceTree = "<group>"; };
+		8BCDEB941F4D7C3F00D14D89 /* AboutUsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsModel.m; sourceTree = "<group>"; };
 		8BD6769C1F2EB9DA00B42497 /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailViewController.h; sourceTree = "<group>"; };
 		8BD6769D1F2EB9DA00B42497 /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailViewController.m; sourceTree = "<group>"; };
 		8BD6769F1F2EBF5200B42497 /* VideoHeadCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoHeadCell.h; sourceTree = "<group>"; };
@@ -615,6 +634,7 @@
 		8B2D73501F0AA2E200E1BF4B /* NFL */ = {
 			isa = PBXGroup;
 			children = (
+				8B4657491F5E4E2900E2D0E0 /* NFL.entitlements */,
 				8B2D73541F0AA2E200E1BF4B /* AppDelegate.h */,
 				8B2D73551F0AA2E200E1BF4B /* AppDelegate.m */,
 				8B2D735D1F0AA2E300E1BF4B /* Assets.xcassets */,
@@ -677,6 +697,7 @@
 		8B2D73A61F0BD55B00E1BF4B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				8B4657451F5E3D1B00E2D0E0 /* JpushHandler */,
 				8B1A22371F3EA84800F5E8E2 /* videoPlayer */,
 				8B4AB0961F3C9EAA0069E31B /* UserManager */,
 				8B71354E1F3C4EF9009A003F /* LoaingView */,
@@ -872,6 +893,10 @@
 				8BB90B4E1F150FC5004B29A8 /* GameSegmentView.m */,
 				8B85E03E1F32CA2900FFBF39 /* GameLiveListCell.h */,
 				8B85E03F1F32CA2900FFBF39 /* GameLiveListCell.m */,
+				8B32A7281F4E6A3C00571734 /* NewUserTeachView.h */,
+				8B32A7291F4E6A3C00571734 /* NewUserTeachView.m */,
+				8B6D766F1F5010F3006FA8DA /* EnterTeachView.h */,
+				8B6D76701F5010F3006FA8DA /* EnterTeachView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1094,6 +1119,8 @@
 				8BC865E01F4927C9000EAA39 /* ThirdInfoModel.m */,
 				8B652CE11F4A6C7A00930B3F /* OnlineAnswerModel.h */,
 				8B652CE21F4A6C7A00930B3F /* OnlineAnswerModel.m */,
+				8BCDEB931F4D7C3F00D14D89 /* AboutUsModel.h */,
+				8BCDEB941F4D7C3F00D14D89 /* AboutUsModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1160,6 +1187,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		8B4657451F5E3D1B00E2D0E0 /* JpushHandler */ = {
+			isa = PBXGroup;
+			children = (
+				8B4657461F5E3D1B00E2D0E0 /* JpushHandler.h */,
+				8B4657471F5E3D1B00E2D0E0 /* JpushHandler.m */,
+			);
+			path = JpushHandler;
+			sourceTree = "<group>";
+		};
 		8B4AB0961F3C9EAA0069E31B /* UserManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1216,11 +1252,14 @@
 				8B90739A1F45DA39005D70ED /* LanuchMovieViewController.h */,
 				8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */,
 				8B9073901F45D3F7005D70ED /* lan1.jpg */,
-				8B9073911F45D3F7005D70ED /* lan2.jpg */,
-				8B9073921F45D3F7005D70ED /* lan3.jpg */,
-				8B9073931F45D3F7005D70ED /* lan4.jpg */,
-				8B9073941F45D3F7005D70ED /* lan5.jpg */,
-				8B90739D1F45DAC5005D70ED /* nfl.mp4 */,
+				8B22290D1F5025F9003BA23E /* lan2.jpg */,
+				8B22290E1F5025F9003BA23E /* lan3.jpg */,
+				8B22290F1F5025F9003BA23E /* lan4.jpg */,
+				8B2229131F506474003BA23E /* lan5.jpg */,
+				8B32A72B1F4E767900571734 /* 新手引导-1.jpg */,
+				8B32A72C1F4E767900571734 /* 新手引导-2.jpg */,
+				8B32A72D1F4E767900571734 /* 新手引导-3.jpg */,
+				8B4DCBDE1F4FF38A00B22FB2 /* nflvideo.mp4 */,
 			);
 			path = FristViewController;
 			sourceTree = "<group>";
@@ -1358,6 +1397,11 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = JY5X7GG4HU;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					8B2D73661F0AA2E300E1BF4B = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -1396,18 +1440,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B9073981F45D3F7005D70ED /* lan4.jpg in Resources */,
-				8B9073971F45D3F7005D70ED /* lan3.jpg in Resources */,
-				8B90739E1F45DAC5005D70ED /* nfl.mp4 in Resources */,
+				8B4DCBDF1F4FF38A00B22FB2 /* nflvideo.mp4 in Resources */,
+				8B2229111F5025F9003BA23E /* lan3.jpg in Resources */,
 				8B2D73BF1F0BD55B00E1BF4B /* toast_bg@2x.png in Resources */,
 				8B2D73C11F0BD55B00E1BF4B /* toast_icon_bg@2x.png in Resources */,
-				8B9073961F45D3F7005D70ED /* lan2.jpg in Resources */,
+				8B32A7301F4E767900571734 /* 新手引导-3.jpg in Resources */,
 				8BD676BA1F2F185400B42497 /* CropViewController.xib in Resources */,
+				8B2229121F5025F9003BA23E /* lan4.jpg in Resources */,
+				8B2229141F506474003BA23E /* lan5.jpg in Resources */,
+				8B32A72F1F4E767900571734 /* 新手引导-2.jpg in Resources */,
 				8B2D73C31F0BD55B00E1BF4B /* toast_success@2x.png in Resources */,
-				8B9073991F45D3F7005D70ED /* lan5.jpg in Resources */,
+				8B32A72E1F4E767900571734 /* 新手引导-1.jpg in Resources */,
 				8B2D735E1F0AA2E300E1BF4B /* Assets.xcassets in Resources */,
 				8B9073951F45D3F7005D70ED /* lan1.jpg in Resources */,
 				8B2D73C01F0BD55B00E1BF4B /* toast_failure@2x.png in Resources */,
+				8B2229101F5025F9003BA23E /* lan2.jpg in Resources */,
 				8B2D73C21F0BD55B00E1BF4B /* toast_net_failure@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1505,6 +1552,7 @@
 				8BC865E11F4927C9000EAA39 /* ThirdInfoModel.m in Sources */,
 				8BC44D871F302BBC00639881 /* TextFieldCell.m in Sources */,
 				8B7C0DF81F4285C2000DF4D0 /* TeamDeatailViewController.m in Sources */,
+				8B4657481F5E3D1B00E2D0E0 /* JpushHandler.m in Sources */,
 				8B9F830E1F4BF0B900C659FB /* TeachViewController.m in Sources */,
 				8BD676B91F2F185400B42497 /* CropViewController.m in Sources */,
 				8BD676A51F2ECCBF00B42497 /* ShareView.m in Sources */,
@@ -1586,6 +1634,7 @@
 				8B2D73531F0AA2E200E1BF4B /* main.m in Sources */,
 				8B7C0E0B1F429383000DF4D0 /* TeamNewsViewController.m in Sources */,
 				8BC44D8A1F304D1500639881 /* ErrorMessageCell.m in Sources */,
+				8B32A72A1F4E6A3C00571734 /* NewUserTeachView.m in Sources */,
 				8B7C0E231F433C86000DF4D0 /* TeamModel.m in Sources */,
 				8B9F83111F4BF1AD00C659FB /* SubTeachViewController.m in Sources */,
 				8BEF9C5B1F3AEC620085E7B6 /* RefreshGifHeader.m in Sources */,
@@ -1598,10 +1647,12 @@
 				8B9F83151F4BFE9E00C659FB /* GTMBase64.m in Sources */,
 				8BEF9C061F3A0FDF0085E7B6 /* InfoListModel.m in Sources */,
 				8B2D73EC1F0BDEA200E1BF4B /* DataViewController.m in Sources */,
+				8BCDEB951F4D7C3F00D14D89 /* AboutUsModel.m in Sources */,
 				8BCD4E3D1F1E372C00E430DE /* TeamRankViewController.m in Sources */,
 				8BC44D841F302B8700639881 /* PhoneAboutViewController.m in Sources */,
 				8B70AD1B1F2C2A50009FF50D /* UserInfoViewController.m in Sources */,
 				8B70AD241F2C4589009FF50D /* PhotosViewController.m in Sources */,
+				8B6D76711F5010F3006FA8DA /* EnterTeachView.m in Sources */,
 				8BD676A81F2ECE9600B42497 /* ShareModel.m in Sources */,
 				8B1A223D1F3EF04C00F5E8E2 /* VideoPlayCell.m in Sources */,
 				8BF4946D1F394EE100D40727 /* NetWorkManger.m in Sources */,
@@ -1763,6 +1814,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = NFL/NFL.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;
@@ -1781,6 +1833,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = NFL/NFL.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = JY5X7GG4HU;
 				INFOPLIST_FILE = NFL/Info.plist;

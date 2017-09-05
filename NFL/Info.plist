@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>NFL橄榄球</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>3.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -25,7 +27,7 @@
 			<string>webo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wb573513778</string>
+				<string>wb871709740</string>
 			</array>
 		</dict>
 		<dict>
@@ -43,7 +45,7 @@
 			<string>qq</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1103567589</string>
+				<string>tencent1106241047</string>
 			</array>
 		</dict>
 		<dict>
@@ -53,7 +55,7 @@
 			<string>qqSpace</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ41c71ae5</string>
+				<string>QQ41efe617</string>
 			</array>
 		</dict>
 		<dict>
@@ -63,12 +65,12 @@
 			<string>wechat</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx5e816cb5cd5c0dea</string>
+				<string>wx39c19501fef6c3cb</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.1</string>
+	<string>1.0.2</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wechat</string>

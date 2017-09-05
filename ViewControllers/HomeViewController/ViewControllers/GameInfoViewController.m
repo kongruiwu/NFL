@@ -11,7 +11,7 @@
 #import "GameInfoHistoryCell.h"
 #import "GameDetailTabViewController.h"
 #import "WKWebViewController.h"
-
+#import "LoginViewController.h"
 @interface GameInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray * titles;
@@ -106,8 +106,14 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if(indexPath.section == 0){
         if (indexPath.row == 3) {
-            WKWebViewController * web = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:self.viewModel.ttnfl_link];
-            [self.navigationController pushViewController:web animated:YES];
+            if ([UserManager manager].isLogin) {
+                WKWebViewController * web = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:[UserManager manager].info.ttnfl_game_link];
+                [self.navigationController pushViewController:web animated:YES];
+            }else{
+                [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"你还没有登录，请先登录" duration:1.0f];
+                UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+                [self presentViewController:nav animated:YES completion:nil];
+            }
         }
     }
 }

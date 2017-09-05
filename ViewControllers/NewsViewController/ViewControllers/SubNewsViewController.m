@@ -17,7 +17,8 @@
 @interface SubNewsViewController ()<UITableViewDelegate, UITableViewDataSource,SubNewsListCellDelegate>
 
 @property (nonatomic, strong) UITableView * tabview;
-@property (nonatomic, strong) InfoMainModel * mainModel;
+@property (nonatomic, strong) InfoCoverModel * mainModel;
+@property (nonatomic, strong) NSMutableArray<InfoListModel *> * dataArray;
 
 @end
 
@@ -33,7 +34,7 @@
 - (void)creatUI{
     //第一次进入时才显示
     [SVProgressHUD show];
-    
+    self.dataArray = [NSMutableArray new];
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64 - 49 - Anno750(80)) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
@@ -47,7 +48,7 @@
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.mainModel.list.count+1;
+    return self.dataArray.count+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -68,7 +69,7 @@
         if (!cell) {
             cell = [[SubNewsHeadCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        [cell updateWithObjModel:self.mainModel.coverModel];
+        [cell updateWithObjModel:self.mainModel];
         return cell;
     }
     static NSString * cellid = @"SubNewsListCell";
@@ -77,7 +78,7 @@
         cell = [[SubNewsListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     cell.delegate = self;
-    [cell updateWithObjectModel:self.mainModel.list[indexPath.section - 1]];
+    [cell updateWithObjectModel:self.dataArray[indexPath.section - 1]];
     return cell;
 }
 
@@ -85,14 +86,14 @@
     NSString * url;
     InfoListModel * model;
     if (indexPath.section == 0) {
-        url = self.mainModel.coverModel.app_iframe;
+        url = self.mainModel.app_iframe;
         model = [[InfoListModel alloc]init];
-        model.share_link = self.mainModel.coverModel.share_link;
-        model.title = self.mainModel.coverModel.title;
-        model.pic_thumbnail = self.mainModel.coverModel.pic;
+        model.share_link = self.mainModel.share_link;
+        model.title = self.mainModel.title;
+        model.pic_thumbnail = self.mainModel.pic;
     }else{
-        url = self.mainModel.list[indexPath.section - 1].app_iframe;
-        model = self.mainModel.list[indexPath.section - 1];
+        url = self.dataArray[indexPath.section - 1].app_iframe;
+        model = self.dataArray[indexPath.section - 1];
     }
     WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"资讯" url:url];
     vc.infoModel = model;
@@ -101,8 +102,8 @@
 
 
 - (void)refreshData{
-    self.mainModel.coverModel = nil;
-    [self.mainModel.list removeAllObjects];
+    self.mainModel = nil;
+    [self.dataArray removeAllObjects];
     [self getData];
 }
 - (void)loadMoreData{
@@ -110,21 +111,29 @@
 }
 - (void)getData{
     NSDictionary * params = @{
-                              @"last_id":self.mainModel.list.count == 0 ? @"" :self.mainModel.list.lastObject.id,
+                              @"last_id":self.dataArray.count == 0 ? @"" :self.dataArray.lastObject.id,
                               @"uid":[UserManager manager].isLogin ? [UserManager manager].userID : @"",
+                              @"last_time":self.dataArray.count == 0 ? @"" :self.dataArray.lastObject.time_stamp
                                   };
     [[NetWorkManger manager] sendRequest:NewWest_Info route:Route_NewWest withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
-        self.mainModel = [[InfoMainModel alloc]initWithDictionary:dic];
-        [self.refreshHeader endRefreshing];
+        NSArray * covers = dic[@"cover"];
         NSArray * arr = dic[@"list"];
+        if (!self.mainModel && covers.count >0) {
+            self.mainModel = [[InfoCoverModel alloc]initWithDictionary:covers.firstObject];
+        }
+        for (int i = 0; i<arr.count; i++) {
+            InfoListModel * model = [[InfoListModel alloc]initWithDictionary:arr[i]];
+            [self.dataArray addObject:model];
+        }
+        [self.refreshHeader endRefreshing];
         [self hiddenNullView];
         if (arr.count < 9) {
             [self.refreshFooter endRefreshingWithNoMoreData];
         }else{
             [self.refreshFooter endRefreshing];
         }
-        if (!self.mainModel.coverModel && (!self.mainModel.list || self.mainModel.list.count == 0)) {
+        if (!self.mainModel && self.dataArray.count == 0) {
             [self showNullViewByType:NullTypeNoneData];
         }else{
             [self.tabview reloadData];
@@ -147,7 +156,7 @@
     [SVProgressHUD show];
     UITableViewCell * cell = (UITableViewCell *)[btn superview];
     NSIndexPath * indexpath = [self.tabview indexPathForCell:cell];
-    InfoListModel * model = self.mainModel.list[indexpath.section - 1];
+    InfoListModel * model = self.dataArray[indexpath.section - 1];
     NSDictionary * params = @{
                               @"uid":[UserManager manager].userID,
                               @"type":model.cont_type,

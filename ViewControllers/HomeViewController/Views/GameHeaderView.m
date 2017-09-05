@@ -125,10 +125,10 @@
     
 }
 - (void)updateWithMatchLiveViewModel:(LiveViewModel *)model{
-    self.leftName.text = model.home_name;
-    self.rightName.text = model.visitor_name;
-    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:NO];
-    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:NO];
+    self.leftName.text = model.visitor_name;
+    self.rightName.text = model.home_name;
+    self.leftImg.image =[Factory getImageWithNumer:model.visitor_teamId white:NO];
+    self.rightImg.image =[Factory getImageWithNumer:model.home_teamId white:NO];
     switch ([model.match_state intValue]) {
         case 0://未开始
         {
@@ -147,15 +147,15 @@
             self.gameStatus.backgroundColor = Color_MainRed;
             self.gameStatus.layer.borderColor = [UIColor clearColor].CGColor;
             self.gameStatus.text = @"进行中";
-            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             self.timeLabel.text = @"";
             self.videoButton.hidden = NO;
             self.vsLabel.hidden = NO;
             if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
-                self.rightScore.textColor = Color_White_5;
-            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
                 self.leftScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.rightScore.textColor = Color_White_5;
             }
         }
             break;
@@ -164,12 +164,12 @@
             self.gameStatus.backgroundColor = UIColorFromRGBA(0x000000, 0.3);
             self.gameStatus.text = @"已结束";
             self.gameStatus.layer.borderColor = Color_White_3.CGColor;
-            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
-                self.rightScore.textColor = Color_White_5;
-            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
                 self.leftScore.textColor = Color_White_5;
+            }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+                self.rightScore.textColor = Color_White_5;
             }
             self.timeLabel.text = @"";
             self.videoButton.hidden = YES;

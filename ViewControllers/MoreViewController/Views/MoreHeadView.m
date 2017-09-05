@@ -107,8 +107,9 @@
 - (void)updateUIbyUserInfo{
     self.loginLabel.hidden = [UserManager manager].isLogin;
     self.nameLabel.text = [UserManager manager].isLogin ? [UserManager manager].info.username : @"";
-    NSString * city = [UserManager manager].info.city ? [UserManager manager].info.city : @"城市 · 性别";
-    self.descLabel.text = [UserManager manager].isLogin ? city : @"";
+    NSString * city = [UserManager manager].info.city ? [UserManager manager].info.city : @"城市";
+    NSString * sex = [UserManager manager].info.gender ? [NSString stringWithFormat:@" · %@",[UserManager manager].info.gender] : @" · 性别";
+    self.descLabel.text = [UserManager manager].isLogin ? [NSString stringWithFormat:@"%@%@",city,sex] : @"";
     self.editImage.hidden = ![UserManager manager].isLogin;
     if ([UserManager manager].hasPic) {
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserManager manager].info.avatar] placeholderImage:[UIImage imageNamed:@"list_img_user_normal"]];

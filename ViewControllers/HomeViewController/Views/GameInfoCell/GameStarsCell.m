@@ -135,7 +135,7 @@
     }];
 }
 - (void)updateWithArray:(StarModel *)star{
-    [self.homeView updateWithStarDetailModel:star.home];
-    [self.visitorView updateWithStarDetailModel:star.visitor];
+    [self.homeView updateWithStarDetailModel:star.visitor];
+    [self.visitorView updateWithStarDetailModel:star.home];
 }
 @end

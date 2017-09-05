@@ -21,6 +21,11 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"] forBarMetrics:UIBarMetricsDefault];
     [self creatNullView];
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.operationQueue cancelAllOperations];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -111,4 +116,5 @@
 - (void)doShare{
     
 }
+
 @end

@@ -35,7 +35,8 @@
     self.descLabel = [Factory creatLabelWithText:@""
                                        fontValue:font750(24)
                                        textColor:UIColorFromRGB(0xE31837)
-                                   textAlignment:NSTextAlignmentRight];
+                                   textAlignment:NSTextAlignmentCenter];
+    self.descLabel.numberOfLines = 0;
     [self addSubview:self.descLabel];
 }
 - (void)layoutSubviews{

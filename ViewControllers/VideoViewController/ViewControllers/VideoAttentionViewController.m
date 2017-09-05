@@ -12,7 +12,7 @@
 #import "AttentionTeamHeader.h"
 #import "VideoPlayCell.h"
 #import "LoginViewController.h"
-
+#import "VideoDetailViewController.h"
 @interface VideoAttentionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -88,10 +88,9 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    
-    
-    
+    VideoDetailViewController * vc = [VideoDetailViewController new];
+    vc.videoID = self.dataArray[indexPath.section].id;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)pushToSelectTeamViewController{
     [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];

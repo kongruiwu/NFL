@@ -96,6 +96,12 @@
     [whiteView2 addSubview:pwdLabel];
     [whiteView2 addSubview:self.pwdTF];
     
+    QQbtn.hidden =YES;
+    weiBoBtn.hidden = YES;
+    wehcatBtn.hidden = YES;
+    centerLine.hidden =YES;
+    thirdLabel.hidden =YES;
+    
     [self.view addSubview:self.loginBtn];
     [self.view addSubview:self.forgotBtn];
     [self.view addSubview:self.regisBtn];

@@ -8,12 +8,14 @@
 
 #import "AboutUsViewController.h"
 #import "AboutUsCell.h"
+#import "AboutUsModel.h"
 @interface AboutUsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic, strong) NSArray * titles;
 @property (nonatomic, strong) NSArray * images;
 @property (nonatomic, strong) NSArray * descs;
+@property (nonatomic, strong) AboutUsModel * model;
 
 @end
 
@@ -30,6 +32,7 @@
     [self setNavTitle:@"关于我们"];
     [self drawBackButton];
     [self creatUI];
+    [self getData];
     
 }
 - (void)creatUI{
@@ -85,4 +88,17 @@
     [cell updateWithTitle:self.titles[indexPath.row] desc:self.descs[indexPath.row] image:self.images[indexPath.row]];
     return cell;
 }
+
+- (void)getData{
+    [[NetWorkManger manager] sendRequest:PageAboutUs route:Route_Set withParams:@{} complete:^(NSDictionary *result) {
+        NSDictionary * dic = result[@"data"];
+        self.model = [[AboutUsModel alloc]initWithDictionary:dic];
+        NSString * version = [NSString stringWithFormat:@"v%@",[[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+        self.descs = @[self.model.weixin_gz.value,self.model.weibo.value,self.model.home_site.value,self.model.email.value,version];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 @end

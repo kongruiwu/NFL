@@ -232,6 +232,7 @@
     if (self.talkView.textField.text.length == 0) {
         return;
     }
+    
     NSDictionary * params = @{
                               @"uid":[UserManager manager].userID,
                               @"content":self.talkView.textField.text,
@@ -240,22 +241,29 @@
         NSDictionary * dic = result[@"data"];
         NSNumber * idNum = dic[@"id"];
         OnlineAnswerModel * model  =[[OnlineAnswerModel alloc]init];
-        model.content = self.talkView.textField.text;
+        model.content = [NSString stringWithFormat:@"%@",self.talkView.textField.text];
         model.uid = [UserManager manager].userID;
         model.username = [UserManager manager].info.username;
         model.avatar = [UserManager manager].info.avatar;
         model.is_admin = NO;
+        model.id = idNum;
         NSNumber * num = @(time(NULL));
         model.time = num;
-        model.id = idNum;
-        
-        NSMutableArray * muarr = self.dataArray.lastObject;
+        NSMutableArray * muarr;
+        if (self.dataArray.count == 0) {
+            muarr = [NSMutableArray new];
+        }else{
+            muarr = self.dataArray.lastObject;
+        }
         if (muarr.count == 5) {
             NSMutableArray * newMuarr = [NSMutableArray new];
             [newMuarr addObject:model];
             [self.dataArray addObject:newMuarr];
         }else{
             [muarr addObject:model];
+        }
+        if (self.dataArray.count == 0) {
+            [self.dataArray addObject:muarr];
         }
         self.talkView.textField.text = @"";
         [self.tabview reloadData];

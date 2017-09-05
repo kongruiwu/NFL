@@ -15,5 +15,5 @@
 
 
 - (instancetype)initWithTitle:(NSString *)title url:(NSString *)urlStr;
-
+- (instancetype)initWithNewsId:(NSNumber *)newsID;
 @end

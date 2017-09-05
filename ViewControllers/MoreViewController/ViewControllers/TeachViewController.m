@@ -8,6 +8,7 @@
 
 #import "TeachViewController.h"
 #import <HMSegmentedControl.h>
+
 #import "SubTeachViewController.h"
 
 @interface TeachViewController ()<UIScrollViewDelegate>
@@ -21,7 +22,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    [self setNavLineHidden];
 }
 
 
@@ -97,6 +98,9 @@
             weakSelf.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
     }];
+    [self.hmsgControl setSelectedSegmentIndex:self.index];
+    self.mainScroll.contentOffset = CGPointMake(self.index * UI_WIDTH, 0);
+    [self scrollViewDidEndDecelerating:self.mainScroll];
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;

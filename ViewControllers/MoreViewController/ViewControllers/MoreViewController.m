@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSArray * images;
 @property (nonatomic, strong) NSArray * titles;
 @property (nonatomic, strong) UIImageView * adFoot;
+@property (nonatomic, strong) NSNumber * messageCount;
 
 @end
 
@@ -37,15 +38,17 @@
     [self setNavAlpha];
     [self.header updateUIbyUserInfo];
     [self.tabview reloadData];
+    [MobClick event:@"more"];
+    [self requestMessageCount];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavAlpha];
     [self creatUI];
-    
 }
 - (void)creatUI{
+    self.messageCount = @0;
     self.images = @[@[@"list_icon_follow",@"list_icon_collection"],@[@"list_icon_q&a",@"list_icon_101class",@"list_icon_daydaynfl"],@[@"list_icon_feedback",@"list_icon_about",@"list_icon_set"]];
     self.titles = @[@[@"我的关注",@"我的收藏"],@[@"在线问答",@"101课堂",@"天天NFL"],@[@"意见反馈",@"关于我们",@"设置"]];
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
@@ -81,7 +84,11 @@
     if (!cell) {
         cell = [[MoreListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
-    [cell updateWithTitle:self.titles[indexPath.section][indexPath.row] image:self.images[indexPath.section][indexPath.row] desc:@""];
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        [cell updateWithTitle:self.titles[indexPath.section][indexPath.row] image:self.images[indexPath.section][indexPath.row] desc:[NSString stringWithFormat:@"%@",self.messageCount]];
+    }else{
+        [cell updateWithTitle:self.titles[indexPath.section][indexPath.row] image:self.images[indexPath.section][indexPath.row] desc:@""];
+    }
     return cell;
 }
 
@@ -121,10 +128,10 @@
                 [self presentLoginView];
                 return;
             }
-            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:DaydayNFL];
+            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:[UserManager manager].info.ttnfl_game_link];
             [self.navigationController pushViewController:vc animated:YES];
         }else if(indexPath.row == 1){
-            TeachViewController * vc = [[TeachViewController alloc]init];
+            WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"101课堂" url:Teach_101];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else if(indexPath.section == 2){
@@ -152,5 +159,19 @@
     UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
-
+- (void)requestMessageCount{
+    if (![UserManager manager].isLogin) {
+        return;
+    }
+    NSDictionary * params = @{
+                             @"uid":[UserManager manager].userID
+                             };
+    [[NetWorkManger manager] sendRequest:PageMessage route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * data = result[@"data"];
+        self.messageCount = data[@"online_answer"];
+        [self.tabview reloadData];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
 @end

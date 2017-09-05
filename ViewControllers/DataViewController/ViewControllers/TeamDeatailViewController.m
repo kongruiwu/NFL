@@ -15,6 +15,7 @@
 #import "TeamNewsViewController.h"
 #import "TeamDataModel.h"
 #import "LoginViewController.h"
+#import "VideoPlayViewController.h"
 #define TeamHeaderHigh  Anno750(148 *2)
 
 @interface TeamDeatailViewController ()<GameBassDelegate>
@@ -134,6 +135,7 @@
     [self.viewControllers addObject:news];
     
     self.teamHeader = [[TeamDetailHeader alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, TeamHeaderHigh + Anno750(80))];
+    [self.teamHeader.teamVideo addTarget:self action:@selector(checkTeamVideo) forControlEvents:UIControlEventTouchUpInside];
     self.selectView = [[SelectTopView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(80)) andTitles:@[@"数据",@"赛程",@"球员",@"资讯"]];
     [self.view addSubview:self.selectView];
     [self.view addSubview:self.teamHeader];
@@ -217,6 +219,15 @@
     } error:^(NFError *byerror) {
         
     }];
+}
+
+- (void)checkTeamVideo{
+    if (self.teamModel.intro_video_src.length == 0) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"链接丢失啦。。去看下其他的吧" duration:1.0f];
+        return;
+    }
+    VideoPlayViewController * vc = [[VideoPlayViewController alloc]initWithUrl:[NSURL URLWithString:self.teamModel.intro_video_src]];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 

@@ -84,14 +84,14 @@
     UITableViewCell * cell = (UITableViewCell *)[button superview];
     NSIndexPath * index = [self.tabview indexPathForCell:cell];
     PageDetailViewController * vc = [[PageDetailViewController alloc]init];
-    vc.photoID = self.dataArray[index.row/2].id;
+    vc.photoID = self.dataArray[index.section*2].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)checkRightPhotos:(UIButton *)button{
     UITableViewCell * cell = (UITableViewCell *)[button superview];
     NSIndexPath * index = [self.tabview indexPathForCell:cell];
     PageDetailViewController * vc = [[PageDetailViewController alloc]init];
-    vc.photoID = self.dataArray[index.row/2 + 1].id;
+    vc.photoID = self.dataArray[index.section*2 + 1].id;
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)collectThisPictures:(UIButton *)btn{
@@ -100,9 +100,9 @@
         [self presentViewController:nav animated:YES completion:nil];
     }else{
         [SVProgressHUD show];
-        UITableViewCell * cell = (UITableViewCell *)[[btn superview] superview];
+        UITableViewCell * cell = (UITableViewCell *)[[[btn superview] superview] superview];
         NSIndexPath * index = [self.tabview indexPathForCell:cell];
-        InfoListModel * model = self.dataArray[index.row/2 + btn.tag - 1];
+        InfoListModel * model = self.dataArray[index.section * 2 + btn.tag - 1];
         NSDictionary * params = @{
                                   @"uid":[UserManager manager].userID,
                                   @"type":model.cont_type,

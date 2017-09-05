@@ -89,6 +89,10 @@
 - (void)updateWithTitle:(NSString *)title image:(NSString *)iamge desc:(NSString *)desc{
     self.nameLabel.text = title;
     self.leftImg.image = [UIImage imageNamed:iamge];
-    self.descLabel.text = desc;
+    if ([desc intValue] == 0) {
+        self.descLabel.text  = @"";
+    }else{
+        self.descLabel.text = desc;
+    }
 }
 @end

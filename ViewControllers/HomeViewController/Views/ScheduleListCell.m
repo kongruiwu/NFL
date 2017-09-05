@@ -153,10 +153,20 @@
         }
         [self.tagImgs removeAllObjects];
     }
-    self.leftName.text = model.home_name;
-    self.rightName.text = model.visitor_name;
-    self.leftImg.image = [Factory getImageWithNumer:model.home_teamId white:YES];
-    self.rightImg.image = [Factory getImageWithNumer:model.visitor_teamId white:YES];
+    //nfl 主场在右边    客场在左边
+    self.leftName.text = model.visitor_name;
+    self.rightName.text = model.home_name;
+    self.leftImg.image = [Factory getImageWithNumer:model.visitor_teamId white:YES];
+    self.rightImg.image = [Factory getImageWithNumer:model.home_teamId white:YES];
+    
+    if ([model.home_scores intValue] > [model.visitor_scores intValue]) {
+        self.leftScore.textColor = Color_LightGray;
+        self.rightScore.textColor = Color_MainBlack;
+    }else if([model.home_scores intValue] < [model.visitor_scores intValue]){
+        self.rightScore.textColor = Color_LightGray;
+        self.leftScore.textColor = Color_MainBlack;
+    }
+    
     switch ([model.match_state intValue]) {
         case 0://未开始
         {
@@ -179,15 +189,15 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.right.equalTo(self.mas_centerX);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
                             UIImageView * rightImg = [self viewWithTag: i - 2];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
-                                make.right.equalTo(rightImg.mas_right);
+                                make.right.equalTo(rightImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }
@@ -197,7 +207,7 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(self.mas_centerX);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
@@ -205,7 +215,7 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(leftImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }
@@ -216,7 +226,7 @@
                         [img mas_makeConstraints:^(MASConstraintMaker *make) {
                             make.centerX.equalTo(@0);
                             make.top.equalTo(@(Anno750(20)));
-                            make.width.equalTo(@(Anno750(100)));
+                            make.width.equalTo(@(Anno750(160)));
                             make.height.equalTo(@(Anno750(40)));
                         }];
                     }else if(i%2 == 0){
@@ -225,15 +235,15 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.right.equalTo(centerImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
                             UIImageView * rightImg = [self viewWithTag: i - 2];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
-                                make.right.equalTo(rightImg.mas_right);
+                                make.right.equalTo(rightImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }
@@ -243,7 +253,7 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(centerImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
@@ -251,7 +261,7 @@
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(leftImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));
-                                make.width.equalTo(@(Anno750(100)));
+                                make.width.equalTo(@(Anno750(160)));
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }
@@ -267,8 +277,8 @@
         {
             self.statusLabel.backgroundColor = Color_MainRed;
             self.statusLabel.text = @"进行中";
-            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             self.timeLabel.text = @"";
             self.videoButton.hidden = YES;
             self.vsLabel.hidden = NO;
@@ -279,8 +289,8 @@
         {
             self.statusLabel.backgroundColor = Color_TagGray;
             self.statusLabel.text = @"已结束";
-            self.leftScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
-            self.rightScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.leftScore.text = [NSString stringWithFormat:@"%@",model.visitor_scores];
+            self.rightScore.text = [NSString stringWithFormat:@"%@",model.home_scores];
             self.timeLabel.text = @"";
             self.videoButton.hidden = model.video.length> 0 ? NO : YES;
             self.vsLabel.hidden = NO;

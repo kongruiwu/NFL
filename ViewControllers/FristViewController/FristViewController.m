@@ -40,8 +40,12 @@
         imgView.frame = CGRectMake(UI_WIDTH * i, 0, UI_WIDTH, UI_HEGIHT);
         
         if (i == images.count - 1) {
-            UIButton * buton = [Factory creatButtonWithNormalImage:@"" selectImage:@""];
-            buton.frame = CGRectMake(0, Anno750(1000), UI_WIDTH, Anno750(336));
+            UIButton * buton = [Factory creatButtonWithTitle:@"进入NFL的世界"
+                                             backGroundColor:Color_MainBlue
+                                                   textColor:[UIColor whiteColor]
+                                                    textSize:font750(30)];
+            buton.frame = CGRectMake(Anno750(750 - 325)/2, Anno750(1000), Anno750(325), Anno750(80));
+            buton.layer.cornerRadius = Anno750(40);
             [imgView addSubview:buton];
             imgView.userInteractionEnabled = YES;
             [buton addTarget:self action:@selector(pushToHome) forControlEvents:UIControlEventTouchUpInside];

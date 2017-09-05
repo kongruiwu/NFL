@@ -17,6 +17,7 @@
 #import "GameRatioViewController.h"
 #import "LiveViewModel.h"
 #import "WKWebViewController.h"
+#import "EnterTeachView.h"
 #define GameHeadHigh    Anno750(480)
 #define GameSelectHigh  (64 + Anno750(80))
 @interface GameDetailTabViewController ()<GameBassDelegate>
@@ -24,10 +25,11 @@
 @property (nonatomic, strong) GameHeaderView * headView;
 @property (nonatomic, strong) GameSegmentView * segementView;
 @property (nonatomic, strong) GameBassViewController * currentVC;
-
 @property (nonatomic, strong) LiveViewModel * viewModel;
-
 @property (nonatomic, strong) NSMutableArray<GameBassViewController *> * viewControllers;
+@property (nonatomic, strong) EnterTeachView * teachView;
+
+
 
 @end
 
@@ -57,7 +59,7 @@
     [super viewDidLoad];
     [self setNavAlpha];
     [self drawBackButton];
-//    [self drawShareButton];
+    [self drawShareButton];
     [self setNavTitle:@"比赛详情"];
     [self creatUI];
     [self getData];
@@ -87,15 +89,62 @@
         [weakself changeControllerFromOldController:weakself.currentVC toNewController:weakself.viewControllers[index] index:index];
         [weakself.headView.segmentView setSelectedSegmentIndex:index];
     }];
+    
+    NSNumber * num = [[NSUserDefaults standardUserDefaults] objectForKey:@"TEACHVIEW"];
+    if (num && num.integerValue == 1) {
+        
+    }else{
+        self.teachView = [[EnterTeachView alloc]init];
+        [self.view addSubview:self.teachView];
+        [self.teachView.enterBtn addTarget:self action:@selector(checkTeachViewController) forControlEvents:UIControlEventTouchUpInside];
+        [self.teachView.closeBtn addTarget:self action:@selector(closeTeachView) forControlEvents:UIControlEventTouchUpInside];
+        [self.teachView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@0);
+            make.right.equalTo(@0);
+            make.bottom.equalTo(@0);
+            make.height.equalTo(@(Anno750(80)));
+        }];
+        self.teachView.hidden = YES;
+    }
+}
+#pragma mark - 进入新手教程页
+- (void)checkTeachViewController{
+    WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"101课堂" url:Teach_101];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+- (void)showTeachView{
+    
+    if (self.teachView) {
+        self.teachView.hidden = NO;
+        [self.view bringSubviewToFront:self.teachView];
+    }
+}
+- (void)hiddenTeachView{
+    if (self.teachView) {
+        self.teachView.hidden = YES;
+    }
+}
+#pragma mark - 关闭新手入口
+- (void)closeTeachView{
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否不再显示新手入口按钮？关闭后可以在“更多”-“101课堂“打开" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * sureAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.teachView removeFromSuperview];
+        [[NSUserDefaults standardUserDefaults] setObject:@1 forKey:@"TEACHVIEW"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }];
+    UIAlertAction * cannceAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self.teachView removeFromSuperview];
+    }];
+    [alert addAction:sureAction];
+    [alert addAction:cannceAction];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
+
 - (void)checkLiveVideo{
-    if (self.liveUrl.length>0) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.liveUrl]];
-        
-//        WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"视频直播" url:self.liveUrl];
-//        [self.navigationController pushViewController:vc animated:YES];
-    }
+    
+    WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"视频直播" url:self.viewModel.live_h5_url];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - 切换viewController
@@ -118,6 +167,11 @@
                 
             }else{
                 [self refrehSubViewControllersDataAtIndex:index];
+            }
+            if ([self.currentVC isKindOfClass:[GameLiveViewController class]]) {
+                [self showTeachView];
+            }else{
+                [self hiddenTeachView];
             }
         }else
         {
@@ -196,12 +250,14 @@
             if ([self.currentVC isKindOfClass:[GameLiveViewController class]]) {
                 GameLiveViewController * live = (GameLiveViewController *)self.currentVC;
                 live.viewModel = self.viewModel;
+                [self showTeachView];
             }else if([self.currentVC isKindOfClass:[GameInfoViewController class]]){
                 GameInfoViewController * info = (GameInfoViewController *)self.currentVC;
                 info.viewModel = self.viewModel;
             }
             [self.headView updateWithMatchLiveViewModel:self.viewModel];
             [self.segementView updateWithMatchLiveViewModel:self.viewModel];
+            self.headView.videoButton.hidden = !self.viewModel.hasLive;
         }
         
         
@@ -232,6 +288,9 @@
         }
         [self.headView updateWithMatchLiveViewModel:self.viewModel];
         [self.segementView updateWithMatchLiveViewModel:self.viewModel];
+        self.headView.videoButton.hidden = !self.viewModel.hasLive;
+        
+        
         if ([self.currentVC isKindOfClass:[GameNewsViewController class]]) {
             GameNewsViewController  * news = (GameNewsViewController *)self.currentVC;
             news.dataArray = self.viewModel.news_list;
@@ -246,6 +305,9 @@
             vc.dataArray = self.viewModel.video_list;
         }else if([self.currentVC isKindOfClass:[GameDataViewController class]]){
             GameDataViewController * vc = (GameDataViewController *)self.currentVC;
+            vc.viewModel = self.viewModel;
+        }else if([self.currentVC isKindOfClass:[GameLiveViewController class]]){
+            GameLiveViewController * vc = (GameLiveViewController*)self.currentVC;
             vc.viewModel = self.viewModel;
         }
         
@@ -333,7 +395,6 @@
             video.tabview.tableHeaderView = header;
             video.delegate = self;
             [self.viewControllers addObject:video];
-            
         }
             break;
             
@@ -344,37 +405,25 @@
 }
 
 
-//- (void)doShare{
-//    if (!self.viewModel) {
-//        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"数据正在获取中，请稍后" duration:1.0f];
-//        return;
-//    }
-//    
-//    //显示分享面板
-//    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-//        //图片
-//        
-//        UIImage * image = self.shareImg.image;
-//        NSString * title = self.infoModel.title;
-//        NSString * desc = [NSString stringWithFormat:@"NFL橄榄球：“%@“快来看看吧",self.infoModel.title];
-//        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-//        UMShareObject * shareObj;
-//        if (platformType == UMSocialPlatformType_Sina) {
-//            shareObj = [UMShareImageObject shareObjectWithTitle:title descr:desc thumImage:image];
-//        }else{
-//            shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
-//            UMShareWebpageObject * shareWeb = (UMShareWebpageObject *)shareObj;
-//            shareWeb.webpageUrl = self.infoModel.share_link;
-//        }
-//        if (platformType == UMSocialPlatformType_Sina) {
-//            messageObject.text = [NSString stringWithFormat:@"%@%@",desc,self.infoModel.share_link];
-//        }
-//        messageObject.shareObject = shareObj;
-//        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
-//            NSLog(@"%@",error);
-//        }];
-//        
-//    }];
-//}
+- (void)doShare{
+    //显示分享面板
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        //图片
+        
+        UIImage * image = [Factory getImageWithNumer:self.viewModel.home_teamId white:YES];
+        NSString * title = [NSString stringWithFormat:@"%@对战%@",self.viewModel.home_name,self.viewModel.visitor_name];
+        NSString * desc = [NSString stringWithFormat:@"NFL橄榄球 激情战报：“%@“快来看看吧",title];
+        UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+        UMShareWebpageObject * shareObj;
+        shareObj = [UMShareWebpageObject shareObjectWithTitle:title descr:desc thumImage:image];
+        shareObj.webpageUrl = self.viewModel.share_link;
+        messageObject.shareObject = shareObj;
+        [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }];
+}
+
 
 @end

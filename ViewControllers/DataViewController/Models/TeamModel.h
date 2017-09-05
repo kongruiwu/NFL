@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSString * sname;
 /**是否被关注*/
 @property (nonatomic, assign) BOOL followed;
-
+/**球队新浪uid*/
+@property (nonatomic, strong) NSString * weibo_uid;
 @end

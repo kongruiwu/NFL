@@ -13,4 +13,6 @@ pod ‘UMengUShare/Social/ReducedQQ'
 pod ‘UMengUShare/Social/Sina'
 pod ‘UMengUShare/UI’
 pod ‘SVProgressHUD'
+pod 'UMengAnalytics-NO-IDFA'
+pod 'JPush'
 end

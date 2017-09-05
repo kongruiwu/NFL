@@ -58,4 +58,6 @@
 @property (nonatomic, strong) NSString * c_date;
 /**星期几*/
 @property (nonatomic, strong) NSString * c_date_w;
+/**判断是否默认显示*/
+@property (nonatomic, assign) BOOL show_index;
 @end

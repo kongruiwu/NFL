@@ -28,18 +28,20 @@
 
 @implementation ScheduleViewController
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self getData];
+}
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self creatUI];
-    [self getData];
-    
 }
 - (void)creatUI{
     self.dataArray =[NSMutableArray new];
     
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 49 - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     
     self.refreshHeader = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpWeekData)];
@@ -50,7 +52,7 @@
 
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataArray[section].list.count + 2;
+    return self.dataArray[section].list.count+2;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.dataArray.count;
@@ -100,7 +102,7 @@
         cell = [[ScheduleListCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     cell.delgate = self;
-    [cell updateWithMatchDetailModel:self.dataArray[indexPath.section].list[indexPath.row -1]];
+    [cell updateWithMatchDetailModel:self.dataArray[indexPath.section].list[indexPath.row - 1]];
     cell.line.hidden = indexPath.row == 1 ? YES : NO;
     return cell;
 }
@@ -111,53 +113,63 @@
     }
     MatchDetailModel * model = self.dataArray[indexPath.section].list[indexPath.row - 1];
     GameDetailTabViewController * vc = [[GameDetailTabViewController alloc]initWithGameID:model.gameId matchStatus:model.match_state.integerValue];
-    if (model.live_h5_url.length>0) {
-        vc.liveUrl = model.live_h5_url;
-    }
     [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)getData{
     [self requestDataWithParmas:@{}];
 }
 - (void)requestDataWithParmas:(NSDictionary *)params{
-    [self.dataArray removeAllObjects];
     [self requestDataWithParmas:params isRefresh:NO isUp:NO];
 }
 
 - (void)requestDataWithParmas:(NSDictionary *)params isRefresh:(BOOL)rec isUp:(BOOL)isUp{
-    [SVProgressHUD show];
+    //第一次进来不加载loading
+    id user = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewUser"];
+    if (user && [user isKindOfClass:[NSNumber class]] && [user integerValue] == 1) {
+        [SVProgressHUD show];
+    }
     
     [[NetWorkManger manager] sendRequest:PageSchedules route:Route_Match withParams:params complete:^(NSDictionary *result) {
         NSArray * arr = result[@"data"];
         NSDictionary * dic = result[@"info"];
+        //刷新数据 需要置空dataArray 不能提前释放
+        if (params.allKeys.count == 0) {
+            [self.dataArray removeAllObjects];
+        }
         self.requestInfo = [[HomeInfoModel alloc]initWithDictionary:dic];
-        //更新参数
+        //仅当不是使用下拉或者 下拉时 刷新参数 数据
         if (!rec) {
             self.preInfo = self.requestInfo.pre;
             self.nextInfo = self.requestInfo.next;
         }
-        
-        NSMutableArray * muarr = [NSMutableArray new];
-        for (int i = 0; i<arr.count; i++) {
-            MatchListModel * model = [[MatchListModel alloc]initWithDictionary:arr[i]];
-            
-            if (!self.indexPath) {
-                for (int j = 0; j<model.list.count; j++) {
-                    if (model.list[j].match_state.integerValue != 2) {
-                        self.indexPath = [NSIndexPath indexPathForRow:j+1 inSection:i];
-                        break;
+        //下拉 加载上周数据 所有需要另外一个数组来接收新数据
+        if (arr.count>0) {
+            NSMutableArray * muarr = [NSMutableArray new];
+            for (int i = 0; i<arr.count; i++) {
+                MatchListModel * model = [[MatchListModel alloc]initWithDictionary:arr[i]];
+                if (!self.indexPath) {
+                    for (int j = 0; j<model.list.count; j++) {
+                        if (model.list[j].match_state.integerValue != 2) {
+                            self.indexPath = [NSIndexPath indexPathForRow:j inSection:i];
+                            break;
+                        }
                     }
                 }
+                [muarr addObject:model];
             }
-            [muarr addObject:model];
-        }
-        if (rec && !isUp) {//当在加载更多   且属于 下拉时
-            [muarr addObjectsFromArray:self.dataArray];
-            self.dataArray = [NSMutableArray arrayWithArray:muarr];
-        }else{
-            [self.dataArray addObjectsFromArray:muarr];
+            if (rec) {
+                if (!isUp) {//下拉操作
+                    [muarr addObjectsFromArray:self.dataArray];
+                    self.dataArray = [NSMutableArray arrayWithArray:muarr];
+                }else{//上拉操作
+                    [self.dataArray addObjectsFromArray:muarr];
+                }
+            }else{
+                self.dataArray = [NSMutableArray arrayWithArray:muarr];
+            }
         }
         
+        //当用户使用刷新操作时 更新参数
         if (rec) {
             if (isUp) {
                 self.nextInfo = self.requestInfo.next;
@@ -204,6 +216,7 @@
         [self.refreshHeader endRefreshing];
     }
 }
+
 #pragma mark - 加载下周比赛内容
 - (void)loadNextWeekData{
     NSDictionary * params = @{
@@ -226,5 +239,7 @@
         [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"链接丢失了。。去看看其他的吧" duration:1.0f];
     }
 }
+
+
 
 @end

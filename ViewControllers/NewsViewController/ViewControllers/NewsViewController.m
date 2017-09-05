@@ -25,8 +25,9 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self setNavLineHidden];
     self.tabBarController.tabBar.hidden = NO;
+    [MobClick event:@"news"];
 }
 
 - (void)viewDidLoad {

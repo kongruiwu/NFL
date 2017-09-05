@@ -45,7 +45,7 @@
     }else if(section == 1){
         return self.scoreSections.count + 1;
     }else if(section == 2){
-        return self.isVisitor ? self.viewModel.player_state.visitor.count : self.viewModel.player_state.home.count;
+        return !self.isVisitor ? self.viewModel.player_state.visitor.count : self.viewModel.player_state.home.count;
     }
     return 0;
 }
@@ -89,7 +89,7 @@
         label.backgroundColor = Color_BackGround2;
         [header addSubview:label];
         
-        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[self.viewModel.home_name,self.viewModel.visitor_name]];
+        self.segmentbtn = [[UISegmentedControl alloc]initWithItems:@[self.viewModel.visitor_name,self.viewModel.home_name]];
         self.segmentbtn.backgroundColor = [UIColor whiteColor];
         self.segmentbtn.layer.borderColor = Color_MainBlue.CGColor;
         self.segmentbtn.tintColor = Color_MainBlue;
@@ -162,7 +162,7 @@
         }
         ScoreModel * model ;
         NSNumber * teamid;
-        if (index.row == 1) {
+        if (index.row == 2) {
             teamid = self.viewModel.home_teamId;
             model = self.viewModel.detail_point.home;
         }else{
@@ -227,7 +227,7 @@
         cell = [[DataTeamTitleCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
     NSArray * arr ;
-    if (self.isVisitor) {
+    if (!self.isVisitor) {
         arr = self.viewModel.player_state.visitor;
     }else{
         arr = self.viewModel.player_state.home;
@@ -238,24 +238,7 @@
     }
     return cell;
 }
-//- (void)getData
-//{
-//    [SVProgressHUD show];
-//    NSDictionary * params = @{
-//                              @"gameId":self.gameID,
-//                              @"page":@"data",
-//                              };
-//    [[NetWorkManger manager] sendRequest:PageGameDetail route:Route_Match withParams:params complete:^(NSDictionary *result) {
-//        NSDictionary * dic = result[@"data"];
-//        self.dataModel = [[MatchOverDataModel alloc]initWithDictionary:dic];
-//        [self.tabview reloadData];
-//        if (self.tabview.contentSize.height < UI_HEGIHT) {
-//            self.tabview.contentSize = CGSizeMake(0, UI_HEGIHT + Anno750(80));
-//        }
-//    } error:^(NFError *byerror) {
-//        
-//    }];
-//}
+
 
 
 - (void)segmentbtnSelect:(UISegmentedControl *)segement{

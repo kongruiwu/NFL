@@ -38,4 +38,6 @@
 @property (nonatomic, strong) HomeTeam * home_team;
 /**关注的球队*/
 @property (nonatomic, strong) NSMutableArray<HomeTeam *> * follow_teams;
+/**天天nfl游戏链接*/
+@property (nonatomic, strong) NSString * ttnfl_game_link;
 @end
