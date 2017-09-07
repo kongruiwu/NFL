@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
     ScheduleStatusOvered        //比赛结束
 };
 
+#define UmengClick  @"599bf78f07fe6566dd00173b"
 #define UmengKey    @"599bf2c34544cb5580000c1d"
 #define WxAppID     @"wx39c19501fef6c3cb"
 #define WxAppSecret @"40e72dd216b234ff249be91fe7538d4f"
@@ -58,9 +59,9 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define Anno750(x) ((x)/ 1334.0f) * UI_HEGIHT
 
 #ifdef DEBUG
-#define isProduction YES
+#define isProduct YES
 #else
-#define isProduction NO
+#define isProduct NO
 #endif
 
 

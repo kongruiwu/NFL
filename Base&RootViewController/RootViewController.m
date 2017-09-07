@@ -52,6 +52,32 @@
         nav.tabBarItem.selectedImage = [[UIImage imageNamed:selImg[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     
+    [self requestMessageCount];
+    
+    
+}
+- (void)requestMessageCount{
+    if (![UserManager manager].isLogin) {
+        return;
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID
+                              };
+    [[NetWorkManger manager] sendRequest:PageMessage route:Route_Set withParams:params complete:^(NSDictionary *result) {
+        NSDictionary * data = result[@"data"];
+        NSNumber * num = data[@"online_answer"];
+        if (num.intValue >0) {
+            CGFloat x = ceilf(0.94 * self.tabBar.frame.size.width);
+            CGFloat y = ceilf(0.2 * self.tabBar.frame.size.height);
+            UIView * dot = [[UIView alloc]initWithFrame:CGRectMake(x, y, Anno750(12), Anno750(12))];
+            dot.backgroundColor = [UIColor redColor];
+            dot.layer.cornerRadius = Anno750(6);
+            dot.tag = 1000;
+            [self.tabBar addSubview:dot];
+        }
+    } error:^(NFError *byerror) {
+        
+    }];
 }
 
 

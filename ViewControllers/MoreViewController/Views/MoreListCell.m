@@ -44,6 +44,7 @@
     self.redIcon = [Factory creatViewWithColor:[UIColor redColor]];
     self.redIcon.layer.cornerRadius = Anno750(5);
     self.redIcon.hidden = YES;
+    
     [self addSubview:self.leftImg];
     [self addSubview:self.nameLabel];
     [self addSubview:self.descLabel];
@@ -89,10 +90,12 @@
 - (void)updateWithTitle:(NSString *)title image:(NSString *)iamge desc:(NSString *)desc{
     self.nameLabel.text = title;
     self.leftImg.image = [UIImage imageNamed:iamge];
+    self.descLabel.text  = @"";
+
     if ([desc intValue] == 0) {
-        self.descLabel.text  = @"";
+        self.redIcon.hidden = YES;
     }else{
-        self.descLabel.text = desc;
+        self.redIcon.hidden = NO;
     }
 }
 @end

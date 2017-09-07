@@ -16,7 +16,7 @@
 #import "GameDetailTabViewController.h"
 #import "VideoDetailViewController.h"
 #import "WKWebViewController.h"
-
+#import "AppDelegate.h"
 @interface HomeViewController ()<UIScrollViewDelegate,SelectTimeViewDelegate>
 
 @property (nonatomic, strong) SelectTimeView * timeView;
@@ -50,6 +50,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //关闭推送延迟
+    AppDelegate * appde = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    appde.isLanuch = NO;
+    
     self.defaultWeek = -1;
     [self drawNavLogo];
     [self setNavLineHidden];

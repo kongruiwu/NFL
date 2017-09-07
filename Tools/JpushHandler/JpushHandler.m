@@ -52,9 +52,10 @@
     }else{
         [self pushToViewController:type idNum:idNum status:status];
     }
-    
-    
 }
+
+
+
 /**比赛内页、视频内页、新闻内页*/
 - (void)pushToViewController:(NSNumber *)type idNum:(NSNumber *)idnum status:(NSNumber *)status{
     self.currentVC = [self getCurrentVC];

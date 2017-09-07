@@ -22,6 +22,9 @@ typedef NS_ENUM(NSInteger, JPUSHTYPE){
 @property (nonatomic, strong) UIViewController * currentVC;
 
 + (instancetype)handler;
+
+@property (nonatomic, strong) NSTimer * timer;
+
 //注册代理
 - (void)handerJpushMessage:(NSDictionary *)message withForground:(BOOL)rec;
 @end

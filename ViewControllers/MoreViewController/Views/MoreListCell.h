@@ -17,5 +17,6 @@
 @property (nonatomic, strong) UIView * bottomLine;
 @property (nonatomic, strong) UIView * redIcon;
 
+
 - (void)updateWithTitle:(NSString *)title image:(NSString *)iamge desc:(NSString *)desc;
 @end

@@ -177,12 +177,12 @@
             self.timeLabel.text = [Factory timestampSwitchWithHourStyleTime:[model.time integerValue]];
             self.videoButton.hidden = YES;
             self.vsLabel.hidden = YES;
-            
+
             for (int i = 0; i<model.relay_list.count; i++) {
                 UIImageView * img = [Factory creatImageViewWithImage:@""];
                 [img sd_setImageWithURL:[NSURL URLWithString:model.relay_list[i].logo]];
                 [self.contentView addSubview:img];
-                img.tag = i;
+                img.tag = i+100;
                 if (model.relay_list.count%2 == 0) {
                     if (i%2 == 0) {
                         if (i == 0) {
@@ -193,7 +193,7 @@
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
-                            UIImageView * rightImg = [self viewWithTag: i - 2];
+                            UIImageView * rightImg = [self viewWithTag: i - 2 +100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.right.equalTo(rightImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
@@ -211,7 +211,7 @@
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
-                            UIImageView * leftImg = [self viewWithTag: i - 2];
+                            UIImageView * leftImg = [self viewWithTag: i - 2 + 100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(leftImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));
@@ -231,7 +231,7 @@
                         }];
                     }else if(i%2 == 0){
                         if (i == 2) {
-                            UIImageView * centerImg = [self viewWithTag: 0];
+                            UIImageView * centerImg = [self viewWithTag: 0 +100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.right.equalTo(centerImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
@@ -239,7 +239,7 @@
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
-                            UIImageView * rightImg = [self viewWithTag: i - 2];
+                            UIImageView * rightImg = [self viewWithTag: i - 2 + 100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.right.equalTo(rightImg.mas_left);
                                 make.top.equalTo(@(Anno750(20)));
@@ -249,7 +249,7 @@
                         }
                     }else {
                         if (i == 1) {
-                            UIImageView * centerImg = [self viewWithTag: 0];
+                            UIImageView * centerImg = [self viewWithTag: 0+100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(centerImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));
@@ -257,7 +257,7 @@
                                 make.height.equalTo(@(Anno750(40)));
                             }];
                         }else{
-                            UIImageView * leftImg = [self viewWithTag: i - 2];
+                            UIImageView * leftImg = [self viewWithTag: i - 2+100];
                             [img mas_makeConstraints:^(MASConstraintMaker *make) {
                                 make.left.equalTo(leftImg.mas_right);
                                 make.top.equalTo(@(Anno750(20)));

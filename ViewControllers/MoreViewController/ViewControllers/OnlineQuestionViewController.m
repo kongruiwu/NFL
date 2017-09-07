@@ -49,7 +49,13 @@
     [self creatUI];
     [self scrollToEnd];
     [self getData];
+    [self removeTabRedView];
 }
+- (void)removeTabRedView{
+    UIView * redView = [self.tabBarController.tabBar viewWithTag:1000];
+    redView.hidden = YES;
+}
+
 - (void)creatUI{
     
     self.dataArray = [NSMutableArray new];
@@ -221,6 +227,7 @@
         if (num.length == 0) {
             [self scrollToEnd];
         }
+        [self getAnswer];
         [self.refreshHeader endRefreshing];
     } error:^(NFError *byerror) {
         [self.refreshHeader endRefreshing];

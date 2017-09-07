@@ -54,8 +54,10 @@
     [super layoutSubviews];
     float w = (UI_WIDTH - Anno750(122))/self.labels.count;
     [self.leftImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@0);
+        make.left.equalTo(@(Anno750(26)));
         make.centerY.equalTo(@0);
+        make.width.equalTo(@(Anno750(70)));
+        make.height.equalTo(@(Anno750(70)));
     }];
     [self.topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);

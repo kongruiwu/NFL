@@ -47,7 +47,11 @@
     if (self) {
         self.titleStr = @"资讯";
         NSString * url = [NSString stringWithFormat:@"http://m.nflchina.com/news/detail/%@.html?app_iframe",newsID];
-        self.urlStr = [NSString stringWithFormat:@"%@&uid=%@&callback_verify=%@",url,[UserManager manager].userID,[UserManager manager].info.callback_verify];
+        if ([UserManager manager].isLogin) {
+            self.urlStr = url;
+        }else{
+            self.urlStr = [NSString stringWithFormat:@"%@&uid=%@&callback_verify=%@",url,[UserManager manager].userID,[UserManager manager].info.callback_verify];
+        }
         [self requestNewsDetail:newsID];
     }
     return self;
@@ -121,8 +125,10 @@
     //显示分享面板
     [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
         //图片
-        
         UIImage * image = self.shareImg.image;
+        if (!image) {
+            image = [UIImage imageNamed:@"180"];
+        }
         NSString * title;
         NSString * desc;
         NSString * url ;

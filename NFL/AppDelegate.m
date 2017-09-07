@@ -11,7 +11,9 @@
 #import "RootViewController.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import "LanuchMovieViewController.h"
+#import "UMMobClick/MobClick.h"
 #import "JpushHandler.h"
+#import "RootViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -20,6 +22,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //延迟加载 推送使用
+    self.isLanuch = YES;
+    
     [self UmengSetting];
     [self JpushSettingWithDic:launchOptions];
     [self getUserInfo];
@@ -36,6 +41,11 @@
     [[UMSocialManager defaultManager] openLog:YES];
     /* 设置友盟appkey */
     [[UMSocialManager defaultManager] setUmSocialAppkey:UmengKey];
+    
+    UMConfigInstance.appKey = UmengClick;
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];
+    
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:WxAppID appSecret:WxAppSecret redirectURL:@"NFL"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:QQAPPID/*设置QQ平台的appID*/  appSecret:QQAPPKEY redirectURL:@"NFL"];
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:SINAAPPKEY  appSecret:SINAAPPSer redirectURL:@"NFL"];
@@ -66,7 +76,7 @@
     [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     [JPUSHService setupWithOption:launchOptions appKey:JpushKey
                           channel:@"App Store"
-                 apsForProduction:isProduction
+                 apsForProduction:isProduct
             advertisingIdentifier:nil];
     
 }
@@ -104,7 +114,13 @@
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
     }
-    [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+    if (self.isLanuch) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+        });
+    }else{
+        [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+    }
     completionHandler();
 }
 
@@ -114,7 +130,13 @@
     if (application.applicationState == UIApplicationStateActive) {
         [[JpushHandler handler] handerJpushMessage:userInfo withForground:YES];
     }else{
-        [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+        if (self.isLanuch) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+            });
+        }else{
+            [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+        }
     }
     completionHandler(UIBackgroundFetchResultNewData);
     
@@ -123,7 +145,14 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // Required,For systems with less than or equal to iOS6
     [JPUSHService handleRemoteNotification:userInfo];
-    [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+    if (self.isLanuch) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+        });
+    }else{
+        [[JpushHandler handler] handerJpushMessage:userInfo withForground:NO];
+    }
+    
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
