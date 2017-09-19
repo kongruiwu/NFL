@@ -211,11 +211,11 @@
             break;
     }
     if (index.row == 4) {
-        [cell updateThirdWithTitles:self.scoreSections[index.row] leftScore:model.home
-                    rightScore:model.visitor];
+        [cell updateThirdWithTitles:self.scoreSections[index.row] leftScore:model.visitor
+                    rightScore:model.home];
     }else{
-        [cell updateWithTitles:self.scoreSections[index.row] leftScore:model.home
-                    rightScore:model.visitor isTime:index.row == 2 ? YES : NO];
+        [cell updateWithTitles:self.scoreSections[index.row] leftScore:model.visitor
+                    rightScore:model.home isTime:index.row == 2 ? YES : NO];
     }
     
     return cell;

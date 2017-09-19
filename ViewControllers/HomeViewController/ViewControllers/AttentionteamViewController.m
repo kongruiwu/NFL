@@ -169,7 +169,7 @@
             self.nextInfo = self.requestInfo.next;
         }
         //刷新数据 需要置空dataArray 不能提前释放
-        if (params.allKeys.count == 0) {
+        if (!rec && !isUp) {
             [self.dataArray removeAllObjects];
         }
         NSMutableArray * muarr = [NSMutableArray new];

@@ -42,6 +42,9 @@
 @property (nonatomic, assign) id<ScheduleListCellDelegate> delgate;
 
 
+
+
+
 - (void)updateWithMatchDetailModel:(MatchDetailModel *)model;
 
 @end

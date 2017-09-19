@@ -160,7 +160,7 @@
     
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     
-    [formatter setDateFormat:@"HH:ss"];
+    [formatter setDateFormat:@"HH:mm"];
     NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"Asia/Beijing"];
     
     [formatter setTimeZone:timeZone];

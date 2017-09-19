@@ -323,11 +323,11 @@
         [self creatLabelWithTitle:[NSString stringWithFormat:@"%@",model.offensive_rush_rank] point:left];
     }
     
-    self.scoreValue.text = [NSString stringWithFormat:@"%@",model.offensive_points];
-    self.passValue.text = [NSString stringWithFormat:@"%@",model.offensive_pass];
-    self.defenseValue.text = [NSString stringWithFormat:@"%@",model.defense_points];
-    self.defenRunValue.text = [NSString stringWithFormat:@"%@",model.defense_rush];
-    self.defenPassValue.text = [NSString stringWithFormat:@"%@",model.defense_pass];
+    self.scoreValue.text = [NSString stringWithFormat:@"%.2f",model.offensive_points.floatValue];
+    self.passValue.text = [NSString stringWithFormat:@"%.2f",model.offensive_pass.floatValue];
+    self.defenseValue.text = [NSString stringWithFormat:@"%.2f",model.defense_points.floatValue];
+    self.defenRunValue.text = [NSString stringWithFormat:@"%.2f",model.defense_rush.floatValue];
+    self.defenPassValue.text = [NSString stringWithFormat:@"%.2f",model.defense_pass.floatValue];
     self.runValue.text = [NSString stringWithFormat:@"%.2f",[model.offensive_rush floatValue]];
     
 }

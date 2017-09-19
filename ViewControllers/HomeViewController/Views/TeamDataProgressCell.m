@@ -102,8 +102,8 @@
 
 - (void)updateThirdWithTitles:(NSString *)title leftScore:(NSNumber *)left rightScore:(NSNumber *)right{
     self.nameLabel.text = title;
-    self.leftScore.text = [NSString stringWithFormat:@"%@%%",left];
-    self.rightScore.text = [NSString stringWithFormat:@"%@%%",right];
+    self.leftScore.text = [NSString stringWithFormat:@"%.2f%%",[left floatValue]];
+    self.rightScore.text = [NSString stringWithFormat:@"%.2f%%",[right floatValue]];
     int leftv = [left intValue];
     int rightv = [right intValue];
     int value ;
@@ -113,9 +113,6 @@
         value = (leftv * 100) / (leftv + rightv);
     }
     self.slider.value = value;
-    
-    
-    
 }
 
 @end

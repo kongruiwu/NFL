@@ -90,8 +90,8 @@
 }
 - (void)setViewModel:(LiveViewModel *)viewModel{
     _viewModel = viewModel;
-    self.leftScores = @[_viewModel.offensive_points.home,_viewModel.offensive_yards.home,_viewModel.defense_points.home,_viewModel.defense_yards.home];
-    self.rightScores = @[_viewModel.offensive_points.visitor,_viewModel.offensive_yards.visitor,_viewModel.defense_points.visitor,_viewModel.defense_yards.visitor];
+    self.leftScores = @[_viewModel.offensive_points.visitor,_viewModel.offensive_yards.visitor,_viewModel.defense_points.visitor,_viewModel.defense_yards.visitor];
+    self.rightScores = @[_viewModel.offensive_points.home,_viewModel.offensive_yards.home,_viewModel.defense_points.home,_viewModel.defense_yards.home];
     [self.tabview reloadData];
     [self updateTabFooter];
 }
