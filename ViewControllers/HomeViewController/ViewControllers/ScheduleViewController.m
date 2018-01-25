@@ -40,8 +40,7 @@
 }
 - (void)creatUI{
     self.dataArray =[NSMutableArray new];
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - Nav64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     
     self.refreshHeader = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadUpWeekData)];
@@ -219,6 +218,10 @@
 
 #pragma mark - 加载下周比赛内容
 - (void)loadNextWeekData{
+    if (!self.nextInfo.match_type) {
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"暂无比赛信息" duration:1.0];
+        return ;
+    }
     NSDictionary * params = @{
                               @"type":self.nextInfo.match_type,
                               @"week":self.nextInfo.week

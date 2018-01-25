@@ -33,13 +33,11 @@
     [self getData];
 }
 - (void)creatUI{
-    
-    
     self.dataArray = [NSMutableArray new];
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - 49 - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - Tab49 - Nav64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     if (self.isSet) {
-        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64);
+        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Nav64);
         self.teamView = [[ShowMessageView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) MessageType:MessageTypeTeam];
         [self.teamView.setTeam addTarget:self action:@selector(openTeamWeibo) forControlEvents:UIControlEventTouchUpInside];
         [self.teamView.sureButton addTarget:self action:@selector(changeUserHomeTeamRequest) forControlEvents:UIControlEventTouchUpInside];

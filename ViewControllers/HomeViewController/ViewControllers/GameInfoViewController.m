@@ -27,9 +27,10 @@
     [self creatUI];
 }
 - (void)creatUI{
+    
     self.titles = @[@"直播平台：",@"比赛时间：",@"比赛地点：",@"范特西游戏："];
     self.descs = @[@"",@"",@"",@""];
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - Nav64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
 }
 
@@ -120,9 +121,10 @@
 
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if (targetContentOffset->y > (Anno750(480 - 80) - 64)/2 && targetContentOffset->y <= Anno750(480 - 80) - 64) {
-        targetContentOffset->y = Anno750(480 - 80) - 64;
-    }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
+    
+    if (targetContentOffset->y > (Anno750(480 - 80) - Nav64)/2 && targetContentOffset->y <= Anno750(480 - 80) - Nav64) {
+        targetContentOffset->y = Anno750(480 - 80) - Nav64;
+    }else if(targetContentOffset->y < (Anno750(480 - 80) - Nav64)/2){
         targetContentOffset->y = 0;
     }
 }

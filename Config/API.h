@@ -107,4 +107,6 @@
 #define PagePlayerRank      @"player_rank"
 //球队详情
 #define TeamDetail          @"team_detail"
+//开机图片
+#define StarImg             @"flash_screen"
 #endif /* API_h */

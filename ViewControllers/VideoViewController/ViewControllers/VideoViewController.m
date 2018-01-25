@@ -26,7 +26,7 @@
     [super viewWillAppear:animated];
     [self setNavLineHidden];
     self.tabBarController.tabBar.hidden = NO;
-    [MobClick event:@"videos"];
+    [MobClick event:Mob_Videos];
 }
 
 - (void)viewDidLoad {
@@ -97,6 +97,7 @@
                 [weakSelf.viewControllers replaceObjectAtIndex:index withObject:vc];
             }
         }
+        [weakSelf mobClickEvent:index];
         [UIView animateWithDuration:0.3f animations:^{
             weakSelf.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
@@ -121,7 +122,21 @@
             [self.viewControllers replaceObjectAtIndex:index withObject:vc];
         }
     }
+    [self mobClickEvent:index];
     [self.hmsgControl setSelectedSegmentIndex:index animated:YES];
+}
+- (void)mobClickEvent:(NSInteger)index{
+    if (index == 0) {
+        [MobClick event:Mob_Stars];
+    }else if(index == 1){
+        [MobClick event:Mob_Matches];
+    }else if(index == 2){
+        [MobClick event:Mob_Stories];
+    }else if(index == 3){
+        [MobClick event:Mob_101];
+    }else if(index == 4){
+        [MobClick event:Mob_VideoFav];
+    }
 }
 
 

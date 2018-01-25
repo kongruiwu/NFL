@@ -38,7 +38,7 @@
     [self setNavAlpha];
     [self.header updateUIbyUserInfo];
     [self.tabview reloadData];
-    [MobClick event:@"more"];
+    [MobClick event:Mob_More];
     [self requestMessageCount];
 }
 
@@ -51,7 +51,11 @@
     self.messageCount = @0;
     self.images = @[@[@"list_icon_follow",@"list_icon_collection"],@[@"list_icon_q&a",@"list_icon_101class",@"list_icon_daydaynfl"],@[@"list_icon_feedback",@"list_icon_about",@"list_icon_set"]];
     self.titles = @[@[@"我的关注",@"我的收藏"],@[@"在线问答",@"101课堂",@"天天NFL"],@[@"意见反馈",@"关于我们",@"设置"]];
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
+    float h = 0;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue]>= 11) {
+        h = - Nav64;
+    }
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, h, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
     self.header = [[MoreHeadView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(260))];
@@ -74,6 +78,12 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.01;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return nil;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return Anno750(100);
@@ -129,9 +139,11 @@
                 return;
             }
             WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"天天NFL" url:[UserManager manager].info.ttnfl_game_link];
+            [MobClick event:Mob_TTnfl];
             [self.navigationController pushViewController:vc animated:YES];
         }else if(indexPath.row == 1){
             WKWebViewController * vc = [[WKWebViewController alloc]initWithTitle:@"101课堂" url:Teach_101];
+            [MobClick event:Mob_Ball101];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else if(indexPath.section == 2){
@@ -148,6 +160,7 @@
             return;
         }
         if (indexPath.row == 1) {
+            [MobClick event:Mob_MyFavorties];
             [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
         }else if(indexPath.row == 0){
             [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];

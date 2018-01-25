@@ -181,6 +181,7 @@
 		8BF494811F39585400D40727 /* VideoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF494801F39585400D40727 /* VideoListModel.m */; };
 		8BFA3F9D1F35B8E70016DAD5 /* GameDetailTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFA3F9C1F35B8E70016DAD5 /* GameDetailTabViewController.m */; };
 		8BFA3FA01F35D45E0016DAD5 /* GameScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFA3F9F1F35D45E0016DAD5 /* GameScrollView.m */; };
+		8BFBCAA21F959B3800FEA8E3 /* LanuchImgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFBCAA11F959B3800FEA8E3 /* LanuchImgViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -540,6 +541,8 @@
 		8BFA3F9C1F35B8E70016DAD5 /* GameDetailTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailTabViewController.m; sourceTree = "<group>"; };
 		8BFA3F9E1F35D45E0016DAD5 /* GameScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScrollView.h; sourceTree = "<group>"; };
 		8BFA3F9F1F35D45E0016DAD5 /* GameScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScrollView.m; sourceTree = "<group>"; };
+		8BFBCAA01F959B3800FEA8E3 /* LanuchImgViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanuchImgViewController.h; sourceTree = "<group>"; };
+		8BFBCAA11F959B3800FEA8E3 /* LanuchImgViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanuchImgViewController.m; sourceTree = "<group>"; };
 		CAB947E37A732D87D4518A31 /* Pods-NFL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.debug.xcconfig"; sourceTree = "<group>"; };
 		DBF88E7D8AD8315F5F006E44 /* Pods-NFL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFL.release.xcconfig"; path = "Pods/Target Support Files/Pods-NFL/Pods-NFL.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1251,6 +1254,8 @@
 				8B90738E1F45D2BB005D70ED /* FristViewController.m */,
 				8B90739A1F45DA39005D70ED /* LanuchMovieViewController.h */,
 				8B90739B1F45DA39005D70ED /* LanuchMovieViewController.m */,
+				8BFBCAA01F959B3800FEA8E3 /* LanuchImgViewController.h */,
+				8BFBCAA11F959B3800FEA8E3 /* LanuchImgViewController.m */,
 				8B9073901F45D3F7005D70ED /* lan1.jpg */,
 				8B22290D1F5025F9003BA23E /* lan2.jpg */,
 				8B22290E1F5025F9003BA23E /* lan3.jpg */,
@@ -1547,6 +1552,7 @@
 				8B169A931F343E0500E2507E /* DataTeamTitleCell.m in Sources */,
 				8B2D73EF1F0BDEF600E1BF4B /* MoreViewController.m in Sources */,
 				8B7C0E201F432490000DF4D0 /* LiveViewModel.m in Sources */,
+				8BFBCAA21F959B3800FEA8E3 /* LanuchImgViewController.m in Sources */,
 				8B2D73A41F0BD33A00E1BF4B /* BaseModel.m in Sources */,
 				8B2D73C81F0BDC9A00E1BF4B /* RootViewController.m in Sources */,
 				8BC865E11F4927C9000EAA39 /* ThirdInfoModel.m in Sources */,

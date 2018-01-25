@@ -86,7 +86,7 @@
 
 - (void)setNavUnAlpha{
     self.navigationController.navigationBar.translucent = NO;
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"       ] forBarMetrics:0];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg_default"] forBarMetrics:0];
     self.navigationController.navigationBar.shadowImage = nil;
 }
 

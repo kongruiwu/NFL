@@ -28,7 +28,7 @@
 - (void)creatUI{
     self.titles = @[@"场均得分",@"场均码数",@"场均对手得分",@"场均对手码数"];
     
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - Nav64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

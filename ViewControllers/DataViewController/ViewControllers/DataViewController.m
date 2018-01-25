@@ -24,6 +24,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    [MobClick event:Mob_Stars];
     [self setNavLineHidden];
 }
 
@@ -91,11 +92,11 @@
     __weak DataViewController * weakself = self;
     [self.hmsgControl setIndexChangeBlock:^(NSInteger index) {
         CGPoint point = weakself.mainScroll.contentOffset;
+        [weakself mobClickEvent:index];
         [UIView animateWithDuration:0.3f animations:^{
             weakself.mainScroll.contentOffset = CGPointMake(UI_WIDTH * index,point.y);
         }];
     }];
-    
     [self.mainScroll setContentOffset:CGPointMake(2 * UI_WIDTH, 0) animated:NO];
     self.hmsgControl.selectedSegmentIndex = 2;
     
@@ -103,7 +104,17 @@
 }
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;
+    [self mobClickEvent:index];
     [self.hmsgControl setSelectedSegmentIndex:index animated:YES];
+}
+- (void)mobClickEvent:(NSInteger)index{
+    if (index == 0) {
+        [MobClick event:Mob_Team];
+    }else if(index == 1){
+        [MobClick event:Mob_Standing];
+    }else if(index == 2){
+        [MobClick event:Mob_Player];
+    }
 }
 
 

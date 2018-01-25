@@ -24,7 +24,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    
+    [MobClick event:Mob_AboutUs];
 }
 
 - (void)viewDidLoad {

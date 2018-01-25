@@ -38,8 +38,7 @@
 }
 - (void)creatUI{
     
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - Nav64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
     
@@ -60,6 +59,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * head = [Factory creatViewWithColor:[UIColor whiteColor]];
     head.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(60));
@@ -125,9 +125,10 @@
     return cell;
 }
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if (targetContentOffset->y > (Anno750(480 - 80) - 64)/2 && targetContentOffset->y <= Anno750(480 - 80) - 64) {
-        targetContentOffset->y = Anno750(480 - 80) - 64;
-    }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
+    
+    if (targetContentOffset->y > (Anno750(480 - 80) - Nav64)/2 && targetContentOffset->y <= Anno750(480 - 80) - Nav64) {
+        targetContentOffset->y = Anno750(480 - 80) - Nav64;
+    }else if(targetContentOffset->y < (Anno750(480 - 80) - Nav64)/2){
         targetContentOffset->y = 0;
     }
 }

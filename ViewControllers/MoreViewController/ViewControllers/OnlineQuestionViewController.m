@@ -31,6 +31,7 @@
         self.timer = nil;
     }
     self.timer = [NSTimer scheduledTimerWithTimeInterval:30.0f target:self selector:@selector(getAnswer) userInfo:nil repeats:YES];
+    [MobClick event:Mob_Question];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -59,8 +60,7 @@
 - (void)creatUI{
     
     self.dataArray = [NSMutableArray new];
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT -Anno750(98) - 64) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT -Anno750(98) - Nav64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
     self.refreshHeader = [RefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(getData)];
@@ -71,7 +71,7 @@
     header.frame = CGRectMake(0, 0, UI_WIDTH, Anno750(20));
     self.tabview.tableHeaderView = header;
     
-    self.talkView = [[TalkeInputView alloc]initWithFrame:CGRectMake(0, UI_HEGIHT - Anno750(98) - 64 , UI_WIDTH, Anno750(98))];
+    self.talkView = [[TalkeInputView alloc]initWithFrame:CGRectMake(0, UI_HEGIHT - Anno750(98) - Nav64 , UI_WIDTH, Anno750(98))];
     [self.talkView.sendBtn addTarget:self action:@selector(SendMessage) forControlEvents:UIControlEventTouchUpInside];
     self.talkView.textField.delegate = self;
     [self.view addSubview:self.talkView];
@@ -94,8 +94,8 @@
     CGFloat transformY = keyboardFrame.origin.y - self.view.frame.size.height;
     // 3.执行动画
     [UIView animateWithDuration:duration animations:^{
-        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT + transformY - Anno750(98) - 64 - 64);
-        self.talkView.transform = CGAffineTransformMakeTranslation(0, transformY - 64);
+        self.tabview.frame = CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT + transformY - Anno750(98)- Nav64);
+        self.talkView.transform = CGAffineTransformMakeTranslation(0, transformY - Nav64);
         [self scrollToEnd];
     }];
 }
@@ -119,6 +119,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return nil;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * header = [Factory creatViewWithColor:[UIColor clearColor]];

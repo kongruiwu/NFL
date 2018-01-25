@@ -38,9 +38,6 @@
     self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) isTeam:NO defaultWeek:self.defaultWeek];
     self.timeView.delegate = self;
     [self.tabBarController.view addSubview:self.timeView];
-    
-    [MobClick event:@"schedules"];
-    
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -139,8 +136,10 @@
             }
         }
         if (index == 0) {
+            [MobClick event:Mob_Schedules];
             weakself.navigationItem.leftBarButtonItem = weakself.leftItem;
         }else{
+            [MobClick event:Mob_Schedules_favor];
             weakself.navigationItem.leftBarButtonItem = nil;
         }
         [UIView animateWithDuration:0.3f animations:^{
@@ -151,8 +150,10 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     int index = scrollView.contentOffset.x / UI_WIDTH;
     if (index == 0) {
+        [MobClick event:Mob_Schedules];
         self.navigationItem.leftBarButtonItem = self.leftItem;
     }else{
+        [MobClick event:Mob_Schedules_favor];
         self.navigationItem.leftBarButtonItem = nil;
     }
     if ([self.viewControllers[index] isKindOfClass:[NSString class]]) {
@@ -180,6 +181,7 @@
     ScheduleViewController * vc = self.viewControllers[0];
     [vc requestDataWithParmas:params];
 }
+
 
 
 

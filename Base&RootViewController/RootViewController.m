@@ -13,6 +13,10 @@
 #import "DataViewController.h"
 #import "MoreViewController.h"
 #import "ConfigHeader.h"
+
+
+
+
 @interface RootViewController ()
 
 @end
@@ -53,7 +57,23 @@
     }
     
     [self requestMessageCount];
+    self.starType = 0;
+    NSString * homepage = [[NSUserDefaults standardUserDefaults] objectForKey:@"HOMEPAGE"];
+    if (homepage) {
+        if ([homepage isEqualToString:@"match"]) {
+            self.starType = 0;
+        }else if([homepage isEqualToString:@"newset"]){
+            self.starType = 1;
+        }else if([homepage isEqualToString:@"video"]){
+            self.starType = 2;
+        }else if([homepage isEqualToString:@"static"]){
+            self.starType = 3;
+        }else if([homepage isEqualToString:@"more"]){
+            self.starType = 4;
+        }
+    }
     
+    self.selectedIndex = self.starType;
     
 }
 - (void)requestMessageCount{

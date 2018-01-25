@@ -123,15 +123,16 @@
 
 - (void)show{
     self.hidden = NO;
+    
     [UIView animateWithDuration:0.5 animations:^{
         self.backgroundColor = UIColorFromRGBA(0x000000, 0.5);
-        self.showView.frame = CGRectMake(0, UI_HEGIHT - ShowH - 64, UI_WIDTH,  ShowH);
+        self.showView.frame = CGRectMake(0, UI_HEGIHT - ShowH - Nav64, UI_WIDTH,  ShowH);
     }];
 }
 - (void)disMiss{
     [UIView animateWithDuration:0.5 animations:^{
         self.backgroundColor = [UIColor clearColor];
-        self.showView.frame = CGRectMake(0, UI_HEGIHT - 64, UI_WIDTH, ShowH);
+        self.showView.frame = CGRectMake(0, UI_HEGIHT - Nav64, UI_WIDTH, ShowH);
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.hidden = YES;

@@ -9,5 +9,4 @@
 #import <AVKit/AVKit.h>
 
 @interface LanuchMovieViewController : AVPlayerViewController
-
 @end

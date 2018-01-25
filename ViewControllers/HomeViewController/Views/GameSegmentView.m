@@ -34,7 +34,7 @@
     self.segmentView.selectionIndicatorColor = Color_HsmRed;
     
     self.groundImg.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    self.segmentView.frame = CGRectMake(0, 64, self.frame.size.width, self.frame.size.height - 64);
+    self.segmentView.frame = CGRectMake(0, Nav64, self.frame.size.width, self.frame.size.height - Nav64);
     
     [self addSubview:self.groundImg];
     [self addSubview:self.segmentView];

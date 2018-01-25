@@ -14,6 +14,7 @@
 #import "UMMobClick/MobClick.h"
 #import "JpushHandler.h"
 #import "RootViewController.h"
+#import "LanuchImgViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -31,7 +32,7 @@
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.window = [[UIWindow alloc]initWithFrame:UI_BOUNDS];
-    [self.window setRootViewController:[LanuchMovieViewController new]];
+    [self.window setRootViewController:[LanuchImgViewController new]];
     [self.window makeKeyAndVisible];
     
     return YES;

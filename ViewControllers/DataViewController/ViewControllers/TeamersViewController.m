@@ -36,7 +36,7 @@
     
     self.dataArray = [NSMutableArray new];
     self.isLineUp = YES;
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT- Anno750(80) - Nav64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     
 }

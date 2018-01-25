@@ -19,7 +19,7 @@
 #import "WKWebViewController.h"
 #import "EnterTeachView.h"
 #define GameHeadHigh    Anno750(480)
-#define GameSelectHigh  (64 + Anno750(80))
+#define GameSelectHigh  (Nav64 + Anno750(80))
 @interface GameDetailTabViewController ()<GameBassDelegate>
 
 @property (nonatomic, strong) GameHeaderView * headView;

@@ -71,13 +71,26 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self drawBackButton];
+    if ([self.titleStr isEqualToString:@"天天NFL"]) {
+        [self drawLeftBarItems];
+    }else{
+        [self drawBackButton];
+    }
+    
     [self setNavTitle:self.titleStr];
     [self creatUI];
     if (![self.titleStr isEqualToString:@"用户使用协议"] && ![self.titleStr isEqualToString:@"视频直播"]) {
         [self drawShareButton];
     }
     
+}
+- (void)drawLeftBarItems{
+    UIImage * image = [[UIImage imageNamed:@"nav_icon_back_normal"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage * image2 = [[UIImage imageNamed:@"close"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doBack)];
+    UIBarButtonItem * leftItem2 = [[UIBarButtonItem alloc]initWithImage:image2 style:UIBarButtonItemStylePlain target:self action:@selector(closeViewController)];
+    
+    self.navigationItem.leftBarButtonItems = @[leftItem,leftItem2];
 }
 
 - (void)creatUI{
@@ -87,8 +100,7 @@
         [self.shareImg sd_setImageWithURL:[NSURL URLWithString:self.infoModel.pic_thumbnail]];
     }
     
-    
-    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - 64)];
+    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Nav64)];
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]]];
     self.webview.navigationDelegate = self;
     [self.view addSubview:self.webview];
@@ -204,11 +216,16 @@
 }
 
 - (void)doBack{
+  
     if (self.webview.canGoBack) {
         [self.webview goBack];
     }else{
         [super doBack];
     }
+    
+}
+- (void)closeViewController{
+    [super doBack];
 }
 - (void)requestNewsDetail:(NSNumber *)newsID{
     NSDictionary * params = @{

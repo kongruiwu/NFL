@@ -38,15 +38,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.defaultWeek = 1;
+    self.defaultWeek = 0;
     [self creatUI];
     [self getData];
 }
 - (void)creatUI{
     
     self.dataArray = [NSMutableArray new];
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(130), UI_WIDTH, UI_HEGIHT- Anno750(80) - 49 - 64 - Anno750(130)) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(130), UI_WIDTH, UI_HEGIHT- Anno750(80) - Tab49 - Nav64 - Anno750(130)) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
     
     UIView * headview = [Factory creatViewWithColor:[UIColor clearColor]];
@@ -132,12 +131,17 @@
 }
 - (void)getData{
     [self.dataArray removeAllObjects];
-    NSDictionary * params = @{
-                              @"week":@(self.defaultWeek),
-                              
-                              };
+    
+    NSDictionary * params = @{};
+    if (self.defaultWeek != 0) {
+        params = @{@"week":@(self.defaultWeek)};
+    }
     [[NetWorkManger manager] sendRequest:PagePlayerRank route:Route_Match withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
+        NSDictionary * info = result[@"info"];
+        self.defaultWeek = [info[@"week"] intValue];
+        [self.weekBtn setTitle:[NSString stringWithFormat:@"第%ld周",self.defaultWeek] forState:
+         UIControlStateNormal];
         NSArray * list = dic[@"list"];
         for (int i = 0; i<list.count; i++) {
             PlayerRankModel * model = [[PlayerRankModel alloc]initWithDictionary:list[i]];

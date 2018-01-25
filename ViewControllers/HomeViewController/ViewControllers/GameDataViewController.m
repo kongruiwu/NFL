@@ -35,7 +35,8 @@
 - (void)creatUI{
     self.sectionTitles = @[@"得分",@"球队数据",@"球员"];
     self.scoreSections = @[@"传球码数",@"跑球码数",@"控球时间",@"攻防转换",@"3档转换成功率"];
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - 64) style:UITableViewStylePlain delegate:self];
+    
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Anno750(80) - Nav64) style:UITableViewStylePlain delegate:self];
     self.tabview.tag = 1000;
     [self.view addSubview:self.tabview];
 }
@@ -248,9 +249,10 @@
 
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset{
-    if (targetContentOffset->y > (Anno750(480 - 80) - 64)/2 && targetContentOffset->y <= Anno750(480 - 80) - 64) {
-        targetContentOffset->y = Anno750(480 - 80) - 64;
-    }else if(targetContentOffset->y < (Anno750(480 - 80) - 64)/2){
+    
+    if (targetContentOffset->y > (Anno750(480 - 80) - Nav64)/2 && targetContentOffset->y <= Anno750(480 - 80) - Nav64) {
+        targetContentOffset->y = Anno750(480 - 80) - Nav64;
+    }else if(targetContentOffset->y < (Anno750(480 - 80) - Nav64)/2){
         targetContentOffset->y = 0;
     }
 }

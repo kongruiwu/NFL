@@ -223,6 +223,12 @@
     }
 }
 - (void)loadNextWeekData{
+    if (!self.nextInfo.match_type) {
+        [self.refreshHeader endRefreshing];
+        [self.refreshFooter endRefreshing];
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"暂无比赛信息" duration:1.0];
+        return ;
+    }
     NSDictionary * params = @{
                               @"type":self.nextInfo.match_type,
                               @"week":self.nextInfo.week,

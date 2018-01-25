@@ -60,8 +60,7 @@
         make.width.equalTo(@(Anno750(450)));
         make.height.equalTo(@(Anno750(60)));
     }];
-    
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(125), UI_WIDTH, UI_HEGIHT - Anno750(125)- Anno750(80) - 49 - 64) style:UITableViewStylePlain delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, Anno750(125), UI_WIDTH, UI_HEGIHT - Anno750(125)- Anno750(80) - Tab49 - Nav64) style:UITableViewStylePlain delegate:self];
     [self.view addSubview:self.tabview];
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -123,9 +122,9 @@
     [cell updateWithTeamRankModel:arr[indexPath.row]];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self.navigationController pushViewController:[TeamDeatailViewController new] animated:YES];
-}
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    [self.navigationController pushViewController:[TeamDeatailViewController new] animated:YES];
+//}
 
 - (void)segmentbtnSelect:(UISegmentedControl *)segmentbtn{
     self.isSub = !self.isSub;

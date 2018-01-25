@@ -59,6 +59,7 @@
     [self addSubview:self.clearButton];
     [self.editImage addSubview:self.teamIcon];
     [self.editImage addSubview:self.editLabel];
+    [self bringSubviewToFront:self.clearButton];
 }
 - (void)layoutSubviews{
     [super layoutSubviews];
