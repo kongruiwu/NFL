@@ -78,7 +78,7 @@
         if (!cell) {
             cell = [[FollowedTeamCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
-        cell.isWhite = YES;
+//        cell.isWhite = YES;
         cell.dataArray = [UserManager manager].info.follow_teams;
         return cell;
     }

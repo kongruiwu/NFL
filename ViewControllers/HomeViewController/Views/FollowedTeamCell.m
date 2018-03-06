@@ -63,11 +63,11 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     SmallTeamCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"SmallTeamCell" forIndexPath:indexPath];
     HomeTeam * team = self.dataArray[indexPath.row];
-    if (self.isWhite) {
+//    if (self.isWhite) {
         cell.selectImg.image = [UIImage imageNamed:@"list_button_60x60_sel"];
-    }else{
-        cell.selectImg.image = [UIImage imageNamed:@"list_button_select_white"];
-    }
+//    }else{
+//        cell.selectImg.image = [UIImage imageNamed:@"list_button_select_white"];
+//    }
     cell.teamImg.image = [Factory getImageWithNumer:team.team_id white:YES];
     return cell;
 }

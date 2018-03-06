@@ -19,7 +19,7 @@
 }
 - (void)creatUI{
     self.groundImg = [Factory creatImageViewWithImage:@"nav_bg_default"];
-    self.addBtn = [Factory creatButtonWithNormalImage:@"nav_button_add_white" selectImage:nil];    
+    self.addBtn = [Factory creatButtonWithNormalImage:@"nav_button_add_normal" selectImage:nil];
     
     [self addSubview:self.groundImg];
     [self addSubview:self.addBtn];
