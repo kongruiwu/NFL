@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavTitle:@"视频"];
+    [self drawNavLogo];
     [self setNavLineHidden];
     [self creatUI];
     

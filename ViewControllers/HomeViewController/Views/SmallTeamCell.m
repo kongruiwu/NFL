@@ -18,7 +18,8 @@
     return self;
 }
 - (void)creatUI{
-    self.selectImg = [Factory creatImageViewWithImage:@"list_button_60x60_sel"];
+    
+    self.selectImg = [Factory creatImageViewWithImage:@"list_button_select_white"];
     self.teamImg = [Factory creatImageViewWithImage:@""];
     
     [self addSubview:self.selectImg];

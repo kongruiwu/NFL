@@ -11,6 +11,9 @@
 #import "UserInfo.h"
 @interface FollowedTeamCell : UITableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 
+
+@property (nonatomic, assign) BOOL isWhite;
+
 @property (nonatomic, strong) UILabel * descLabel;
 
 @property (nonatomic, strong) UICollectionView * collectView;

@@ -177,74 +177,21 @@
             self.timeLabel.text = [Factory timestampSwitchWithHourStyleTime:[model.time integerValue]];
             self.videoButton.hidden = YES;
             self.vsLabel.hidden = YES;
-
-            if (model.relay_list.count == 1) {
-                UIImageView * img = [Factory creatImageViewWithImage:@""];
-                [img sd_setImageWithURL:[NSURL URLWithString:model.relay_list[0].logo]];
-                [self.contentView addSubview:img];
-                [img mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(@0);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
-                [self.tagImgs addObject:img];
-            }else if(model.relay_list.count == 2){
-                UIImageView * img1 = [Factory creatImageViewWithImage:@""];
-                UIImageView * img2 = [Factory creatImageViewWithImage:@""];
-                [img1 sd_setImageWithURL:[NSURL URLWithString:model.relay_list[0].logo]];
-                [img2 sd_setImageWithURL:[NSURL URLWithString:model.relay_list[1].logo]];
-                
-                [self.contentView addSubview:img1];
-                [self.contentView addSubview:img2];
-                
-                [img1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(self.mas_centerX);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
-                [img2 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(self.mas_centerX);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
-                [self.tagImgs addObject:img1];
-                [self.tagImgs addObject:img2];
-            }else if(model.relay_list.count>= 3){
-                UIImageView * img1 = [Factory creatImageViewWithImage:@""];
-                UIImageView * img2 = [Factory creatImageViewWithImage:@""];
-                UIImageView * img3 = [Factory creatImageViewWithImage:@""];
-                [img1 sd_setImageWithURL:[NSURL URLWithString:model.relay_list[0].logo]];
-                [img2 sd_setImageWithURL:[NSURL URLWithString:model.relay_list[1].logo]];
-                [img3 sd_setImageWithURL:[NSURL URLWithString:model.relay_list[2].logo]];
-                
-                [self.contentView addSubview:img1];
-                [self.contentView addSubview:img2];
-                [self.contentView addSubview:img3];
-                [self.tagImgs addObject:img1];
-                [self.tagImgs addObject:img2];
-                [self.tagImgs addObject:img3];
-                
-                [img2 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(@0);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
-                [img1 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.equalTo(img2.mas_left);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
-                [img3 mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(img2.mas_right);
-                    make.top.equalTo(@(Anno750(20)));
-                    make.width.equalTo(@(Anno750(160)));
-                    make.height.equalTo(@(Anno750(40)));
-                }];
+            float with = Anno750(160);
+            if (model.relay_list.count>= 1) {
+                for (int i = 0; i<model.relay_list.count; i++) {
+                    float x = (UI_WIDTH - model.relay_list.count * with)/2;
+                    UIImageView * img = [Factory creatImageViewWithImage:@""];
+                    [img sd_setImageWithURL:[NSURL URLWithString:model.relay_list[i].logo]];
+                    [self.contentView addSubview:img];
+                    [img mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(@(x + i * with));
+                        make.top.equalTo(@(Anno750(10)));
+                        make.width.equalTo(@(with));
+                        make.height.equalTo(@(Anno750(40)));
+                    }];
+                     [self.tagImgs addObject:img];
+                }
             }
             
         }

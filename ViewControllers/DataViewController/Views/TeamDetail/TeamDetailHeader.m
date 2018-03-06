@@ -21,7 +21,7 @@
     self.bgImg = [Factory creatImageViewWithImage:@"nav_bg_default"];
     
     self.teamImg = [Factory creatImageViewWithImage:@""];
-    self.teamImg.layer.borderColor = Color_TagBlue.CGColor;
+    self.teamImg.layer.borderColor = [UIColor whiteColor].CGColor;
     self.teamImg.layer.borderWidth = 0.5f;
     self.teamImg.layer.cornerRadius = Anno750(60);
     self.teamImg.userInteractionEnabled = YES;
