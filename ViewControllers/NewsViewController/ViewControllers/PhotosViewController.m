@@ -26,6 +26,15 @@
     [self getData];
 }
 - (void)creatUI{
+    //缓存处理
+    NSMutableArray * muarr = [Factory getCacheArrayWithKey:@"PhotoHomeData"];
+    self.dataArray = [NSMutableArray new];
+    if (muarr.count>0) {
+        for (int i = 0; i<muarr.count; i++) {
+            PhotoSetModel * model = [[PhotoSetModel alloc]initWithDictionary:muarr[i]];
+            [self.dataArray addObject:model];
+        }
+    }
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Nav64 - Tab49 - Anno750(80)) style:UITableViewStyleGrouped delegate:self];
     
     [self.view addSubview:self.tabview];
@@ -70,13 +79,14 @@
 }
 
 - (void)getData{
-    self.dataArray =[NSMutableArray new];
     [SVProgressHUD show];
     [[NetWorkManger manager] sendRequest:NewWest_album route:Route_NewWest withParams:@{} complete:^(NSDictionary *result) {
+        [self.dataArray removeAllObjects];
         [self hiddenNullView];
         NSDictionary * dic = (NSDictionary *)result;
         NSDictionary * dic2 = dic[@"data"];
         NSArray * arr = dic2[@"list"];
+        [Factory saveCacheWithDataArray:arr keyString:@"PhotoHomeData"];
         for (int i = 0; i<arr.count; i++) {
             PhotoSetModel * model = [[PhotoSetModel alloc]initWithDictionary:arr[i]];
             [self.dataArray addObject:model];

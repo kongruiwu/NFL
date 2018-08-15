@@ -30,10 +30,7 @@
         make.edges.equalTo(@0);
     }];
     [self.nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(Anno750(200)));
-        make.width.equalTo(@(Anno750(200)));
-        make.centerX.equalTo(@0);
-        make.top.equalTo(@(Anno750(700)));
+        make.edges.equalTo(@0);
     }];
 }
 - (void)showNextImage{

@@ -45,8 +45,7 @@
 }
 - (void)creatUI{
     
-    self.titles = @[@[@"头像",@"用户名",@"性别",@"生日",@"城市",@"主队"],@[@"手机",@"密码"]];
-    //,@[@"第三方帐号绑定"]
+    self.titles = @[@[@"头像",@"用户名",@"性别",@"生日",@"城市",@"主队"],@[@"手机",@"密码"],@[@"第三方帐号绑定"]];
     UserInfo * info = [UserManager manager].info;
     self.descs = @[@[@"",
                      info.username && info.username.length > 0? info.username : @"设置",

@@ -53,6 +53,8 @@
 #define Page_CheckOauth     @"check_oauth"
 //三方帐号绑定
 #define Page_bind           @"oauth_binding"
+//三方帐号解除绑定
+#define Page_unBind         @"oauth_unbinding"
 //手机注册
 #define Page_MobRegister    @"mobile_register"
 //手机注册信息完善
@@ -109,4 +111,19 @@
 #define TeamDetail          @"team_detail"
 //开机图片
 #define StarImg             @"flash_screen"
+//个人积分系统
+#define Route_ScoreRank     @"exp2017"
+#define ScoreInfo           @"get_info"
+#define Page_Rank           @"rank"
+#define Page_CompleteTask   @"complete_task"
+//奖品兑换列表
+#define Page_PrizeList      @"exp_awards"
+//奖品兑换
+#define Page_ExchangePrize  @"exp_award_exchange"
+//微博微信关注任务
+#define Page_ThirdTask      @"ww_complete_task"
+//评论
+#define Route_Comment       @"comment2017"
+//添加评论
+#define Page_Store          @"store"
 #endif /* API_h */

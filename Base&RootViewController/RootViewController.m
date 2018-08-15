@@ -15,6 +15,7 @@
 #import "ConfigHeader.h"
 
 
+#import "SignInViewController.h"
 
 
 @interface RootViewController ()
@@ -25,10 +26,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self creatUI];
-
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([UserManager manager].isLogin && ![UserManager manager].score.signInTask.completed) {
+            NSNumber * timeNum =[[NSUserDefaults standardUserDefaults] objectForKey:@"TASKTIME"] ? [[NSUserDefaults standardUserDefaults] objectForKey:@"TASKTIME"] : [NSNumber numberWithLong:time(NULL)];
+            if (time(NULL) - timeNum.longLongValue > 30 * 60  || time(NULL) - timeNum.longLongValue < 10) {
+                [self userNotSinginToMissonViewController];
+            }
+            
+        }
+    });
 }
+
+- (void)userNotSinginToMissonViewController{
+    NSNumber * timeNum = [NSNumber numberWithLong:time(NULL)];
+    [[NSUserDefaults standardUserDefaults] setObject:timeNum forKey:@"TASKTIME"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[SignInViewController new]];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 - (void)creatUI{
     NSArray * titles = @[@"比赛",@"最新",@"视频",@"数据",@"更多"];
     NSArray * images = @[@"tab_icon_match_default",@"tab_icon_newest_default",@"tab_icon_video_default",@"tab_icon_data_default",@"tab_icon_more_default"];

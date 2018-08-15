@@ -19,6 +19,7 @@
 #import "AddAttentionViewController.h"
 #import "WKWebViewController.h"
 #import "TeachViewController.h"
+#import "SignMainViewController.h"
 @interface MoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView * tabview;
@@ -49,13 +50,13 @@
 }
 - (void)creatUI{
     self.messageCount = @0;
-    self.images = @[@[@"list_icon_follow",@"list_icon_collection"],@[@"list_icon_q&a",@"list_icon_101class",@"list_icon_daydaynfl"],@[@"list_icon_feedback",@"list_icon_about",@"list_icon_set"]];
-    self.titles = @[@[@"我的关注",@"我的收藏"],@[@"在线问答",@"101课堂",@"天天NFL"],@[@"意见反馈",@"关于我们",@"设置"]];
+    self.images = @[@[@"list_icon_follow",@"mine_sign",@"list_icon_collection"],@[@"list_icon_q&a",@"list_icon_101class",@"list_icon_daydaynfl"],@[@"list_icon_feedback",@"list_icon_about",@"list_icon_set"]];
+    self.titles = @[@[@"我的关注",@"每日签到",@"我的收藏"],@[@"在线问答",@"101课堂",@"天天NFL"],@[@"意见反馈",@"关于我们",@"设置"]];
     float h = 0;
     if ([[[UIDevice currentDevice] systemVersion] floatValue]>= 11) {
         h = - Nav64;
     }
-    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, h, UI_WIDTH, UI_HEGIHT) style:UITableViewStyleGrouped delegate:self];
+    self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, h, UI_WIDTH, UI_HEGIHT + Nav64) style:UITableViewStyleGrouped delegate:self];
     [self.view addSubview:self.tabview];
     
     self.header = [[MoreHeadView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, Anno750(260))];
@@ -159,11 +160,13 @@
             [self presentLoginView];
             return;
         }
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {
             [MobClick event:Mob_MyFavorties];
             [self.navigationController pushViewController:[MyCollectionViewController new] animated:YES];
         }else if(indexPath.row == 0){
             [self.navigationController pushViewController:[AddAttentionViewController new] animated:YES];
+        }else if(indexPath.row == 1){
+            [self.navigationController pushViewController:[SignMainViewController new] animated:YES];
         }
     }
 }

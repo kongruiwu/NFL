@@ -172,7 +172,9 @@
         shareObj.webpageUrl = self.photoModel.share_link;
         messageObject.shareObject = shareObj;
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
-            NSLog(@"%@",error);
+            if (!error) {
+                [[UserManager manager] overShareTask];
+            }
         }];
         
     }];

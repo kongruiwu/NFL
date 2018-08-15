@@ -27,50 +27,50 @@
                                         fontValue:font750(24)
                                         textColor:[UIColor whiteColor]
                                     textAlignment:NSTextAlignmentCenter];
-    self.otherLabel = [Factory creatLabelWithText:@"替补"
-                                        fontValue:font750(24)
-                                        textColor:[UIColor whiteColor]
-                                    textAlignment:NSTextAlignmentCenter];
+//    self.otherLabel = [Factory creatLabelWithText:@"替补"
+//                                        fontValue:font750(24)
+//                                        textColor:[UIColor whiteColor]
+//                                    textAlignment:NSTextAlignmentCenter];
     
     self.line1 = [Factory creatLineView];
-    self.line2 = [Factory creatLineView];
+//    self.line2 = [Factory creatLineView];
     
     [self addSubview:self.addressLabel];
     [self addSubview:self.line1];
     [self addSubview:self.fristLabel];
-    [self addSubview:self.line2];
-    [self addSubview:self.otherLabel];
-    
+//    [self addSubview:self.line2];
+//    [self addSubview:self.otherLabel];
+
+    [self.line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(@0);
+        make.top.equalTo(@0);
+        make.bottom.equalTo(@0);
+        make.width.equalTo(@0.5);
+    }];
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@0);
         make.top.equalTo(@0);
         make.bottom.equalTo(@0);
-        make.width.equalTo(@(Anno750(64 * 2)));
-    }];
-    [self.line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.addressLabel.mas_right);
-        make.top.equalTo(@0);
-        make.bottom.equalTo(@0);
-        make.width.equalTo(@0.5);
+        make.right.equalTo(self.line1.mas_left);
     }];
     [self.fristLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.line1);
+        make.left.equalTo(self.line1.mas_right);
         make.top.equalTo(@0);
         make.bottom.equalTo(@0);
-        make.width.equalTo(@(Anno750(180)));
-    }];
-    [self.line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.fristLabel.mas_right);
-        make.top.equalTo(@0);
-        make.width.equalTo(@0.5);
-        make.bottom.equalTo(@0);
-    }];
-    [self.otherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@0);
-        make.left.equalTo(self.line2.mas_right);
-        make.top.equalTo(@0);
-        make.bottom.equalTo(@0);
     }];
+//    [self.line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.fristLabel.mas_right);
+//        make.top.equalTo(@0);
+//        make.width.equalTo(@0.5);
+//        make.bottom.equalTo(@0);
+//    }];
+//    [self.otherLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(@0);
+//        make.left.equalTo(self.line2.mas_right);
+//        make.top.equalTo(@0);
+//        make.bottom.equalTo(@0);
+//    }];
 }
 @end
 

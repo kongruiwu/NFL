@@ -73,7 +73,8 @@
             cell = [[TeamerLeftCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         }
         cell.scrollview.delegate = self;
-        [cell updateWithPlayerLineUpModel:self.dataArray[indexPath.row] contentoffX:self.contentoffX];
+//        [cell updateWithPlayerLineUpModel:self.dataArray[indexPath.row] contentoffX:self.contentoffX];
+        [cell updateWithPlayerLineUpModel:self.dataArray[indexPath.row]];
         return cell;
     }
 }

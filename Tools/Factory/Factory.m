@@ -145,7 +145,7 @@
 + (UITextField *)creatTextFiledWithPlaceHold:(NSString *)placeHold{
     UITextField * textField = [[UITextField alloc] init];
     textField.placeholder = placeHold;
-    textField.textColor = Color_MainBlack;
+    textField.textColor = Color_DarkGray;
     textField.font = [UIFont systemFontOfSize:Anno750(28)];
     return textField;
 }
@@ -229,5 +229,23 @@
     }else{
         return [NSString stringWithFormat:@"%02d:%02d",minutes,seconds];
     }
+}
+
++ (NSMutableArray *)getCacheArrayWithKey:(NSString *)keyString{
+    NSMutableArray * muArr ;
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:keyString]) {
+        NSData * focusData = [[NSUserDefaults standardUserDefaults] objectForKey:keyString];
+        NSArray * focus = [NSJSONSerialization JSONObjectWithData:focusData
+                                                          options:NSJSONReadingAllowFragments
+                                                            error:nil];
+        muArr = [NSMutableArray arrayWithArray:focus];
+    }else{
+        muArr = [[NSMutableArray alloc]init];
+    }
+    return muArr;
+}
++ (void)saveCacheWithDataArray:(NSArray *)datas keyString:(NSString *)key{
+    NSData * data = [NSJSONSerialization dataWithJSONObject:datas options:NSJSONWritingPrettyPrinted error:nil];
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:key];
 }
 @end

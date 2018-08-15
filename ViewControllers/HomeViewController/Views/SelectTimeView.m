@@ -8,34 +8,81 @@
 
 #import "SelectTimeView.h"
 #import "SelectTimeCell.h"
+#import "SelectSeasonCell.h"
 @implementation SelectTimeView
 
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self creatUI];
-        [self getData];
-    }
-    return self;
-}
+//- (instancetype)initWithFrame:(CGRect)frame{
+//    self = [super initWithFrame:frame];
+//    if (self) {
+//        [self creatUI];
+//        [self getData];
+//    }
+//    return self;
+//}
 - (instancetype)initWithFrame:(CGRect)frame isTeam:(BOOL)rec defaultWeek:(NSInteger)index{
     self = [super initWithFrame:frame];
     if (self) {
         self.isTeam = rec;
         self.defaultWeek = index;
         [self creatUI];
-        [self getData];
     }
     return self;
 }
-
-
-- (void)getData{
-    self.dateArray = [NSMutableArray new];
+- (instancetype)initWithFrame:(CGRect)frame isSeason:(BOOL)rec{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.isSeason = rec;
+        [self creatUI];
+    }
+    return self;
+}
+- (void)updateSeasonViewWithDefaultSeason:(NSInteger)season SeasonArray:(NSArray *)dataArray{
+    self.defaultSeason = season;
+    self.dateArray = [NSMutableArray arrayWithArray:dataArray];
+    [self.tabview reloadData];
+}
+/**
+    season == 100 队员排名日历请求
     
-    [[NetWorkManger manager] sendRequest: self.isTeam ? PageRankTime: PageCalendar route:Route_Match withParams:@{} complete:^(NSDictionary *result) {
+ */
+- (void)reloadDataWithSeason:(NSInteger)season{
+    self.dateArray = [NSMutableArray new];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@(season).stringValue]) {
+        NSMutableArray * muArr = [Factory getCacheArrayWithKey:@(season).stringValue];
+        long timeValue = time(NULL);
+        NSString * time = muArr[1];
+        if (timeValue - time.longLongValue <= 12 * 60 * 60 ) {
+            NSDictionary * dic = muArr[2];
+            NSArray * arr = muArr[0];
+            for (int i = 0; i<arr.count; i++) {
+                TimeListModel * model = [[TimeListModel alloc]initWithDictionary:arr[i]];
+                model.isSelect = NO;
+                if ([model.week integerValue] == self.defaultWeek) {
+                    model.isSelect = YES;
+                }
+                [self.dateArray addObject:model];
+            }
+            [self.tabview reloadData];
+            [SVProgressHUD dismiss];
+            [self passSeasonInfoWithDic:dic];
+            return;
+        }
+    }
+    NSDictionary * params = @{};
+    if (season > 200) {
+        params = @{@"season":@(season)};
+    }
+    [[NetWorkManger manager] sendRequest: self.isTeam ? PageRankTime: PageCalendar route:Route_Match withParams:params complete:^(NSDictionary *result) {
         NSDictionary * dic = result[@"data"];
         NSArray * arr = dic[@"list"];
+        NSDictionary * infoDic = result[@"info"];
+        long timeValue = time(NULL);
+
+        NSArray * saveArray = @[arr,[NSString stringWithFormat:@"%ld",timeValue]];
+        if (infoDic) {
+            saveArray = @[arr,[NSString stringWithFormat:@"%ld",timeValue],infoDic];
+        }
+        [Factory saveCacheWithDataArray:saveArray keyString:@(season).stringValue];
         for (int i = 0; i<arr.count; i++) {
             TimeListModel * model = [[TimeListModel alloc]initWithDictionary:arr[i]];
             model.isSelect = NO;
@@ -46,9 +93,15 @@
         }
         [SVProgressHUD dismiss];
         [self.tabview reloadData];
+        [self passSeasonInfoWithDic:infoDic];
     } error:^(NFError *byerror) {
         
     }];
+}
+- (void)passSeasonInfoWithDic:(NSDictionary *)dic{
+    if ([self.delegate respondsToSelector:@selector(updateSeasonInfo:)]) {
+        [self.delegate updateSeasonInfo:dic];
+    }
 }
 
 - (void)creatUI{
@@ -101,9 +154,19 @@
     return self.dateArray.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return Anno750(100);
+    return self.isSeason ? Anno750(80) : Anno750(100);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.isSeason) {
+        static NSString * cellid = @"SelectSeasonCell";
+        SelectSeasonCell * cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        if (!cell) {
+            cell = [[SelectSeasonCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        }
+        BOOL rec = [self.dateArray[indexPath.row] integerValue] == self.defaultSeason;
+        [cell updateWithSeason:[self.dateArray[indexPath.row] integerValue] isSelect:rec];
+        return cell;
+    }
     static NSString * cellid = @"SelectTimeCell";
     SelectTimeCell * cell = [tableView dequeueReusableCellWithIdentifier: cellid];
     if (!cell) {
@@ -113,14 +176,23 @@
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    for (int i = 0; i<self.dateArray.count; i++) {
-        TimeListModel * model = self.dateArray[i];
-        model.isSelect = i == indexPath.row ? YES : NO;
-    }
-    [self.tabview reloadData];
-    [self disMiss];
-    if ([self.delegate respondsToSelector:@selector(selectTimeSection:)]) {
-        [self.delegate selectTimeSection:self.dateArray[indexPath.row]];
+    if (self.isSeason) {
+        self.defaultSeason = [self.dateArray[indexPath.row] integerValue];
+        [self.tabview reloadData];
+        [self disMiss];
+        if ([self.delegate respondsToSelector:@selector(selectSeasonSection:)]) {
+            [self.delegate selectSeasonSection:self.defaultSeason];
+        }
+    }else{
+        for (int i = 0; i<self.dateArray.count; i++) {
+            TimeListModel * model = self.dateArray[i];
+            model.isSelect = i == indexPath.row ? YES : NO;
+        }
+        [self.tabview reloadData];
+        [self disMiss];
+        if ([self.delegate respondsToSelector:@selector(selectTimeSection:)]) {
+            [self.delegate selectTimeSection:self.dateArray[indexPath.row]];
+        }
     }
 }
 - (void)show{

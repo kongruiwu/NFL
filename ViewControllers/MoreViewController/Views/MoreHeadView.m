@@ -122,10 +122,7 @@
         self.teamIcon.hidden = YES;
         self.teamIcon.image =[UIImage imageNamed:@""];
     }
-    
-//    if ([UserManager manager].isLogin) {
-//        [self.teamIcon setImage:[UIImage imageNamed:@""]];
-//    }
+
 }
 
 

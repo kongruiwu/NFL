@@ -44,7 +44,7 @@
                                              backGroundColor:Color_MainBlue
                                                    textColor:[UIColor whiteColor]
                                                     textSize:font750(30)];
-            buton.frame = CGRectMake(Anno750(750 - 325)/2, Anno750(1000), Anno750(325), Anno750(80));
+            buton.frame = CGRectMake(Anno750(750 - 325)/2, Anno750(1200), Anno750(325), Anno750(80));
             buton.layer.cornerRadius = Anno750(40);
             [imgView addSubview:buton];
             imgView.userInteractionEnabled = YES;

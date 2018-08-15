@@ -12,7 +12,11 @@
 
 @protocol SelectTimeViewDelegate <NSObject>
 
+@optional
+
+- (void)updateSeasonInfo:(NSDictionary *)dic;
 - (void)selectTimeSection:(TimeListModel *)model;
+- (void)selectSeasonSection:(NSInteger)season;
 
 @end
 
@@ -26,10 +30,16 @@
 @property (nonatomic, strong) UIView * showView;
 @property (nonatomic, strong) UITableView * tabview;
 @property (nonatomic) NSInteger defaultWeek;
+@property (nonatomic) NSInteger defaultSeason;
 @property (nonatomic, assign) id<SelectTimeViewDelegate> delegate;
 /**是否是球队界面的时间*/
 @property (nonatomic) BOOL isTeam;
+/**是否是 赛季界面*/
+@property (nonatomic) BOOL isSeason;
 - (void)show;
 - (void)disMiss;
 - (instancetype)initWithFrame:(CGRect)frame isTeam:(BOOL)rec defaultWeek:(NSInteger)index;
+- (instancetype)initWithFrame:(CGRect)frame isSeason:(BOOL)rec;
+- (void)updateSeasonViewWithDefaultSeason:(NSInteger)season SeasonArray:(NSArray *)dataArray;
+- (void)reloadDataWithSeason:(NSInteger)season;
 @end

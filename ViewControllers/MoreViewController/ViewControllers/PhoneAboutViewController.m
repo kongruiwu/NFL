@@ -497,6 +497,9 @@
     NSDictionary * params = @{
                               @"type":self.thirdType,
                               @"openid":self.thirdResp.openid,
+                              @"unionid":self.thirdResp.unionId,
+                              @"o_name":self.thirdResp.name,
+                              @"o_avatar":self.thirdResp.iconurl,
                               @"mobile":self.phoneNumber.text,
                               @"authcode":self.codeTextF.text,
                               @"username":self.nameTextF.text,

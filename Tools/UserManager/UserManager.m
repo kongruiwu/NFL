@@ -7,7 +7,7 @@
 //
 
 #import "UserManager.h"
-
+#import "ConfigHeader.h"
 
 @implementation UserManager
 
@@ -42,7 +42,39 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.userID forKey:@"userid"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     self.isLogin = YES;
+    
+    [self getUserScoreInfo];
 }
+
+- (void)getUserScoreInfo{
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              };
+    [[NetWorkManger manager] sendRequest:ScoreInfo route:Route_ScoreRank withParams:params complete:^(NSDictionary *result) {
+        [UserManager manager].score = [[ScoreRankModel alloc]initWithDictionary:result[@"data"]];
+    } error:^(NFError *byerror) {
+    }];
+}
+- (void)overShareTask{
+    if (!self.isLogin) {
+        return;
+    }
+    if (self.score.shareTask.completed) {
+        return;
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].info.uid,
+                              @"task":[UserManager manager].score.shareTask.code
+                              };
+    [[NetWorkManger manager] sendRequest:Page_CompleteTask route:Route_ScoreRank withParams:params complete:^(NSDictionary *result) {
+        [ToastView presentToastWithin:[UIApplication sharedApplication].keyWindow withIcon:APToastIconNone text:[NSString stringWithFormat:@"完成分享任务：获得%@积分",self.score.shareTask.exp] duration:2.0f];
+        [UserManager manager].score.shareTask.completed = YES;
+        
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 - (void)userLogOut{
     [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"userid"];
     [[NSUserDefaults standardUserDefaults] synchronize];

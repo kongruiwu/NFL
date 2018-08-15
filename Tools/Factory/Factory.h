@@ -44,4 +44,8 @@
 + (NSData *)dealWithAvatarImage:(UIImage *)avatarImage;
 
 + (NSString *)getTimeStingWithCurrentTime:(int)num andTotalTime:(int)totalSeconds;
+/**获取缓存数据*/
++ (NSMutableArray *)getCacheArrayWithKey:(NSString *)keyString;
+/**存储数据*/
++ (void)saveCacheWithDataArray:(NSArray *)datas keyString:(NSString *)key;
 @end

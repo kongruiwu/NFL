@@ -37,6 +37,7 @@
     self.tabBarController.tabBar.hidden = NO;
     self.timeView = [[SelectTimeView alloc]initWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT) isTeam:NO defaultWeek:self.defaultWeek];
     self.timeView.delegate = self;
+    [self.timeView reloadDataWithSeason:50];
     [self.tabBarController.view addSubview:self.timeView];
 }
 - (void)viewWillDisappear:(BOOL)animated{

@@ -12,14 +12,17 @@
 #import "TeachViewController.h"
 
 #import "HomeViewController.h"
+#import "CommentView.h"
 
-@interface WKWebViewController ()<WKNavigationDelegate>
+@interface WKWebViewController ()<WKNavigationDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) WKWebView * webview;
 @property (nonatomic, strong) NSString * urlStr;
 @property (nonatomic, strong) UIProgressView * progressView;
 @property (nonatomic, strong) NSString * titleStr;
 @property (nonatomic, strong) UIImageView * shareImg;
+@property (nonatomic, strong) CommentView * commentView;
+
 
 @end
 
@@ -31,7 +34,7 @@
         self.titleStr = title.length > 0 ? title : @"资讯";
         self.urlStr = urlStr;
         if ([UserManager manager].isLogin) {
-            if ([self.titleStr isEqualToString:@"天天NFL"] || [self.titleStr isEqualToString:@"101课堂"] ||[self.titleStr isEqualToString:@"视频直播"]) {
+            if ([self.titleStr isEqualToString:@"天天NFL"] || [self.titleStr isEqualToString:@"101课堂"] ||[self.titleStr isEqualToString:@"视频直播"]||[self.titleStr isEqualToString:@"积分规则"]) {
                 self.urlStr = urlStr;
             }else{
                 self.urlStr = [NSString stringWithFormat:@"%@&uid=%@&callback_verify=%@",self.urlStr,[UserManager manager].userID,[UserManager manager].info.callback_verify];
@@ -64,9 +67,14 @@
     if ([self.titleStr isEqualToString:@"101课堂"]) {
         [MobClick event:@"101H5"];
     }
+    [self addKeyBoardNotification];
+    if (self.commentView) {
+        [self.commentView updateLoginStatus];
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self removeKeyBoardNotification];
     [self.webview removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 - (void)viewDidLoad {
@@ -79,9 +87,10 @@
     
     [self setNavTitle:self.titleStr];
     [self creatUI];
-    if (![self.titleStr isEqualToString:@"用户使用协议"] && ![self.titleStr isEqualToString:@"视频直播"]) {
+    if (![self.titleStr isEqualToString:@"用户使用协议"] && ![self.titleStr isEqualToString:@"视频直播"] && ![self.titleStr isEqualToString:@"积分规则"]) {
         [self drawShareButton];
     }
+    [self creatBottomCommentView];
     
 }
 - (void)drawLeftBarItems{
@@ -159,7 +168,9 @@
         shareObj.webpageUrl = url;
         messageObject.shareObject = shareObj;
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
-            NSLog(@"%@",error);
+            if (!error) {
+                [[UserManager manager] overShareTask];
+            }
         }];
         
     }];
@@ -240,4 +251,70 @@
     }];
 }
 
+- (void)creatBottomCommentView{
+    if (![self.titleStr isEqualToString:@"资讯"]) {
+        return;
+    }
+    self.commentView = [[CommentView alloc]initWithFrame:CGRectMake(0, UI_HEGIHT -Nav64 - Anno750(100), UI_WIDTH, Anno750(100))];
+    [self.commentView.clearBtn addTarget:self action:@selector(userLogin) forControlEvents:UIControlEventTouchUpInside];
+    self.commentView.textF.delegate = self;
+    [self.view addSubview:self.commentView];
+}
+- (void)userLogin{
+    [ToastView presentToastWithin:self.view.window withIcon:APToastIconNone text:@"您还没有登录，请先登录" duration:2.0f];
+    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:[LoginViewController new]];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSDictionary * params = @{
+                              @"type":@"news",
+                              @"cid":self.infoModel.id,
+                              @"uid":[UserManager manager].userID,
+                              @"content":textField.text
+                              };
+    [[NetWorkManger manager] sendRequest:Page_Store route:Route_Comment withParams:params complete:^(NSDictionary *result) {
+        [self.commentView endEditing:YES];
+        self.commentView.textF.text = @"";
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"评论发表成功" duration:2.0f];
+    } error:^(NFError *byerror) {
+        NSLog(@"%@",byerror);
+    }];
+    
+    return YES;
+}
+
+- (void)addKeyBoardNotification{
+    if (![self.titleStr isEqualToString:@"资讯"]) {
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+- (void)removeKeyBoardNotification{
+    if (![self.titleStr isEqualToString:@"资讯"]) {
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+- (void)keyBoardWillShow:(NSNotification *)noti{
+    NSDictionary * info = [noti userInfo];
+    CGFloat time = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    CGRect frame = self.commentView.frame;
+    frame.origin.y = self.view.frame.size.height - kbSize.height - Anno750(100);
+    [UIView animateWithDuration:time animations:^{
+        self.commentView.frame = frame;
+    }];
+}
+- (void)keyboardWillHidden:(NSNotification *)noti{
+    NSDictionary *info = [noti userInfo];
+    CGFloat time = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect frame = self.commentView.frame;
+    frame.origin.y = self.view.frame.size.height - Anno750(100);
+    [UIView animateWithDuration:time animations:^{
+        self.commentView.frame = frame;
+    }];
+}
 @end

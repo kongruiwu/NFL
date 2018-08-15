@@ -27,4 +27,6 @@
 
 - (void)updateWithPlayerLineUpModel:(PlayerLineUpModel *)model contentoffX:(CGFloat)contentoffX;
 
+- (void)updateWithPlayerLineUpModel:(PlayerLineUpModel *)model;
+
 @end

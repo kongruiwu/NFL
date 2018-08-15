@@ -25,11 +25,61 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self creatUI];
+        [self creatNewUI];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
+
+- (void)creatNewUI{
+    self.addressLabel = [Factory creatLabelWithText:@"位置"
+                                          fontValue:font750(24)
+                                          textColor:Color_MainBlack
+                                      textAlignment:NSTextAlignmentCenter];
+    self.addressLabel.backgroundColor = Color_Line;
+    self.fristLabel = [Factory creatLabelWithText:@"首发"
+                                        fontValue:font750(24)
+                                        textColor:Color_MainBlue
+                                    textAlignment:NSTextAlignmentCenter];
+    self.line1 = [Factory creatLineView];
+    self.line2 = [Factory creatLineView];
+    self.line2.backgroundColor = UIColorFromRGBA(0x999999, 0.5);
+    
+    [self addSubview:self.addressLabel];
+    [self addSubview:self.fristLabel];
+    [self addSubview:self.line1];
+    [self addSubview:self.line2];
+    
+    [self.line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(@0);
+        make.top.equalTo(@0);
+        make.bottom.equalTo(@0);
+        make.width.equalTo(@1);
+    }];
+    [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@0);
+        make.right.equalTo(self.line1.mas_left);
+        make.top.equalTo(@0);
+        make.bottom.equalTo(@0);
+    }];
+    [self.fristLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.line1.mas_right);
+        make.right.equalTo(@0);
+        make.top.equalTo(@0);
+        make.bottom.equalTo(@0);
+    }];
+    [self.line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(@0);
+        make.left.equalTo(@0);
+        make.right.equalTo(@0);
+        make.height.equalTo(@1);
+    }];
+}
+- (void)updateWithPlayerLineUpModel:(PlayerLineUpModel *)model{
+    self.addressLabel.text = model.position;
+    self.fristLabel.text = model.first;
+}
+
 - (void)creatUI{
     self.addressLabel = [Factory creatLabelWithText:@"位置"
                                           fontValue:font750(24)

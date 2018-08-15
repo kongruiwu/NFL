@@ -34,13 +34,16 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define UmengClick  @"599bf78f07fe6566dd00173b"
 #define UmengKey    @"599bf2c34544cb5580000c1d"
 #define WxAppID     @"wx39c19501fef6c3cb"
-#define WxAppSecret @"40e72dd216b234ff249be91fe7538d4f"
+#define WxAppSecret @"db2885af44da504ec809a454015b6687"
+//@"40e72dd216b234ff249be91fe7538d4f"
 #define QQAPPID     @"1106241047"
 #define QQAPPKEY    @"opDdDWSqNTQkV6k1"
 #define SINAAPPKEY  @"871709740"
 #define SINAAPPSer  @"1bf93e753967fdb33ad8dca25acc0e11"
 #define APPID       @"950589192"
 #define JpushKey    @"99b8ab040a1e348f937c9afb"
+
+
 
 //赛程首页
 #define Mob_Schedules           @"schedules"
@@ -136,7 +139,8 @@ typedef NS_ENUM(NSInteger,ScheduleStatus){
 #define UIColorFromRGBA(rgbValue,sec) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:sec]
 
 
-//#define Color_MainBlue          UIColorFromRGB(0x003D79)
+#define Color_LightBlue         UIColorFromRGB(0x1FACFF)
+#define Color_DarkBlue          UIColorFromRGB(0x027AFF)
 #define Color_MainBlue          UIColorFromRGB(0x1D5E95)
 //#define Color_alphaBlue         UIColorFromRGBA(0x003D79,0.8)
 #define Color_alphaBlue         UIColorFromRGBA(0x1D5E95,0.8)

@@ -72,13 +72,55 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
-        [self WeChatLoginRequest];
+        if (self.listModel.weixin.binded) {
+            [self unBindingThirdForPlayform:UMSocialPlatformType_WechatSession];
+        }else{
+            [self WeChatLoginRequest];
+        }
     }else if(indexPath.row == 1){
-        [self QQloginRequest];
+        if (self.listModel.qq.binded) {
+            [self unBindingThirdForPlayform:UMSocialPlatformType_QQ];
+        }else{
+            [self QQloginRequest];
+        }
     }else if(indexPath.row == 2){
-        [self SinaLoginRequest];
+        if (self.listModel.weibo.binded) {
+            [self unBindingThirdForPlayform:UMSocialPlatformType_Sina];
+        }else{
+            [self SinaLoginRequest];
+        }
     }
 }
+#pragma mark - 解除三方绑定
+
+- (void)unBindingThirdForPlayform:(UMSocialPlatformType)platformType{
+    NSString * type;
+    if (platformType == UMSocialPlatformType_QQ) {
+        type = @"qq";
+    }else if(platformType == UMSocialPlatformType_WechatSession){
+        type = @"weixin";
+    }else if(platformType == UMSocialPlatformType_Sina){
+        type = @"weibo";
+    }
+    NSDictionary * params = @{
+                              @"uid":[UserManager manager].userID,
+                              @"type":type
+                              };
+    [[NetWorkManger manager] sendRequest:Page_unBind route:Route_User withParams:params complete:^(NSDictionary *result) {
+        if ([type isEqualToString:@"qq"]) {
+            self.listModel.qq.binded = NO;
+        }else if([type isEqualToString:@"weixin"]){
+            self.listModel.weixin.binded = NO;
+        }else if([type isEqualToString:@"weibo"]){
+            self.listModel.weibo.binded = NO;
+        }
+        [self.tabview reloadData];
+        [ToastView presentToastWithin:self.view withIcon:APToastIconNone text:@"成功解除绑定" duration:2.0f];
+    } error:^(NFError *byerror) {
+        
+    }];
+}
+
 
 #pragma mark - 三方登录
 - (void)QQloginRequest{

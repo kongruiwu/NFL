@@ -37,6 +37,9 @@
 }
 - (void)creatUI{
     self.tabview = [Factory creatTabviewWithFrame:CGRectMake(0, 0, UI_WIDTH, UI_HEGIHT - Nav64) style:UITableViewStyleGrouped delegate:self];
+    self.tabview.estimatedRowHeight = 0;
+    self.tabview.estimatedSectionHeaderHeight = 0;
+    self.tabview.estimatedSectionFooterHeight = 0;
     [self.view addSubview:self.tabview];
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -98,9 +101,10 @@
         VideoPlayViewController * vc = [[VideoPlayViewController alloc]initWithUrl:[NSURL URLWithString:self.videoModel.src]];
         [self presentViewController:vc animated:YES completion:nil];
     }else{
-        VideoDetailViewController * vc = [[VideoDetailViewController alloc]init];
-        vc.videoID = self.videoModel.recommend_list[indexPath.section - 1].id;
-        [self.navigationController pushViewController:vc animated:YES];
+//        VideoDetailViewController * vc = [[VideoDetailViewController alloc]init];
+        self.videoID = self.videoModel.recommend_list[indexPath.section - 1].id;
+//        [self.navigationController pushViewController:vc animated:YES];
+        [self getData];
     }
 }
 
@@ -212,7 +216,9 @@
         shareObj.webpageUrl = self.videoModel.share_link;
         messageObject.shareObject = shareObj;
         [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
-            NSLog(@"%@",error);
+            if (!error) {
+                [[UserManager manager] overShareTask];
+            }
         }];
         
     }];
